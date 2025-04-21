@@ -107,420 +107,436 @@ const Resume = () => {
           
           {/* Right content area */}
           <div className="md:w-3/4">
-            <div className="bg-tech-dark/80 backdrop-blur-md rounded-lg border border-tech-purple/20 p-6 animate-fade-in">
+            <div className="bg-tech-dark/80 backdrop-blur-md rounded-lg border border-tech-purple/20 p-6">
               {/* Education Tab */}
-              {activeTab === 'education' && (
-                <div>
-                  <h2 className="text-2xl font-bold mb-6 text-tech-lightBlue">Educational Background</h2>
-                  
-                  <div className="space-y-8">
-                    <div className="border-l-4 border-tech-purple pl-5 pb-5">
-                      <div className="flex flex-col md:flex-row md:justify-between md:items-start">
-                        <div>
-                          <h3 className="text-xl font-bold text-tech-purple">B.Tech in Electronics and Communication Engineering</h3>
-                          <p className="text-gray-300">GITA Autonomous College, Bhubaneswar, Odisha</p>
-                        </div>
-                        <div className="mt-2 md:mt-0">
-                          <span className="inline-block px-3 py-1 bg-tech-purple/20 text-tech-purple text-sm rounded-full">
-                            2022 - Present
-                          </span>
-                        </div>
-                      </div>
-                      <p className="mt-3 text-gray-300">
-                        Currently pursuing undergraduate degree with focus on electronics design, communication systems, and programming.
-                      </p>
-                    </div>
+              <div className={`transition-all duration-300 ease-in-out ${
+                activeTab === 'education' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 absolute'
+              }`}>
+                {activeTab === 'education' && (
+                  <div className="animate-fade-in">
+                    <h2 className="text-2xl font-bold mb-6 text-tech-lightBlue">Educational Background</h2>
                     
-                    <div className="border-l-4 border-tech-pink pl-5 pb-5">
-                      <div className="flex flex-col md:flex-row md:justify-between md:items-start">
-                        <div>
-                          <h3 className="text-xl font-bold text-tech-pink">Higher Secondary Education (12th)</h3>
-                          <p className="text-gray-300">Vikash Group of Institute, Bargarh, Odisha</p>
+                    <div className="space-y-8">
+                      <div className="border-l-4 border-tech-purple pl-5 pb-5">
+                        <div className="flex flex-col md:flex-row md:justify-between md:items-start">
+                          <div>
+                            <h3 className="text-xl font-bold text-tech-purple">B.Tech in Electronics and Communication Engineering</h3>
+                            <p className="text-gray-300">GITA Autonomous College, Bhubaneswar, Odisha</p>
+                          </div>
+                          <div className="mt-2 md:mt-0">
+                            <span className="inline-block px-3 py-1 bg-tech-purple/20 text-tech-purple text-sm rounded-full">
+                              2022 - Present
+                            </span>
+                          </div>
                         </div>
-                        <div className="mt-2 md:mt-0">
-                          <span className="inline-block px-3 py-1 bg-tech-pink/20 text-tech-pink text-sm rounded-full">
-                            Completed 2022
-                          </span>
-                        </div>
+                        <p className="mt-3 text-gray-300">
+                          Currently pursuing undergraduate degree with focus on electronics design, communication systems, and programming.
+                        </p>
                       </div>
-                      <p className="mt-3 text-gray-300">
-                        Completed with strong foundation in physics, mathematics, and computer science.
-                      </p>
-                    </div>
-                    
-                    <div className="border-l-4 border-tech-lightBlue pl-5">
-                      <div className="flex flex-col md:flex-row md:justify-between md:items-start">
-                        <div>
-                          <h3 className="text-xl font-bold text-tech-lightBlue">Secondary Education (10th)</h3>
-                          <p className="text-gray-300">Kendriya Vidyalaya, Barmer, Rajasthan</p>
-                        </div>
-                        <div className="mt-2 md:mt-0">
-                          <span className="inline-block px-3 py-1 bg-tech-lightBlue/20 text-tech-lightBlue text-sm rounded-full">
-                            Completed
-                          </span>
-                        </div>
-                      </div>
-                      <p className="mt-3 text-gray-300">
-                        CBSE curriculum with strong academic foundation.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
-              
-              {/* Skills Tab */}
-              {activeTab === 'skills' && (
-                <div>
-                  <h2 className="text-2xl font-bold mb-6 text-tech-lightBlue">Technical Skills</h2>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Game Development Skills */}
-                    <div className="bg-tech-dark border border-tech-purple/20 rounded-lg p-5">
-                      <h3 className="text-xl font-bold text-tech-purple mb-4">Game Development</h3>
                       
-                      <div className="space-y-4">
-                        <div>
-                          <div className="flex justify-between items-center mb-1">
-                            <span className="text-gray-300">Roblox Development</span>
-                            <span className="text-tech-purple">90%</span>
+                      <div className="border-l-4 border-tech-pink pl-5 pb-5">
+                        <div className="flex flex-col md:flex-row md:justify-between md:items-start">
+                          <div>
+                            <h3 className="text-xl font-bold text-tech-pink">Higher Secondary Education (12th)</h3>
+                            <p className="text-gray-300">Vikash Group of Institute, Bargarh, Odisha</p>
                           </div>
-                          <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
-                            <div className="h-full bg-tech-purple rounded-full" style={{ width: '90%' }}></div>
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <div className="flex justify-between items-center mb-1">
-                            <span className="text-gray-300">Unity 3D</span>
-                            <span className="text-tech-purple">85%</span>
-                          </div>
-                          <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
-                            <div className="h-full bg-tech-purple rounded-full" style={{ width: '85%' }}></div>
+                          <div className="mt-2 md:mt-0">
+                            <span className="inline-block px-3 py-1 bg-tech-pink/20 text-tech-pink text-sm rounded-full">
+                              Completed 2022
+                            </span>
                           </div>
                         </div>
-                        
-                        <div>
-                          <div className="flex justify-between items-center mb-1">
-                            <span className="text-gray-300">Lua Scripting</span>
-                            <span className="text-tech-purple">80%</span>
-                          </div>
-                          <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
-                            <div className="h-full bg-tech-purple rounded-full" style={{ width: '80%' }}></div>
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <div className="flex justify-between items-center mb-1">
-                            <span className="text-gray-300">C# Programming</span>
-                            <span className="text-tech-purple">75%</span>
-                          </div>
-                          <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
-                            <div className="h-full bg-tech-purple rounded-full" style={{ width: '75%' }}></div>
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <div className="flex justify-between items-center mb-1">
-                            <span className="text-gray-300">Game UI Design</span>
-                            <span className="text-tech-purple">70%</span>
-                          </div>
-                          <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
-                            <div className="h-full bg-tech-purple rounded-full" style={{ width: '70%' }}></div>
-                          </div>
-                        </div>
+                        <p className="mt-3 text-gray-300">
+                          Completed with strong foundation in physics, mathematics, and computer science.
+                        </p>
                       </div>
-                    </div>
-                    
-                    {/* Electronics Skills */}
-                    <div className="bg-tech-dark border border-tech-pink/20 rounded-lg p-5">
-                      <h3 className="text-xl font-bold text-tech-pink mb-4">Electronics Engineering</h3>
                       
-                      <div className="space-y-4">
-                        <div>
-                          <div className="flex justify-between items-center mb-1">
-                            <span className="text-gray-300">Circuit Design</span>
-                            <span className="text-tech-pink">85%</span>
+                      <div className="border-l-4 border-tech-lightBlue pl-5">
+                        <div className="flex flex-col md:flex-row md:justify-between md:items-start">
+                          <div>
+                            <h3 className="text-xl font-bold text-tech-lightBlue">Secondary Education (10th)</h3>
+                            <p className="text-gray-300">Kendriya Vidyalaya, Barmer, Rajasthan</p>
                           </div>
-                          <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
-                            <div className="h-full bg-tech-pink rounded-full" style={{ width: '85%' }}></div>
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <div className="flex justify-between items-center mb-1">
-                            <span className="text-gray-300">Arduino</span>
-                            <span className="text-tech-pink">90%</span>
-                          </div>
-                          <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
-                            <div className="h-full bg-tech-pink rounded-full" style={{ width: '90%' }}></div>
+                          <div className="mt-2 md:mt-0">
+                            <span className="inline-block px-3 py-1 bg-tech-lightBlue/20 text-tech-lightBlue text-sm rounded-full">
+                              Completed
+                            </span>
                           </div>
                         </div>
-                        
-                        <div>
-                          <div className="flex justify-between items-center mb-1">
-                            <span className="text-gray-300">VLSI Design</span>
-                            <span className="text-tech-pink">75%</span>
-                          </div>
-                          <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
-                            <div className="h-full bg-tech-pink rounded-full" style={{ width: '75%' }}></div>
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <div className="flex justify-between items-center mb-1">
-                            <span className="text-gray-300">PCB Design</span>
-                            <span className="text-tech-pink">80%</span>
-                          </div>
-                          <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
-                            <div className="h-full bg-tech-pink rounded-full" style={{ width: '80%' }}></div>
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <div className="flex justify-between items-center mb-1">
-                            <span className="text-gray-300">Embedded Systems</span>
-                            <span className="text-tech-pink">70%</span>
-                          </div>
-                          <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
-                            <div className="h-full bg-tech-pink rounded-full" style={{ width: '70%' }}></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Programming Skills */}
-                    <div className="bg-tech-dark border border-tech-lightBlue/20 rounded-lg p-5">
-                      <h3 className="text-xl font-bold text-tech-lightBlue mb-4">Programming</h3>
-                      
-                      <div className="space-y-4">
-                        <div>
-                          <div className="flex justify-between items-center mb-1">
-                            <span className="text-gray-300">Python</span>
-                            <span className="text-tech-lightBlue">80%</span>
-                          </div>
-                          <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
-                            <div className="h-full bg-tech-lightBlue rounded-full" style={{ width: '80%' }}></div>
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <div className="flex justify-between items-center mb-1">
-                            <span className="text-gray-300">C/C++</span>
-                            <span className="text-tech-lightBlue">85%</span>
-                          </div>
-                          <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
-                            <div className="h-full bg-tech-lightBlue rounded-full" style={{ width: '85%' }}></div>
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <div className="flex justify-between items-center mb-1">
-                            <span className="text-gray-300">MATLAB</span>
-                            <span className="text-tech-lightBlue">75%</span>
-                          </div>
-                          <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
-                            <div className="h-full bg-tech-lightBlue rounded-full" style={{ width: '75%' }}></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Other Technical Skills */}
-                    <div className="bg-tech-dark border border-tech-purple/20 rounded-lg p-5">
-                      <h3 className="text-xl font-bold text-gradient-purple mb-4">Other Technical Skills</h3>
-                      
-                      <div className="space-y-3">
-                        <div className="flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-tech-purple mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span className="text-gray-300">3D Modeling</span>
-                        </div>
-                        
-                        <div className="flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-tech-purple mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span className="text-gray-300">Digital Signal Processing</span>
-                        </div>
-                        
-                        <div className="flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-tech-purple mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span className="text-gray-300">Robot Operating System (ROS)</span>
-                        </div>
-                        
-                        <div className="flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-tech-purple mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span className="text-gray-300">Version Control (Git)</span>
-                        </div>
-                        
-                        <div className="flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-tech-purple mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span className="text-gray-300">Microcontroller Programming</span>
-                        </div>
+                        <p className="mt-3 text-gray-300">
+                          CBSE curriculum with strong academic foundation.
+                        </p>
                       </div>
                     </div>
                   </div>
+                )}
+                
+                {/* Skills Tab */}
+                <div className={`transition-all duration-300 ease-in-out ${
+                  activeTab === 'skills' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 absolute'
+                }`}>
+                  {activeTab === 'skills' && (
+                    <div className="animate-fade-in">
+                      <h2 className="text-2xl font-bold mb-6 text-tech-lightBlue">Technical Skills</h2>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Game Development Skills */}
+                        <div className="bg-tech-dark border border-tech-purple/20 rounded-lg p-5">
+                          <h3 className="text-xl font-bold text-tech-purple mb-4">Game Development</h3>
+                          
+                          <div className="space-y-4">
+                            <div>
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="text-gray-300">Roblox Development</span>
+                                <span className="text-tech-purple">90%</span>
+                              </div>
+                              <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
+                                <div className="h-full bg-tech-purple rounded-full" style={{ width: '90%' }}></div>
+                              </div>
+                            </div>
+                            
+                            <div>
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="text-gray-300">Unity 3D</span>
+                                <span className="text-tech-purple">85%</span>
+                              </div>
+                              <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
+                                <div className="h-full bg-tech-purple rounded-full" style={{ width: '85%' }}></div>
+                              </div>
+                            </div>
+                            
+                            <div>
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="text-gray-300">Lua Scripting</span>
+                                <span className="text-tech-purple">80%</span>
+                              </div>
+                              <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
+                                <div className="h-full bg-tech-purple rounded-full" style={{ width: '80%' }}></div>
+                              </div>
+                            </div>
+                            
+                            <div>
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="text-gray-300">C# Programming</span>
+                                <span className="text-tech-purple">75%</span>
+                              </div>
+                              <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
+                                <div className="h-full bg-tech-purple rounded-full" style={{ width: '75%' }}></div>
+                              </div>
+                            </div>
+                            
+                            <div>
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="text-gray-300">Game UI Design</span>
+                                <span className="text-tech-purple">70%</span>
+                              </div>
+                              <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
+                                <div className="h-full bg-tech-purple rounded-full" style={{ width: '70%' }}></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Electronics Skills */}
+                        <div className="bg-tech-dark border border-tech-pink/20 rounded-lg p-5">
+                          <h3 className="text-xl font-bold text-tech-pink mb-4">Electronics Engineering</h3>
+                          
+                          <div className="space-y-4">
+                            <div>
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="text-gray-300">Circuit Design</span>
+                                <span className="text-tech-pink">85%</span>
+                              </div>
+                              <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
+                                <div className="h-full bg-tech-pink rounded-full" style={{ width: '85%' }}></div>
+                              </div>
+                            </div>
+                            
+                            <div>
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="text-gray-300">Arduino</span>
+                                <span className="text-tech-pink">90%</span>
+                              </div>
+                              <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
+                                <div className="h-full bg-tech-pink rounded-full" style={{ width: '90%' }}></div>
+                              </div>
+                            </div>
+                            
+                            <div>
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="text-gray-300">VLSI Design</span>
+                                <span className="text-tech-pink">75%</span>
+                              </div>
+                              <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
+                                <div className="h-full bg-tech-pink rounded-full" style={{ width: '75%' }}></div>
+                              </div>
+                            </div>
+                            
+                            <div>
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="text-gray-300">PCB Design</span>
+                                <span className="text-tech-pink">80%</span>
+                              </div>
+                              <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
+                                <div className="h-full bg-tech-pink rounded-full" style={{ width: '80%' }}></div>
+                              </div>
+                            </div>
+                            
+                            <div>
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="text-gray-300">Embedded Systems</span>
+                                <span className="text-tech-pink">70%</span>
+                              </div>
+                              <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
+                                <div className="h-full bg-tech-pink rounded-full" style={{ width: '70%' }}></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Programming Skills */}
+                        <div className="bg-tech-dark border border-tech-lightBlue/20 rounded-lg p-5">
+                          <h3 className="text-xl font-bold text-tech-lightBlue mb-4">Programming</h3>
+                          
+                          <div className="space-y-4">
+                            <div>
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="text-gray-300">Python</span>
+                                <span className="text-tech-lightBlue">80%</span>
+                              </div>
+                              <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
+                                <div className="h-full bg-tech-lightBlue rounded-full" style={{ width: '80%' }}></div>
+                              </div>
+                            </div>
+                            
+                            <div>
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="text-gray-300">C/C++</span>
+                                <span className="text-tech-lightBlue">85%</span>
+                              </div>
+                              <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
+                                <div className="h-full bg-tech-lightBlue rounded-full" style={{ width: '85%' }}></div>
+                              </div>
+                            </div>
+                            
+                            <div>
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="text-gray-300">MATLAB</span>
+                                <span className="text-tech-lightBlue">75%</span>
+                              </div>
+                              <div className="h-2 bg-tech-dark/50 rounded-full overflow-hidden">
+                                <div className="h-full bg-tech-lightBlue rounded-full" style={{ width: '75%' }}></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Other Technical Skills */}
+                        <div className="bg-tech-dark border border-tech-purple/20 rounded-lg p-5">
+                          <h3 className="text-xl font-bold text-gradient-purple mb-4">Other Technical Skills</h3>
+                          
+                          <div className="space-y-3">
+                            <div className="flex items-center">
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-tech-purple mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              <span className="text-gray-300">3D Modeling</span>
+                            </div>
+                            
+                            <div className="flex items-center">
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-tech-purple mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              <span className="text-gray-300">Digital Signal Processing</span>
+                            </div>
+                            
+                            <div className="flex items-center">
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-tech-purple mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              <span className="text-gray-300">Robot Operating System (ROS)</span>
+                            </div>
+                            
+                            <div className="flex items-center">
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-tech-purple mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              <span className="text-gray-300">Version Control (Git)</span>
+                            </div>
+                            
+                            <div className="flex items-center">
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-tech-purple mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              <span className="text-gray-300">Microcontroller Programming</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-              
-              {/* Certifications Tab */}
-              {activeTab === 'certifications' && (
-                <div>
-                  <h2 className="text-2xl font-bold mb-6 text-tech-lightBlue">Certifications</h2>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Certificate Card */}
-                    <div className="bg-tech-dark border border-tech-purple/20 rounded-lg overflow-hidden card-hover">
-                      <div className="p-5">
-                        <h3 className="text-xl font-bold text-tech-purple">Game Development Fundamentals</h3>
-                        <p className="text-gray-400 mt-1">Unity Technologies</p>
-                        <p className="text-gray-300 mt-3">
-                          Comprehensive certification covering Unity game engine fundamentals, C# programming, and game design principles.
-                        </p>
-                      </div>
-                      <div className="bg-tech-dark/50 px-5 py-3 flex justify-between items-center">
-                        <span className="text-gray-400 text-sm">2023</span>
-                        <a href="#" className="text-tech-lightBlue hover:text-tech-lightBlue/80 text-sm font-medium">
-                          View Certificate
-                        </a>
+                
+                {/* Certifications Tab */}
+                <div className={`transition-all duration-300 ease-in-out ${
+                  activeTab === 'certifications' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 absolute'
+                }`}>
+                  {activeTab === 'certifications' && (
+                    <div className="animate-fade-in">
+                      <h2 className="text-2xl font-bold mb-6 text-tech-lightBlue">Certifications</h2>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Certificate Card */}
+                        <div className="bg-tech-dark border border-tech-purple/20 rounded-lg overflow-hidden card-hover">
+                          <div className="p-5">
+                            <h3 className="text-xl font-bold text-tech-purple">Game Development Fundamentals</h3>
+                            <p className="text-gray-400 mt-1">Unity Technologies</p>
+                            <p className="text-gray-300 mt-3">
+                              Comprehensive certification covering Unity game engine fundamentals, C# programming, and game design principles.
+                            </p>
+                          </div>
+                          <div className="bg-tech-dark/50 px-5 py-3 flex justify-between items-center">
+                            <span className="text-gray-400 text-sm">2023</span>
+                            <a href="#" className="text-tech-lightBlue hover:text-tech-lightBlue/80 text-sm font-medium">
+                              View Certificate
+                            </a>
+                          </div>
+                        </div>
+                        
+                        {/* Certificate Card */}
+                        <div className="bg-tech-dark border border-tech-pink/20 rounded-lg overflow-hidden card-hover">
+                          <div className="p-5">
+                            <h3 className="text-xl font-bold text-tech-pink">Arduino Certification</h3>
+                            <p className="text-gray-400 mt-1">Arduino Education</p>
+                            <p className="text-gray-300 mt-3">
+                              Certification in Arduino programming, circuit design, and IoT integration for embedded systems.
+                            </p>
+                          </div>
+                          <div className="bg-tech-dark/50 px-5 py-3 flex justify-between items-center">
+                            <span className="text-gray-400 text-sm">2023</span>
+                            <a href="#" className="text-tech-lightBlue hover:text-tech-lightBlue/80 text-sm font-medium">
+                              View Certificate
+                            </a>
+                          </div>
+                        </div>
+                        
+                        {/* Certificate Card */}
+                        <div className="bg-tech-dark border border-tech-lightBlue/20 rounded-lg overflow-hidden card-hover">
+                          <div className="p-5">
+                            <h3 className="text-xl font-bold text-tech-lightBlue">VLSI Design Essentials</h3>
+                            <p className="text-gray-400 mt-1">NPTEL</p>
+                            <p className="text-gray-300 mt-3">
+                              Certification in VLSI circuit design, covering digital systems, CMOS technology, and Verilog HDL.
+                            </p>
+                          </div>
+                          <div className="bg-tech-dark/50 px-5 py-3 flex justify-between items-center">
+                            <span className="text-gray-400 text-sm">2022</span>
+                            <a href="#" className="text-tech-lightBlue hover:text-tech-lightBlue/80 text-sm font-medium">
+                              View Certificate
+                            </a>
+                          </div>
+                        </div>
+                        
+                        {/* Certificate Card */}
+                        <div className="bg-tech-dark border border-tech-purple/20 rounded-lg overflow-hidden card-hover">
+                          <div className="p-5">
+                            <h3 className="text-xl font-bold text-tech-purple">Python for Electronics</h3>
+                            <p className="text-gray-400 mt-1">Coursera</p>
+                            <p className="text-gray-300 mt-3">
+                              Certification in Python programming applied to electronics projects, data acquisition, and analysis.
+                            </p>
+                          </div>
+                          <div className="bg-tech-dark/50 px-5 py-3 flex justify-between items-center">
+                            <span className="text-gray-400 text-sm">2022</span>
+                            <a href="#" className="text-tech-lightBlue hover:text-tech-lightBlue/80 text-sm font-medium">
+                              View Certificate
+                            </a>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    
-                    {/* Certificate Card */}
-                    <div className="bg-tech-dark border border-tech-pink/20 rounded-lg overflow-hidden card-hover">
-                      <div className="p-5">
-                        <h3 className="text-xl font-bold text-tech-pink">Arduino Certification</h3>
-                        <p className="text-gray-400 mt-1">Arduino Education</p>
-                        <p className="text-gray-300 mt-3">
-                          Certification in Arduino programming, circuit design, and IoT integration for embedded systems.
-                        </p>
-                      </div>
-                      <div className="bg-tech-dark/50 px-5 py-3 flex justify-between items-center">
-                        <span className="text-gray-400 text-sm">2023</span>
-                        <a href="#" className="text-tech-lightBlue hover:text-tech-lightBlue/80 text-sm font-medium">
-                          View Certificate
-                        </a>
-                      </div>
-                    </div>
-                    
-                    {/* Certificate Card */}
-                    <div className="bg-tech-dark border border-tech-lightBlue/20 rounded-lg overflow-hidden card-hover">
-                      <div className="p-5">
-                        <h3 className="text-xl font-bold text-tech-lightBlue">VLSI Design Essentials</h3>
-                        <p className="text-gray-400 mt-1">NPTEL</p>
-                        <p className="text-gray-300 mt-3">
-                          Certification in VLSI circuit design, covering digital systems, CMOS technology, and Verilog HDL.
-                        </p>
-                      </div>
-                      <div className="bg-tech-dark/50 px-5 py-3 flex justify-between items-center">
-                        <span className="text-gray-400 text-sm">2022</span>
-                        <a href="#" className="text-tech-lightBlue hover:text-tech-lightBlue/80 text-sm font-medium">
-                          View Certificate
-                        </a>
-                      </div>
-                    </div>
-                    
-                    {/* Certificate Card */}
-                    <div className="bg-tech-dark border border-tech-purple/20 rounded-lg overflow-hidden card-hover">
-                      <div className="p-5">
-                        <h3 className="text-xl font-bold text-tech-purple">Python for Electronics</h3>
-                        <p className="text-gray-400 mt-1">Coursera</p>
-                        <p className="text-gray-300 mt-3">
-                          Certification in Python programming applied to electronics projects, data acquisition, and analysis.
-                        </p>
-                      </div>
-                      <div className="bg-tech-dark/50 px-5 py-3 flex justify-between items-center">
-                        <span className="text-gray-400 text-sm">2022</span>
-                        <a href="#" className="text-tech-lightBlue hover:text-tech-lightBlue/80 text-sm font-medium">
-                          View Certificate
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+                  )}
                 </div>
-              )}
-              
-              {/* Experience Tab */}
-              {activeTab === 'experience' && (
-                <div>
-                  <h2 className="text-2xl font-bold mb-6 text-tech-lightBlue">Project Experience</h2>
-                  
-                  <div className="space-y-8">
-                    <div className="relative pl-8 pb-5 before:absolute before:left-0 before:top-0 before:h-full before:w-0.5 before:bg-tech-purple/30">
-                      <div className="absolute left-0 top-0 flex items-center justify-center w-6 h-6 rounded-full bg-tech-purple -translate-x-1/2 mt-1">
-                        <span className="w-2 h-2 bg-white rounded-full"></span>
-                      </div>
+                
+                {/* Experience Tab */}
+                <div className={`transition-all duration-300 ease-in-out ${
+                  activeTab === 'experience' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 absolute'
+                }`}>
+                  {activeTab === 'experience' && (
+                    <div className="animate-fade-in">
+                      <h2 className="text-2xl font-bold mb-6 text-tech-lightBlue">Project Experience</h2>
                       
-                      <div className="flex flex-col md:flex-row md:justify-between md:items-start">
-                        <div>
-                          <h3 className="text-xl font-bold text-tech-purple">Game Development Lead</h3>
-                          <p className="text-gray-300">College Game Development Club</p>
+                      <div className="space-y-8">
+                        <div className="relative pl-8 pb-5 before:absolute before:left-0 before:top-0 before:h-full before:w-0.5 before:bg-tech-purple/30">
+                          <div className="absolute left-0 top-0 flex items-center justify-center w-6 h-6 rounded-full bg-tech-purple -translate-x-1/2 mt-1">
+                            <span className="w-2 h-2 bg-white rounded-full"></span>
+                          </div>
+                          
+                          <div className="flex flex-col md:flex-row md:justify-between md:items-start">
+                            <div>
+                              <h3 className="text-xl font-bold text-tech-purple">Game Development Lead</h3>
+                              <p className="text-gray-300">College Game Development Club</p>
+                            </div>
+                            <div className="mt-2 md:mt-0">
+                              <span className="inline-block px-3 py-1 bg-tech-purple/20 text-tech-purple text-sm rounded-full">
+                                2023 - Present
+                              </span>
+                            </div>
+                          </div>
+                          
+                          <p className="mt-3 text-gray-300">
+                            Led a team of student developers to create interactive games using Unity and Roblox. Managed project timelines, assigned tasks, and conducted code reviews. Successfully delivered three game projects for college events.
+                          </p>
                         </div>
-                        <div className="mt-2 md:mt-0">
-                          <span className="inline-block px-3 py-1 bg-tech-purple/20 text-tech-purple text-sm rounded-full">
-                            2023 - Present
-                          </span>
+                        
+                        <div className="relative pl-8 pb-5 before:absolute before:left-0 before:top-0 before:h-full before:w-0.5 before:bg-tech-pink/30">
+                          <div className="absolute left-0 top-0 flex items-center justify-center w-6 h-6 rounded-full bg-tech-pink -translate-x-1/2 mt-1">
+                            <span className="w-2 h-2 bg-white rounded-full"></span>
+                          </div>
+                          
+                          <div className="flex flex-col md:flex-row md:justify-between md:items-start">
+                            <div>
+                              <h3 className="text-xl font-bold text-tech-pink">Electronics Project Intern</h3>
+                              <p className="text-gray-300">Summer Internship Program</p>
+                            </div>
+                            <div className="mt-2 md:mt-0">
+                              <span className="inline-block px-3 py-1 bg-tech-pink/20 text-tech-pink text-sm rounded-full">
+                                Summer 2023
+                              </span>
+                            </div>
+                          </div>
+                          
+                          <p className="mt-3 text-gray-300">
+                            Participated in a summer internship focused on electronics projects. Designed and implemented a Line Follower Robot with PID control algorithm. Learned industry-standard design practices and documentation.
+                          </p>
+                        </div>
+                        
+                        <div className="relative pl-8 before:absolute before:left-0 before:top-0 before:h-full before:w-0.5 before:bg-tech-lightBlue/30">
+                          <div className="absolute left-0 top-0 flex items-center justify-center w-6 h-6 rounded-full bg-tech-lightBlue -translate-x-1/2 mt-1">
+                            <span className="w-2 h-2 bg-white rounded-full"></span>
+                          </div>
+                          
+                          <div className="flex flex-col md:flex-row md:justify-between md:items-start">
+                            <div>
+                              <h3 className="text-xl font-bold text-tech-lightBlue">Workshop Coordinator</h3>
+                              <p className="text-gray-300">College Technical Festival</p>
+                            </div>
+                            <div className="mt-2 md:mt-0">
+                              <span className="inline-block px-3 py-1 bg-tech-lightBlue/20 text-tech-lightBlue text-sm rounded-full">
+                                2022
+                              </span>
+                            </div>
+                          </div>
+                          
+                          <p className="mt-3 text-gray-300">
+                            Organized and coordinated technical workshops on Arduino programming and basic game development. Managed a team of volunteers and ensured smooth execution of workshop sessions for over 100 participants.
+                          </p>
                         </div>
                       </div>
-                      
-                      <p className="mt-3 text-gray-300">
-                        Led a team of student developers to create interactive games using Unity and Roblox. Managed project timelines, assigned tasks, and conducted code reviews. Successfully delivered three game projects for college events.
-                      </p>
                     </div>
-                    
-                    <div className="relative pl-8 pb-5 before:absolute before:left-0 before:top-0 before:h-full before:w-0.5 before:bg-tech-pink/30">
-                      <div className="absolute left-0 top-0 flex items-center justify-center w-6 h-6 rounded-full bg-tech-pink -translate-x-1/2 mt-1">
-                        <span className="w-2 h-2 bg-white rounded-full"></span>
-                      </div>
-                      
-                      <div className="flex flex-col md:flex-row md:justify-between md:items-start">
-                        <div>
-                          <h3 className="text-xl font-bold text-tech-pink">Electronics Project Intern</h3>
-                          <p className="text-gray-300">Summer Internship Program</p>
-                        </div>
-                        <div className="mt-2 md:mt-0">
-                          <span className="inline-block px-3 py-1 bg-tech-pink/20 text-tech-pink text-sm rounded-full">
-                            Summer 2023
-                          </span>
-                        </div>
-                      </div>
-                      
-                      <p className="mt-3 text-gray-300">
-                        Participated in a summer internship focused on electronics projects. Designed and implemented a Line Follower Robot with PID control algorithm. Learned industry-standard design practices and documentation.
-                      </p>
-                    </div>
-                    
-                    <div className="relative pl-8 before:absolute before:left-0 before:top-0 before:h-full before:w-0.5 before:bg-tech-lightBlue/30">
-                      <div className="absolute left-0 top-0 flex items-center justify-center w-6 h-6 rounded-full bg-tech-lightBlue -translate-x-1/2 mt-1">
-                        <span className="w-2 h-2 bg-white rounded-full"></span>
-                      </div>
-                      
-                      <div className="flex flex-col md:flex-row md:justify-between md:items-start">
-                        <div>
-                          <h3 className="text-xl font-bold text-tech-lightBlue">Workshop Coordinator</h3>
-                          <p className="text-gray-300">College Technical Festival</p>
-                        </div>
-                        <div className="mt-2 md:mt-0">
-                          <span className="inline-block px-3 py-1 bg-tech-lightBlue/20 text-tech-lightBlue text-sm rounded-full">
-                            2022
-                          </span>
-                        </div>
-                      </div>
-                      
-                      <p className="mt-3 text-gray-300">
-                        Organized and coordinated technical workshops on Arduino programming and basic game development. Managed a team of volunteers and ensured smooth execution of workshop sessions for over 100 participants.
-                      </p>
-                    </div>
-                  </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
