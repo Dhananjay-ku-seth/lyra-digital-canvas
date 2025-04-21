@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
@@ -97,11 +98,11 @@ const Contact = () => {
     <main className="min-h-screen pt-20 pb-16 relative overflow-hidden">
       <CircuitBackground />
       
-      <div className="container-custom opacity-0 animate-fade-in">
+      <div className="container-custom fade-in-permanent">
         <h1 className="section-heading text-center mx-auto">Contact Me</h1>
         
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <div className="animate-slide-up">
+          <div className="slide-up-permanent" style={{animationDelay: '0.1s'}}>
             <div className="bg-tech-dark/80 backdrop-blur-md rounded-lg border border-tech-purple/20 p-6 card-hover transition-all duration-300">
               <h2 className="text-2xl font-bold mb-6 text-tech-lightBlue">Get In Touch</h2>
               
@@ -180,13 +181,13 @@ const Contact = () => {
             </div>
           </div>
           
-          <div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          <div className="slide-up-permanent" style={{animationDelay: '0.2s'}}>
             <div className="bg-tech-dark/80 backdrop-blur-md rounded-lg border border-tech-purple/20 p-6 card-hover transition-all duration-300">
               <h2 className="text-2xl font-bold mb-6 text-tech-lightBlue">Send a Message</h2>
               
               {!isSubmitted ? (
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
+                  <div className="fade-in-permanent" style={{ animationDelay: '0.3s' }}>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
                       Your Name
                     </label>
@@ -206,7 +207,7 @@ const Contact = () => {
                     )}
                   </div>
                   
-                  <div className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                  <div className="fade-in-permanent" style={{ animationDelay: '0.4s' }}>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
                       Your Email
                     </label>
@@ -226,7 +227,7 @@ const Contact = () => {
                     )}
                   </div>
                   
-                  <div className="animate-fade-in" style={{ animationDelay: '0.5s' }}>
+                  <div className="fade-in-permanent" style={{ animationDelay: '0.5s' }}>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">
                       Your Message
                     </label>
@@ -249,7 +250,7 @@ const Contact = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 animate-fade-in ${
+                    className={`w-full py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 fade-in-permanent ${
                       isSubmitting
                         ? 'bg-tech-purple/50 cursor-not-allowed'
                         : 'bg-tech-purple hover:bg-tech-purple/90'
@@ -270,24 +271,24 @@ const Contact = () => {
                   </button>
                 </form>
               ) : (
-                <div className="text-center py-8 animate-scale-up">
-                  <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 animate-fade-in">
+                <div className="text-center py-8 scale-up-permanent">
+                  <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 fade-in-permanent">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2 animate-slide-up">Thank You!</h3>
-                  <p className="text-gray-300 mb-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+                  <h3 className="text-xl font-bold text-white mb-2 slide-up-permanent">Thank You!</h3>
+                  <p className="text-gray-300 mb-8 slide-up-permanent" style={{ animationDelay: '0.2s' }}>
                     Your message has been sent successfully. 
                     {showLyraResponse && (
-                      <span className="block mt-2 text-tech-purple animate-fade-in">
+                      <span className="block mt-2 text-tech-purple fade-in-permanent">
                         LYRA will notify Dhananjay soon!
                       </span>
                     )}
                   </p>
                   <button 
                     onClick={resetForm}
-                    className="px-6 py-2 bg-tech-dark border border-tech-purple text-tech-purple rounded-lg hover:bg-tech-purple/10 transition-all duration-300 transform hover:scale-105 animate-fade-in"
+                    className="px-6 py-2 bg-tech-dark border border-tech-purple text-tech-purple rounded-lg hover:bg-tech-purple/10 transition-all duration-300 transform hover:scale-105 fade-in-permanent"
                     style={{ animationDelay: '0.4s' }}
                   >
                     Send Another Message
