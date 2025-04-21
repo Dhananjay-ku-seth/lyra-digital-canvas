@@ -6,10 +6,12 @@ import Lyra from '@/components/Lyra';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const Home = () => {
+  // Reference for the main section to handle entrance animation
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Add animation class after component mounts for entrance effect
+    // Add opacity transition effect when component mounts
+    // This creates a smooth fade-in entrance animation
     const timer = setTimeout(() => {
       if (sectionRef.current) {
         sectionRef.current.classList.add('opacity-100');
@@ -17,29 +19,35 @@ const Home = () => {
       }
     }, 200);
 
+    // Clean up the timer to prevent memory leaks
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <main className="min-h-screen relative overflow-hidden">
-      {/* Circuit background */}
+      {/* Circuit background component for futuristic tech theme */}
       <CircuitBackground />
 
-      {/* Hero Section */}
+      {/* Hero Section with fade-in animation */}
       <section 
         ref={sectionRef}
         className="min-h-screen flex flex-col justify-center container-custom pt-16 opacity-0 transition-opacity duration-1000"
       >
+        {/* Grid layout for responsive design */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          {/* Left column - Text content */}
           <div className="space-y-6 animate-slide-up">
+            {/* Personal introduction with highlighted name */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               Hello, I'm <span className="text-tech-purple">Dhananjay Kumar Seth</span>
             </h1>
             
+            {/* Subheading with field of study */}
             <p className="text-xl md:text-2xl font-light text-gray-300">
               An Electronics and Communication Engineering student
             </p>
             
+            {/* Brief description with passion and AI assistant */}
             <div className="space-y-4 text-gray-300 max-w-2xl">
               <p>
                 I specialize in Game Development and Electronics Engineering. My journey is driven 
@@ -48,6 +56,7 @@ const Home = () => {
               </p>
             </div>
             
+            {/* Navigation buttons with smooth hover effects */}
             <div className="pt-4 flex flex-wrap gap-4">
               <Link to="/about" className="btn-primary">
                 About Me
@@ -58,22 +67,23 @@ const Home = () => {
             </div>
           </div>
           
+          {/* Right column - Tech-themed avatar section (hidden on small screens) */}
           <div className="relative animate-slide-down hidden lg:block">
-            {/* Animated tech illustration */}
+            {/* Circular tech-themed background with animated elements */}
             <div className="relative w-full h-[400px] flex items-center justify-center">
-              {/* Circular tech-themed background */}
+              {/* Futuristic circular background with pulsing effects */}
               <div className="absolute inset-0 rounded-full bg-tech-dark border border-tech-purple/30 opacity-80 overflow-hidden">
-                {/* Animated circles */}
+                {/* Animated pulsing circles */}
                 <div className="absolute inset-8 rounded-full border border-tech-purple/20 animate-pulse-glow"></div>
                 <div className="absolute inset-16 rounded-full border border-tech-purple/30 animate-pulse-glow" style={{ animationDelay: '0.5s' }}></div>
                 <div className="absolute inset-24 rounded-full border border-tech-purple/40 animate-pulse-glow" style={{ animationDelay: '1s' }}></div>
                 
-                {/* Pulse dot in the middle */}
+                {/* Central pulse dot */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-4 h-4 rounded-full bg-tech-purple animate-pulse-glow"></div>
                 </div>
                 
-                {/* Radial lines */}
+                {/* Radial lines around the center */}
                 {Array.from({ length: 12 }).map((_, i) => (
                   <div 
                     key={i}
@@ -85,7 +95,7 @@ const Home = () => {
                 ))}
               </div>
               
-              {/* Avatar/Image in the center */}
+              {/* Profile Avatar using Shadcn UI Avatar component */}
               <div className="relative z-10 w-48 h-48">
                 <Avatar className="w-full h-full">
                   <AvatarImage 
@@ -97,7 +107,7 @@ const Home = () => {
                 </Avatar>
               </div>
               
-              {/* Jumping text label */}
+              {/* Tech specialization label */}
               <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-tech-dark px-4 py-2 rounded-full border border-tech-purple/50">
                 <p className="text-tech-lightBlue font-medium">Electronics & Game Dev</p>
               </div>
@@ -105,7 +115,7 @@ const Home = () => {
           </div>
         </div>
         
-        {/* Animated arrow */}
+        {/* Animated scroll down arrow */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-gentle">
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
@@ -124,6 +134,7 @@ const Home = () => {
         </div>
       </section>
       
+      {/* LYRA AI Assistant component */}
       <Lyra />
     </main>
   );

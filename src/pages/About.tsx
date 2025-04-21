@@ -6,16 +6,19 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 const About = () => {
   return (
     <main className="min-h-screen pt-20 pb-16 relative">
+      {/* Circuit background for tech-themed design */}
       <CircuitBackground />
       
       <div className="container-custom">
+        {/* Page title with centered styling */}
         <h1 className="section-heading text-center mx-auto">About Me</h1>
         
+        {/* Grid layout for responsive design */}
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-10">
-          {/* Left column - Profile & Details */}
+          {/* Left column - Profile & Personal Details */}
           <div className="col-span-1 animate-fade-in">
             <div className="bg-tech-dark/80 backdrop-blur-md p-6 rounded-lg border border-tech-purple/20 card-hover">
-              {/* Avatar/Profile Image */}
+              {/* Profile Avatar using Shadcn UI Avatar component */}
               <div className="mx-auto w-48 h-48 mb-6">
                 <Avatar className="w-full h-full">
                   <AvatarImage 
@@ -27,24 +30,28 @@ const About = () => {
                 </Avatar>
               </div>
               
-              {/* Personal Details */}
+              {/* Detailed personal information section */}
               <div className="space-y-4 mt-6">
+                {/* Full Name */}
                 <div className="border-b border-tech-purple/20 pb-3">
                   <h3 className="text-sm uppercase text-gray-400 mb-1">Full Name</h3>
                   <p className="text-lg font-medium">Dhananjay Kumar Seth</p>
                 </div>
                 
+                {/* Branch and Academic Year */}
                 <div className="border-b border-tech-purple/20 pb-3">
                   <h3 className="text-sm uppercase text-gray-400 mb-1">Branch</h3>
                   <p className="text-lg font-medium">Electronics and Communication Engineering (4th Year)</p>
                 </div>
                 
+                {/* College Details */}
                 <div className="border-b border-tech-purple/20 pb-3">
                   <h3 className="text-sm uppercase text-gray-400 mb-1">College</h3>
                   <p className="text-lg font-medium">GITA Autonomous College</p>
                   <p className="text-gray-400">Bhubaneswar, Odisha</p>
                 </div>
                 
+                {/* Main Skills with colored tags */}
                 <div>
                   <h3 className="text-sm uppercase text-gray-400 mb-1">Main Skills</h3>
                   <ul className="flex flex-wrap gap-2 mt-2">
@@ -58,7 +65,7 @@ const About = () => {
           
           {/* Right column - Biography & Education */}
           <div className="col-span-1 lg:col-span-2 space-y-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            {/* Bio Section */}
+            {/* Biography Section */}
             <div className="bg-tech-dark/80 backdrop-blur-md p-6 rounded-lg border border-tech-purple/20 card-hover">
               <h2 className="text-2xl font-bold mb-4 text-tech-lightBlue">Biography</h2>
               <div className="space-y-4 text-gray-300">
@@ -81,8 +88,9 @@ const About = () => {
             <div className="bg-tech-dark/80 backdrop-blur-md p-6 rounded-lg border border-tech-purple/20 card-hover">
               <h2 className="text-2xl font-bold mb-6 text-tech-lightBlue">Education Timeline</h2>
               
+              {/* Timeline with vertical line and progress indicators */}
               <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-1/2 before:h-full before:w-0.5 before:bg-tech-purple/30">
-                {/* College */}
+                {/* College Education */}
                 <div className="relative flex items-start pl-8">
                   <span className="absolute left-0 flex items-center justify-center w-10 h-10 rounded-full bg-tech-purple text-white ring-4 ring-tech-dark">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -100,7 +108,7 @@ const About = () => {
                   </div>
                 </div>
                 
-                {/* +2 */}
+                {/* Higher Secondary Education */}
                 <div className="relative flex items-start pl-8">
                   <span className="absolute left-0 flex items-center justify-center w-10 h-10 rounded-full bg-tech-pink text-white ring-4 ring-tech-dark">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -116,7 +124,7 @@ const About = () => {
                   </div>
                 </div>
                 
-                {/* 10th */}
+                {/* Secondary Education */}
                 <div className="relative flex items-start pl-8">
                   <span className="absolute left-0 flex items-center justify-center w-10 h-10 rounded-full bg-tech-lightBlue text-white ring-4 ring-tech-dark">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -137,9 +145,10 @@ const About = () => {
         </div>
       </div>
       
+      {/* LYRA AI Assistant with context-aware message */}
       <Lyra initialMessage="This is Dhananjay's About section. Would you like to know more about his education or skills? Feel free to ask me anything!" />
     </main>
   );
 };
 
-export default About;
+export default Home;

@@ -1,21 +1,20 @@
-
 import { useState } from 'react';
 import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
 
-// Project type definition
+// TypeScript type definition for Project structure
 type Project = {
-  id: string;
-  title: string;
-  description: string;
-  tags: string[];
-  image: string; // This would be a placeholder or icon
-  demoLink?: string;
-  repoLink?: string;
-  category: 'game' | 'electronics' | 'other';
+  id: string;           // Unique identifier for each project
+  title: string;        // Project title
+  description: string;  // Brief project description
+  tags: string[];       // Technology tags
+  image: string;        // Image representation
+  demoLink?: string;    // Optional demo link
+  repoLink?: string;    // Optional repository link
+  category: 'game' | 'electronics' | 'other'; // Project category
 };
 
-// Sample projects data
+// Sample projects data with detailed information
 const projectsData: Project[] = [
   {
     id: 'project1',
@@ -75,16 +74,18 @@ const projectsData: Project[] = [
 ];
 
 const Projects = () => {
+  // State management for project filtering and interaction
   const [activeFilter, setActiveFilter] = useState<'all' | 'game' | 'electronics'>('all');
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   
-  // Filter projects based on active filter
+  // Filter projects based on selected category
   const filteredProjects = activeFilter === 'all' 
     ? projectsData 
     : projectsData.filter(project => project.category === activeFilter);
 
-  // Project icon component based on category
+  // Dynamic project icon component based on category
   const ProjectIcon = ({ category }: { category: string }) => {
+    // Icon selection logic with different styles for each category
     if (category === 'game') {
       return (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-tech-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -108,14 +109,17 @@ const Projects = () => {
 
   return (
     <main className="min-h-screen pt-20 pb-16 relative">
+      {/* Circuit background for tech-themed design */}
       <CircuitBackground />
       
       <div className="container-custom">
+        {/* Page title with centered styling */}
         <h1 className="section-heading text-center mx-auto">My Projects</h1>
         
-        {/* Filter tabs */}
+        {/* Category filter buttons */}
         <div className="flex justify-center mt-10 mb-12">
           <div className="inline-flex p-1 bg-tech-dark/50 backdrop-blur-sm rounded-lg border border-tech-purple/20">
+            {/* Filter buttons with dynamic active state */}
             <button
               onClick={() => setActiveFilter('all')}
               className={`px-5 py-2 rounded-md transition-all ${
@@ -149,9 +153,10 @@ const Projects = () => {
           </div>
         </div>
         
-        {/* Projects grid */}
+        {/* Responsive grid of project cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project, index) => (
+            // Individual project card with hover and animation effects
             <div 
               key={project.id}
               className="group bg-tech-dark/80 backdrop-blur-sm rounded-lg border border-tech-purple/20 overflow-hidden card-hover"
@@ -161,7 +166,7 @@ const Projects = () => {
                 animationDelay: `${index * 0.1}s`
               }}
             >
-              {/* Project header with icon */}
+              {/* Project header with category icon and title */}
               <div className="p-6 flex items-center space-x-4">
                 <div className={`p-3 rounded-lg ${
                   project.category === 'game' 
@@ -173,11 +178,11 @@ const Projects = () => {
                 <h3 className="text-xl font-bold">{project.title}</h3>
               </div>
               
-              {/* Project description */}
+              {/* Detailed project description and tags */}
               <div className="px-6 pb-4">
                 <p className="text-gray-300">{project.description}</p>
                 
-                {/* Tags */}
+                {/* Colored tags for technologies used */}
                 <div className="mt-4 flex flex-wrap gap-2">
                   {project.tags.map(tag => (
                     <span 
@@ -194,8 +199,9 @@ const Projects = () => {
                 </div>
               </div>
               
-              {/* Project links */}
+              {/* Project links and category information */}
               <div className="px-6 py-4 bg-tech-dark/50 flex justify-between items-center">
+                {/* Demo and source code links */}
                 {project.demoLink && (
                   <a 
                     href={project.demoLink} 
@@ -234,7 +240,7 @@ const Projects = () => {
         </div>
       </div>
       
-      {/* LYRA with projects context */}
+      {/* LYRA AI Assistant with project context */}
       <Lyra initialMessage="Here are Dhananjay's projects! Feel free to ask me about any specific project or technology he has worked with." />
     </main>
   );
