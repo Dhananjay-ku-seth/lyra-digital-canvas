@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const Home = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -85,16 +86,21 @@ const Home = () => {
               </div>
               
               {/* Avatar/Image in the center */}
-              <div className="relative z-10 w-48 h-48 rounded-full bg-gradient-to-br from-tech-purple to-tech-pink p-1">
-                <div className="w-full h-full rounded-full bg-tech-dark flex items-center justify-center text-4xl font-bold text-white">
-                  DKS
-                </div>
+              <div className="relative z-10 w-48 h-48">
+                <Avatar className="w-full h-full">
+                  <AvatarImage 
+                    src="/lovable-uploads/e5f4b321-f34c-4da6-b18c-f30dc80f0919.png" 
+                    alt="Dhananjay Kumar Seth" 
+                    className="object-cover rounded-full"
+                  />
+                  <AvatarFallback>DKS</AvatarFallback>
+                </Avatar>
               </div>
-            </div>
-            
-            {/* Jumping text label */}
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-tech-dark px-4 py-2 rounded-full border border-tech-purple/50">
-              <p className="text-tech-lightBlue font-medium">Electronics & Game Dev</p>
+              
+              {/* Jumping text label */}
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-tech-dark px-4 py-2 rounded-full border border-tech-purple/50">
+                <p className="text-tech-lightBlue font-medium">Electronics & Game Dev</p>
+              </div>
             </div>
           </div>
         </div>
@@ -118,7 +124,6 @@ const Home = () => {
         </div>
       </section>
       
-      {/* LYRA AI Assistant */}
       <Lyra />
     </main>
   );

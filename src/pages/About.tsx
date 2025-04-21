@@ -1,6 +1,7 @@
 
 import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const About = () => {
   return (
@@ -15,10 +16,15 @@ const About = () => {
           <div className="col-span-1 animate-fade-in">
             <div className="bg-tech-dark/80 backdrop-blur-md p-6 rounded-lg border border-tech-purple/20 card-hover">
               {/* Avatar/Profile Image */}
-              <div className="mx-auto w-48 h-48 rounded-full bg-gradient-to-br from-tech-purple to-tech-pink p-1 mb-6">
-                <div className="w-full h-full rounded-full bg-tech-dark flex items-center justify-center text-5xl font-bold text-white overflow-hidden">
-                  DKS
-                </div>
+              <div className="mx-auto w-48 h-48 mb-6">
+                <Avatar className="w-full h-full">
+                  <AvatarImage 
+                    src="/lovable-uploads/e5f4b321-f34c-4da6-b18c-f30dc80f0919.png" 
+                    alt="Dhananjay Kumar Seth" 
+                    className="object-cover rounded-full"
+                  />
+                  <AvatarFallback>DKS</AvatarFallback>
+                </Avatar>
               </div>
               
               {/* Personal Details */}
@@ -131,7 +137,6 @@ const About = () => {
         </div>
       </div>
       
-      {/* LYRA with custom message for About section */}
       <Lyra initialMessage="This is Dhananjay's About section. Would you like to know more about his education or skills? Feel free to ask me anything!" />
     </main>
   );
