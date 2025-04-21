@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
@@ -34,7 +33,6 @@ const Contact = () => {
       [name]: value
     }));
     
-    // Clear errors when user types
     if (errors[name as keyof FormErrors]) {
       setErrors(prev => ({
         ...prev,
@@ -73,15 +71,12 @@ const Contact = () => {
     
     setIsSubmitting(true);
     
-    // Simulate API call
     setTimeout(() => {
-      // In a real app, you would submit to a backend
       console.log('Form submitted:', formData);
       
       setIsSubmitting(false);
       setIsSubmitted(true);
       
-      // Show LYRA response after a short delay
       setTimeout(() => {
         setShowLyraResponse(true);
       }, 1000);
@@ -99,16 +94,15 @@ const Contact = () => {
   };
 
   return (
-    <main className="min-h-screen pt-20 pb-16 relative">
+    <main className="min-h-screen pt-20 pb-16 relative overflow-hidden">
       <CircuitBackground />
       
-      <div className="container-custom">
+      <div className="container-custom opacity-0 animate-fade-in">
         <h1 className="section-heading text-center mx-auto">Contact Me</h1>
         
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-10">
-          {/* Contact Info */}
           <div className="animate-slide-up">
-            <div className="bg-tech-dark/80 backdrop-blur-md rounded-lg border border-tech-purple/20 p-6 card-hover">
+            <div className="bg-tech-dark/80 backdrop-blur-md rounded-lg border border-tech-purple/20 p-6 card-hover transition-all duration-300">
               <h2 className="text-2xl font-bold mb-6 text-tech-lightBlue">Get In Touch</h2>
               
               <p className="text-gray-300 mb-8">
@@ -146,7 +140,7 @@ const Contact = () => {
                 <div className="flex items-start">
                   <div className="p-3 bg-tech-lightBlue/20 rounded-lg mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-tech-lightBlue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4.364-0.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                     </svg>
                   </div>
                   <div>
@@ -186,14 +180,13 @@ const Contact = () => {
             </div>
           </div>
           
-          {/* Contact Form */}
           <div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            <div className="bg-tech-dark/80 backdrop-blur-md rounded-lg border border-tech-purple/20 p-6 card-hover">
+            <div className="bg-tech-dark/80 backdrop-blur-md rounded-lg border border-tech-purple/20 p-6 card-hover transition-all duration-300">
               <h2 className="text-2xl font-bold mb-6 text-tech-lightBlue">Send a Message</h2>
               
               {!isSubmitted ? (
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
+                  <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
                       Your Name
                     </label>
@@ -213,7 +206,7 @@ const Contact = () => {
                     )}
                   </div>
                   
-                  <div>
+                  <div className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
                       Your Email
                     </label>
@@ -233,7 +226,7 @@ const Contact = () => {
                     )}
                   </div>
                   
-                  <div>
+                  <div className="animate-fade-in" style={{ animationDelay: '0.5s' }}>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">
                       Your Message
                     </label>
@@ -256,15 +249,16 @@ const Contact = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full py-3 rounded-lg font-medium ${
+                    className={`w-full py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 animate-fade-in ${
                       isSubmitting
                         ? 'bg-tech-purple/50 cursor-not-allowed'
                         : 'bg-tech-purple hover:bg-tech-purple/90'
-                    } text-white transition-colors flex items-center justify-center`}
+                    } text-white`}
+                    style={{ animationDelay: '0.6s' }}
                   >
                     {isSubmitting ? (
                       <>
-                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
@@ -276,14 +270,14 @@ const Contact = () => {
                   </button>
                 </form>
               ) : (
-                <div className="text-center py-8">
-                  <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="text-center py-8 animate-scale-up">
+                  <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 animate-fade-in">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Thank You!</h3>
-                  <p className="text-gray-300 mb-8">
+                  <h3 className="text-xl font-bold text-white mb-2 animate-slide-up">Thank You!</h3>
+                  <p className="text-gray-300 mb-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
                     Your message has been sent successfully. 
                     {showLyraResponse && (
                       <span className="block mt-2 text-tech-purple animate-fade-in">
@@ -293,7 +287,8 @@ const Contact = () => {
                   </p>
                   <button 
                     onClick={resetForm}
-                    className="px-6 py-2 bg-tech-dark border border-tech-purple text-tech-purple rounded-lg hover:bg-tech-purple/10 transition-colors"
+                    className="px-6 py-2 bg-tech-dark border border-tech-purple text-tech-purple rounded-lg hover:bg-tech-purple/10 transition-all duration-300 transform hover:scale-105 animate-fade-in"
+                    style={{ animationDelay: '0.4s' }}
                   >
                     Send Another Message
                   </button>
@@ -304,7 +299,6 @@ const Contact = () => {
         </div>
       </div>
       
-      {/* LYRA with contact context */}
       <Lyra initialMessage="This is the contact section. Feel free to send Dhananjay a message, and I'll make sure he receives it promptly!" />
     </main>
   );
