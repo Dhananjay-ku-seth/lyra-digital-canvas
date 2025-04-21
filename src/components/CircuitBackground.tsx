@@ -1,13 +1,4 @@
 
-/**
- * CircuitBackground Component
- * 
- * Creates an animated tech-themed background with:
- * - Circuit-like lines
- * - Flowing current effects
- * - Pulsing intersection points
- * - Multiple layers of animation
- */
 import { useEffect, useRef } from 'react';
 
 const CircuitBackground = () => {
@@ -22,7 +13,7 @@ const CircuitBackground = () => {
     // Clear existing elements
     container.innerHTML = '';
     
-    // Create flowing circuit lines
+    // Create flowing circuit lines with multiple points
     for (let i = 0; i < 20; i++) {
       // Create horizontal lines with flow
       const hLine = document.createElement('div');
@@ -44,6 +35,14 @@ const CircuitBackground = () => {
       
       container.appendChild(hLine);
       
+      // Add points along the horizontal line
+      for (let j = 0; j < width / 30; j++) {
+        const point = document.createElement('div');
+        point.className = 'circuit-dot';
+        point.style.left = `${j * 30}px`;
+        hLine.appendChild(point);
+      }
+      
       // Create vertical lines with flow
       const vLine = document.createElement('div');
       vLine.className = 'circuit-line';
@@ -63,10 +62,18 @@ const CircuitBackground = () => {
       vLine.appendChild(vFlow);
       
       container.appendChild(vLine);
+      
+      // Add points along the vertical line
+      for (let j = 0; j < height / 30; j++) {
+        const point = document.createElement('div');
+        point.className = 'circuit-dot';
+        point.style.top = `${j * 30}px`;
+        vLine.appendChild(point);
+      }
     }
     
-    // Create intersection points
-    for (let i = 0; i < 30; i++) {
+    // Create additional intersection points
+    for (let i = 0; i < 50; i++) {
       const point = document.createElement('div');
       point.className = 'circuit-point';
       

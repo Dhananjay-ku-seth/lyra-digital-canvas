@@ -118,7 +118,8 @@
   }
   
   .circuit-dot {
-    @apply absolute h-2 w-2 rounded-full bg-tech-purple/60 animate-pulse-glow;
+    @apply absolute h-1.5 w-1.5 rounded-full bg-tech-purple/40 animate-pulse-glow;
+    position: absolute;
   }
   
   .circuit-pulse {
