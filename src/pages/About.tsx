@@ -3,6 +3,22 @@ import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
+/**
+ * About Component
+ * 
+ * This page displays comprehensive information about Dhananjay Kumar Seth, including:
+ * - Profile section with avatar and personal details
+ * - Detailed biography
+ * - Education timeline with visual elements
+ * 
+ * The component utilizes:
+ * - CSS Grid for responsive layout
+ * - Animation effects for smooth entry
+ * - Custom styling for the tech-themed appearance
+ * - Circuit background for consistent theme across pages
+ * 
+ * LYRA AI assistant is integrated with context-aware message for this section
+ */
 const About = () => {
   return (
     <main className="min-h-screen pt-20 pb-16 relative">
@@ -151,4 +167,4 @@ const About = () => {
   );
 };
 
-export default Home;
+export default About;
