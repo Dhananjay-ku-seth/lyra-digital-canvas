@@ -124,4 +124,12 @@
   .circuit-pulse {
     @apply absolute h-1 w-8 bg-gradient-to-r from-transparent via-tech-purple to-transparent;
   }
+
+  .circuit-flow {
+    @apply absolute h-full w-8 bg-gradient-to-r from-transparent via-tech-purple to-transparent animate-flow-right;
+  }
+  
+  .circuit-flow-vertical {
+    @apply absolute h-8 w-full bg-gradient-to-b from-transparent via-tech-purple to-transparent animate-flow-up;
+  }
 }
