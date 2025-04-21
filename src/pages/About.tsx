@@ -1,27 +1,46 @@
-import CircuitBackground from '@/components/CircuitBackground';
-import Lyra from '@/components/Lyra';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 /**
  * About Component
  * 
  * This page displays comprehensive information about Dhananjay Kumar Seth, including:
- * - Profile section with avatar and personal details
- * - Detailed biography
- * - Education timeline with visual elements
+ * - Profile section with avatar and personal details (left column)
+ * - Detailed biography (right column, top)
+ * - Education timeline (right column, bottom)
  * 
- * The component utilizes:
- * - CSS Grid for responsive layout
- * - Animation effects for smooth entry
- * - Custom styling for the tech-themed appearance
- * - Circuit background for consistent theme across pages
+ * Component Structure:
+ * ├── Container
+ * │   ├── Title Section
+ * │   └── Grid Layout
+ * │       ├── Left Column (Profile)
+ * │       │   ├── Avatar
+ * │       │   └── Personal Details
+ * │       └── Right Column
+ * │           ├── Biography Section
+ * │           └── Education Timeline
+ * └── Lyra AI Assistant
  * 
- * LYRA AI assistant is integrated with context-aware message for this section
+ * Styling:
+ * - Uses CSS Grid for responsive layout
+ * - Implements smooth animations for content entry
+ * - Uses custom tech-themed styling with circuit background
+ * - All cards use backdrop blur and hover effects
+ * 
+ * To modify:
+ * 1. Personal details: Update the content in the left column sections
+ * 2. Biography: Modify the text content in the biography section
+ * 3. Education: Update the timeline items in the education section
+ * 4. Styling: Adjust the card-hover and animation classes as needed
  */
+
+import CircuitBackground from '@/components/CircuitBackground';
+import Lyra from '@/components/Lyra';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+
 const About = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-grow pt-20 pb-16 relative">
+        {/* Circuit pattern background */}
         <CircuitBackground />
         
         <div className="container-custom">

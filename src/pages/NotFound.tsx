@@ -1,3 +1,32 @@
+
+/**
+ * 404 Not Found Page Component
+ * 
+ * This component is displayed when a user attempts to access a non-existent route.
+ * Features:
+ * - Animated 404 display
+ * - Error message and description
+ * - Return to home button
+ * - Circuit background for consistent theme
+ * - Lyra AI assistance for navigation help
+ * 
+ * Component Structure:
+ * ├── Main Container
+ * │   ├── Circuit Background
+ * │   ├── Content Section (centered)
+ * │   │   ├── 404 Number
+ * │   │   ├── Error Message
+ * │   │   └── Return Home Button
+ * │   └── Lyra AI Assistant
+ * 
+ * Usage:
+ * This component is automatically rendered by React Router when no matching route is found.
+ * To modify:
+ * 1. Update error messages in the text content
+ * 2. Modify the button styling using btn-primary class
+ * 3. Adjust the Lyra AI initial message for better assistance
+ */
+
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import CircuitBackground from '@/components/CircuitBackground';
