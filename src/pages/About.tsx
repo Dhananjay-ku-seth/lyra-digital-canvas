@@ -1,6 +1,5 @@
 import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
-import Footer from '@/components/Footer';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 /**
@@ -163,7 +162,6 @@ const About = () => {
         {/* LYRA AI Assistant */}
         <Lyra initialMessage="This is Dhananjay's About section. Would you like to know more about his education or skills? Feel free to ask me anything!" />
       </main>
-      <Footer />
     </div>
   );
 };
