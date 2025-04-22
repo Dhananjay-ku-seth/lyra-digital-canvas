@@ -133,9 +133,93 @@
   }
   
   .electronic-component {
-    @apply absolute w-12 h-8 bg-tech-purple/20 rounded-sm border border-tech-purple/30
+    @apply absolute bg-tech-purple/20 border border-tech-purple/30
            flex items-center justify-around p-1;
     box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+  }
+  
+  .raspberry-pi {
+    width: 120px;
+    height: 80px;
+    border-radius: 4px;
+    background: linear-gradient(45deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1));
+  }
+  
+  .usb-port {
+    width: 12px;
+    height: 8px;
+    background: rgba(139, 92, 246, 0.3);
+    margin: 2px;
+    border-radius: 1px;
+  }
+  
+  .gpio-pins {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    padding: 2px;
+  }
+  
+  .gpio-pin {
+    width: 2px;
+    height: 4px;
+    background: rgba(139, 92, 246, 0.4);
+    animation: pulse-glow 2s infinite;
+  }
+  
+  .esp32 {
+    width: 100px;
+    height: 60px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1));
+  }
+  
+  .wifi-antenna {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
+    border: 2px solid rgba(139, 92, 246, 0.3);
+    border-radius: 50%;
+    animation: pulse-glow 1.5s infinite;
+  }
+  
+  .arduino {
+    width: 110px;
+    height: 70px;
+    border-radius: 6px;
+    background: linear-gradient(225deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1));
+  }
+  
+  .arduino-pin {
+    width: 2px;
+    height: 6px;
+    background: rgba(139, 92, 246, 0.4);
+    margin: 0 2px;
+    animation: pulse-glow 2.5s infinite;
+  }
+  
+  .pc-component {
+    width: 90px;
+    height: 90px;
+    border-radius: 4px;
+    background: linear-gradient(315deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1));
+  }
+  
+  .heatsink-pattern {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+  }
+  
+  .heatsink-fin {
+    width: 4px;
+    height: 100%;
+    background: rgba(139, 92, 246, 0.3);
+    animation: pulse-glow 3s infinite;
   }
   
   .component-pin {
