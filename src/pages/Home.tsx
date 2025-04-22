@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import CircuitBackground from '@/components/CircuitBackground';
@@ -8,6 +7,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 const Home = () => {
   // Reference for the main section to handle entrance animation
   const sectionRef = useRef<HTMLDivElement>(null);
+  const scrollDownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Add opacity transition effect when component mounts
@@ -19,8 +19,27 @@ const Home = () => {
       }
     }, 200);
 
-    // Clean up the timer to prevent memory leaks
-    return () => clearTimeout(timer);
+    // Scroll down function for the arrow
+    const handleScrollDown = () => {
+      window.scrollBy({
+        top: window.innerHeight,
+        behavior: 'smooth'
+      });
+    };
+
+    // Add click event listener to the scroll down arrow
+    const scrollDownElement = scrollDownRef.current;
+    if (scrollDownElement) {
+      scrollDownElement.addEventListener('click', handleScrollDown);
+    }
+
+    // Clean up the timer and event listener to prevent memory leaks
+    return () => {
+      clearTimeout(timer);
+      if (scrollDownElement) {
+        scrollDownElement.removeEventListener('click', handleScrollDown);
+      }
+    };
   }, []);
 
   return (
@@ -116,7 +135,10 @@ const Home = () => {
         </div>
         
         {/* Animated scroll down arrow */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-gentle">
+        <div 
+          ref={scrollDownRef}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-gentle cursor-pointer hover:scale-110 transition-transform"
+        >
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
             className="h-8 w-8 text-tech-purple/80" 
