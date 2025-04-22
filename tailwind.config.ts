@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -18,6 +19,10 @@ export default {
 			}
 		},
 		extend: {
+			perspective: {
+				'1000': '1000px',
+				'2000': '2000px',
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -135,7 +140,7 @@ export default {
                 'flow-up': 'flow-up 3s linear infinite',
                 'slide-up': 'slide-up 0.6s ease-out',
                 'slide-down': 'slide-down 0.6s ease-out',
-                'fade-in': 'fade-in 0.5s ease-in',
+                'fade-in': 'fade-in 0.5s ease-out',
                 'scale-up': 'scale-up 0.4s ease-out',
                 'bounce-gentle': 'bounce-gentle 2s ease-in-out infinite'
 			}

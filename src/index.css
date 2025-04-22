@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,19 +38,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -67,6 +61,33 @@
   
   code, pre {
     @apply font-['Roboto_Mono',monospace];
+  }
+}
+
+/* Define custom utilities for 3D effects */
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .perspective-2000 {
+    perspective: 2000px;
+  }
+  
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .translate-z-10 {
+    transform: translateZ(10px);
+  }
+  
+  .translate-z-20 {
+    transform: translateZ(20px);
+  }
+  
+  .-translate-z-10 {
+    transform: translateZ(-10px);
   }
 }
 
@@ -181,26 +202,29 @@
   /* 3D Tech Effect Classes */
   .tech-card-3d {
     @apply relative bg-card border border-primary/20 rounded-lg overflow-hidden
-    transform perspective-1000 transition-all duration-300
+    transform transition-all duration-300
     hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] hover:border-primary/40
-    hover:translate-z-10 hover:-translate-y-1;
+    hover:-translate-y-1;
     transform-style: preserve-3d;
+    perspective: 1000px;
   }
 
   .tech-button-3d {
     @apply relative bg-primary/90 text-primary-foreground rounded-md
-    transform perspective-1000 transition-all duration-300
+    transform transition-all duration-300
     hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] 
     active:translate-y-0.5 active:shadow-[0_0_10px_rgba(139,92,246,0.2)]
     hover:-translate-y-0.5;
     transform-style: preserve-3d;
+    perspective: 1000px;
   }
 
   .tech-panel-3d {
     @apply relative bg-card/80 backdrop-blur-sm border border-primary/10 rounded-xl
-    transform perspective-1000 transition-all duration-300
+    transform transition-all duration-300
     hover:shadow-[0_0_40px_rgba(139,92,246,0.2)] hover:border-primary/30;
     transform-style: preserve-3d;
+    perspective: 1000px;
   }
 
   .tech-text-3d {
