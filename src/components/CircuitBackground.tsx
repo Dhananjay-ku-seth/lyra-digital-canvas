@@ -6,16 +6,24 @@ import { useEffect, useRef } from 'react';
  * Creates an animated tech-themed background with electronic components and circuit lines.
  * 
  * Features:
- * - Multiple depth layers for 3D effect
- * - Animated electronic components (Raspberry Pi, ESP32, Arduino, PC parts)
- * - Glowing circuit lines with flowing animations
- * - Auto-rotation and movement
+ * - Multiple depth layers (0.2, 0.4, 0.6, 0.8, 1.0) for 3D effect
+ * - Electronic components with animations:
+ *   - Raspberry Pi with GPIO pins and LED
+ *   - ESP32 with WiFi antenna
+ *   - Arduino with status LED
+ *   - PC components with heatsink
+ * - Complex circuit patterns with:
+ *   - Intersecting lines
+ *   - Junction points
+ *   - Flow animations
+ *   - Gradient effects
  * 
  * Animation configuration:
- * - Depth layers: 5 layers (0.2, 0.4, 0.6, 0.8, 1.0)
- * - Components per layer: 3 * depth
- * - Circuit lines per layer: 10 * depth
- * - Animation speed: 0.004 time increment
+ * - Components per layer: 2 * depth (reduced for performance)
+ * - Circuit lines per layer: 6 * depth (optimized)
+ * - Movement speed: 0.006 (increased for more dynamic feel)
+ * 
+ * @component
  */
 const CircuitBackground = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -26,18 +34,16 @@ const CircuitBackground = () => {
     const container = containerRef.current;
     const containerRect = container.getBoundingClientRect();
     
-    // Clear existing elements
     container.innerHTML = '';
     
-    // Create multiple layers for depth effect
     const layers = [0.2, 0.4, 0.6, 0.8, 1];
     
     layers.forEach((depth) => {
       const layerDiv = document.createElement('div');
       layerDiv.className = 'absolute inset-0 transform-style-3d';
       
-      // Create electronic components with enhanced glow effects
-      for (let i = 0; i < Math.floor(3 * depth); i++) {
+      // Create electronic components (reduced quantity)
+      for (let i = 0; i < Math.floor(2 * depth); i++) {
         // Create Raspberry Pi with pulsing LED indicator
         const rpi = document.createElement('div');
         rpi.className = 'electronic-component raspberry-pi';
@@ -143,94 +149,64 @@ const CircuitBackground = () => {
         layerDiv.appendChild(pcComponent);
       }
       
-      // Create circuit lines with enhanced effects
-      for (let i = 0; i < Math.floor(10 * depth); i++) {
-        // Create horizontal lines with pulse effect
-        const hLine = document.createElement('div');
-        hLine.className = 'circuit-line';
+      // Create enhanced circuit patterns
+      for (let i = 0; i < Math.floor(6 * depth); i++) {
+        // Create circuit junctions
+        const junction = document.createElement('div');
+        junction.className = 'absolute w-3 h-3 rounded-full';
+        junction.style.top = `${Math.random() * containerRect.height}px`;
+        junction.style.left = `${Math.random() * containerRect.width}px`;
+        junction.style.background = `radial-gradient(circle at center, rgba(139,92,246,${0.6 * depth}), rgba(139,92,246,0))`;
+        junction.style.boxShadow = `0 0 ${15 * depth}px rgba(139,92,246,${0.4 * depth})`;
+        layerDiv.appendChild(junction);
         
-        const top = Math.random() * containerRect.height;
-        const left = Math.random() * containerRect.width * 0.8;
-        const width = Math.random() * containerRect.width * 0.6 + 100;
-        
-        hLine.style.top = `${top}px`;
-        hLine.style.left = `${left}px`;
-        hLine.style.width = `${width}px`;
-        hLine.style.height = '6px';
-        hLine.style.boxShadow = `0 0 ${35 * depth}px rgba(139,92,246,${0.6 * depth})`; // Enhanced glow
-        hLine.style.opacity = `${depth}`;
-        hLine.style.background = `linear-gradient(90deg, rgba(139,92,246,${0.3 * depth}), rgba(139,92,246,${0.5 * depth}), rgba(139,92,246,${0.3 * depth}))`;
-        
-        // Enhanced flowing current effect
-        const flow = document.createElement('div');
-        flow.className = 'circuit-flow';
-        flow.style.animationDuration = `${2.5 / depth}s`; // Slightly faster
-        hLine.appendChild(flow);
-        
-        // Add larger connection points
-        for (let j = 0; j < width / 50; j++) {
-          const point = document.createElement('div');
-          point.className = 'circuit-dot';
-          point.style.left = `${j * 50}px`;
-          point.style.boxShadow = `0 0 ${35 * depth}px rgba(139,92,246,${0.7 * depth})`;
-          point.style.transform = `scale(${depth * 2})`;
-          hLine.appendChild(point);
-        }
-        
-        // Vertical lines with increased thickness
-        const vLine = document.createElement('div');
-        vLine.className = 'circuit-line';
-        
-        const vTop = Math.random() * containerRect.height * 0.8;
-        const vLeft = Math.random() * containerRect.width;
-        const height = Math.random() * containerRect.height * 0.6 + 100;
-        
-        vLine.style.top = `${vTop}px`;
-        vLine.style.left = `${vLeft}px`;
-        vLine.style.width = '6px';
-        vLine.style.height = `${height}px`;
-        vLine.style.boxShadow = `0 0 ${30 * depth}px rgba(139,92,246,${0.5 * depth})`;
-        vLine.style.opacity = `${depth}`;
-        
-        // Enhanced vertical flow with faster animation
-        const vFlow = document.createElement('div');
-        vFlow.className = 'circuit-flow-vertical';
-        vFlow.style.animationDuration = `${3 / depth}s`;
-        vLine.appendChild(vFlow);
-        
-        layerDiv.appendChild(vLine);
-        
-        // Add larger connection points to vertical lines
-        for (let j = 0; j < height / 50; j++) {
-          const point = document.createElement('div');
-          point.className = 'circuit-dot';
-          point.style.top = `${j * 50}px`;
-          point.style.boxShadow = `0 0 ${35 * depth}px rgba(139,92,246,${0.7 * depth})`;
-          point.style.transform = `scale(${depth * 2})`;
-          vLine.appendChild(point);
+        // Create branching circuit lines from junctions
+        const branches = Math.floor(Math.random() * 3) + 2; // 2-4 branches per junction
+        for (let b = 0; b < branches; b++) {
+          const line = document.createElement('div');
+          line.className = 'circuit-line absolute';
+          
+          const angle = (b * 360 / branches) + (Math.random() * 30 - 15);
+          const length = Math.random() * 150 + 50;
+          
+          line.style.width = `${length}px`;
+          line.style.height = '2px';
+          line.style.top = `${parseFloat(junction.style.top) + 1.5}px`;
+          line.style.left = `${parseFloat(junction.style.left) + 1.5}px`;
+          line.style.transformOrigin = 'left center';
+          line.style.transform = `rotate(${angle}deg)`;
+          line.style.background = `linear-gradient(90deg, rgba(139,92,246,${0.5 * depth}), rgba(139,92,246,${0.3 * depth}))`;
+          line.style.boxShadow = `0 0 ${10 * depth}px rgba(139,92,246,${0.3 * depth})`;
+          
+          // Add flowing current effect
+          const flow = document.createElement('div');
+          flow.className = 'circuit-flow';
+          flow.style.animationDuration = `${2 / depth}s`;
+          line.appendChild(flow);
+          
+          layerDiv.appendChild(line);
         }
       }
       
       container.appendChild(layerDiv);
     });
 
-    // Dynamic movement animation
+    // Enhanced movement animation with faster speed
     let time = 0;
     const animate = () => {
-      time += 0.004;
+      time += 0.006; // Increased speed
       const layers = container.children;
       
       Array.from(layers).forEach((layer, index) => {
         const depth = (index + 1) * 0.2;
-        // Enhanced movement patterns
-        const moveX = Math.sin(time) * 28 * depth;
-        const moveY = Math.cos(time * 1.5) * 22 * depth;
-        const rotateX = Math.cos(time * 0.8) * 10 * depth;
-        const rotateY = Math.sin(time * 0.6) * 10 * depth;
+        const moveX = Math.sin(time) * 25 * depth;
+        const moveY = Math.cos(time * 1.5) * 20 * depth;
+        const rotateX = Math.cos(time * 0.8) * 8 * depth;
+        const rotateY = Math.sin(time * 0.6) * 8 * depth;
         
         (layer as HTMLElement).style.transform = 
           `translateX(${moveX}px) translateY(${moveY}px) 
-           translateZ(${-60 * depth}px) 
+           translateZ(${-50 * depth}px) 
            rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
       });
       
