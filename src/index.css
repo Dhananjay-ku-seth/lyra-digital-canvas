@@ -138,95 +138,74 @@
     box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
   }
   
-  .raspberry-pi {
-    width: 120px;
-    height: 80px;
-    border-radius: 4px;
+  .ic-chip {
+    width: 60px;
+    height: 40px;
+    border-radius: 2px;
     background: linear-gradient(45deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1));
+    position: relative;
   }
   
-  .usb-port {
-    width: 12px;
-    height: 8px;
-    background: rgba(139, 92, 246, 0.3);
-    margin: 2px;
-    border-radius: 1px;
-  }
-  
-  .gpio-pins {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
+  .pins-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
     padding: 2px;
   }
   
-  .gpio-pin {
-    width: 2px;
-    height: 4px;
-    background: rgba(139, 92, 246, 0.4);
-    animation: pulse-glow 2s infinite;
-  }
-  
-  .esp32 {
-    width: 100px;
-    height: 60px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1));
-  }
-  
-  .wifi-antenna {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 15px;
-    height: 15px;
-    border: 2px solid rgba(139, 92, 246, 0.3);
-    border-radius: 50%;
-    animation: pulse-glow 1.5s infinite;
-  }
-  
-  .arduino {
-    width: 110px;
-    height: 70px;
-    border-radius: 6px;
-    background: linear-gradient(225deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1));
-  }
-  
-  .arduino-pin {
+  .ic-pin {
     width: 2px;
     height: 6px;
     background: rgba(139, 92, 246, 0.4);
-    margin: 0 2px;
-    animation: pulse-glow 2.5s infinite;
+    margin: 1px;
+    animation: pulse-glow 2s infinite;
   }
   
-  .pc-component {
-    width: 90px;
-    height: 90px;
-    border-radius: 4px;
-    background: linear-gradient(315deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1));
+  .smd {
+    width: 20px;
+    height: 10px;
+    border-radius: 1px;
+    background: linear-gradient(90deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1));
   }
   
-  .heatsink-pattern {
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 100%;
-    padding: 5px;
+  .circuit-junction {
+    @apply absolute flex items-center justify-center;
+    width: 10px;
+    height: 10px;
   }
   
-  .heatsink-fin {
+  .via-hole {
     width: 4px;
-    height: 100%;
-    background: rgba(139, 92, 246, 0.3);
-    animation: pulse-glow 3s infinite;
+    height: 4px;
+    border-radius: 50%;
+    animation: pulse-glow 2s infinite;
   }
   
-  .component-pin {
-    @apply w-0.5 h-2 bg-tech-purple/40 absolute -bottom-2
-           animate-pulse-glow;
+  .circuit-trace {
+    @apply absolute bg-tech-purple/30 overflow-hidden;
+    transform-origin: left center;
   }
   
+  .current-flow {
+    @apply absolute h-full w-8;
+    background: linear-gradient(90deg, 
+      transparent,
+      rgba(139, 92, 246, 0.4),
+      transparent
+    );
+    animation: flow-right 2s linear infinite;
+  }
+  
+  @keyframes flow-right {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
   .circuit-line {
     @apply absolute bg-tech-purple/30 overflow-hidden;
   }
