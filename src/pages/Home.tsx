@@ -45,8 +45,8 @@ const Home = () => {
         className="min-h-screen flex flex-col justify-center container-custom pt-16 opacity-0 transition-opacity duration-1000"
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          <div className="space-y-6 animate-slide-up">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+          <div className="space-y-6 animate-slide-up tech-panel-3d p-8">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tech-text-3d">
               Hello, I'm <span className="text-tech-purple">Dhananjay Kumar Seth</span>
             </h1>
             
@@ -55,7 +55,7 @@ const Home = () => {
             </p>
             
             <div className="space-y-4 text-gray-300 max-w-2xl">
-              <p>
+              <p className="tech-text-3d">
                 I specialize in Game Development and Electronics Engineering. My journey is driven 
                 by a passion for technology and innovation. Meet my AI assistant LYRA, designed to assist 
                 you in navigating my portfolio.
@@ -63,17 +63,17 @@ const Home = () => {
             </div>
             
             <div className="pt-4 flex flex-wrap gap-4">
-              <Link to="/about" className="btn-primary">
+              <Link to="/about" className="tech-button-3d px-6 py-3">
                 About Me
               </Link>
-              <Link to="/projects" className="btn-outline">
+              <Link to="/projects" className="tech-button-3d px-6 py-3 bg-secondary/90">
                 View Projects
               </Link>
             </div>
           </div>
           
           <div className="relative animate-slide-down hidden lg:block">
-            <div className="relative w-full h-[400px] flex items-center justify-center">
+            <div className="relative w-full h-[400px] flex items-center justify-center tech-card-3d">
               <div className="absolute inset-0 rounded-full bg-tech-dark border border-tech-purple/30 opacity-80 overflow-hidden">
                 <div className="absolute inset-8 rounded-full border border-tech-purple/20 animate-pulse-glow"></div>
                 <div className="absolute inset-16 rounded-full border border-tech-purple/30 animate-pulse-glow" style={{ animationDelay: '0.5s' }}></div>
@@ -115,13 +115,7 @@ const Home = () => {
         <div 
           ref={scrollDownRef}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-gentle cursor-pointer 
-          hover:scale-110 transition-all duration-300 
-          bg-tech-dark/50 p-4 rounded-full border border-tech-purple/30
-          hover:shadow-[0_0_15px_rgba(139,92,246,0.3)]
-          hover:translate-y-[-2px]
-          active:translate-y-[1px]
-          backdrop-blur-sm
-          style-3d"
+          tech-button-3d p-4 backdrop-blur-sm"
         >
           <svg 
             xmlns="http://www.w3.org/2000/svg" 

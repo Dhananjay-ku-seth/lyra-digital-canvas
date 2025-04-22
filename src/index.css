@@ -177,6 +177,45 @@
       0 2px 4px -1px rgba(0, 0, 0, 0.06),
       0 0 0 1px rgba(139, 92, 246, 0.1);
   }
+
+  /* 3D Tech Effect Classes */
+  .tech-card-3d {
+    @apply relative bg-card border border-primary/20 rounded-lg overflow-hidden
+    transform perspective-1000 transition-all duration-300
+    hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] hover:border-primary/40
+    hover:translate-z-10 hover:-translate-y-1;
+    transform-style: preserve-3d;
+  }
+
+  .tech-button-3d {
+    @apply relative bg-primary/90 text-primary-foreground rounded-md
+    transform perspective-1000 transition-all duration-300
+    hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] 
+    active:translate-y-0.5 active:shadow-[0_0_10px_rgba(139,92,246,0.2)]
+    hover:-translate-y-0.5;
+    transform-style: preserve-3d;
+  }
+
+  .tech-panel-3d {
+    @apply relative bg-card/80 backdrop-blur-sm border border-primary/10 rounded-xl
+    transform perspective-1000 transition-all duration-300
+    hover:shadow-[0_0_40px_rgba(139,92,246,0.2)] hover:border-primary/30;
+    transform-style: preserve-3d;
+  }
+
+  .tech-text-3d {
+    @apply relative text-foreground transition-all duration-300;
+    text-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+  }
+
+  .circuit-glow {
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300
+    bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5;
+  }
+
+  .tech-card-3d:hover .circuit-glow {
+    @apply opacity-100;
+  }
 }
 
 @keyframes slide-up {
