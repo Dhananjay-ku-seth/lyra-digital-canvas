@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 
 const CircuitBackground = () => {
@@ -102,8 +101,8 @@ const CircuitBackground = () => {
         layerDiv.appendChild(pcComponent);
       }
       
-      // Create thicker circuit lines with enhanced glow
-      for (let i = 0; i < Math.floor(15 * depth); i++) {
+      // Create fewer circuit lines with increased thickness
+      for (let i = 0; i < Math.floor(10 * depth); i++) {
         // Horizontal lines with increased thickness
         const hLine = document.createElement('div');
         hLine.className = 'circuit-line';
@@ -115,14 +114,14 @@ const CircuitBackground = () => {
         hLine.style.top = `${top}px`;
         hLine.style.left = `${left}px`;
         hLine.style.width = `${width}px`;
-        hLine.style.height = '6px'; // Increased thickness even more
+        hLine.style.height = '6px';
         hLine.style.boxShadow = `0 0 ${30 * depth}px rgba(139,92,246,${0.5 * depth})`;
         hLine.style.opacity = `${depth}`;
         
-        // Enhanced flowing current effect
+        // Enhanced flowing current effect with faster animation
         const flow = document.createElement('div');
         flow.className = 'circuit-flow';
-        flow.style.animationDuration = `${4 / depth}s`;
+        flow.style.animationDuration = `${3 / depth}s`;
         hLine.appendChild(flow);
         
         layerDiv.appendChild(hLine);
@@ -133,7 +132,7 @@ const CircuitBackground = () => {
           point.className = 'circuit-dot';
           point.style.left = `${j * 50}px`;
           point.style.boxShadow = `0 0 ${35 * depth}px rgba(139,92,246,${0.7 * depth})`;
-          point.style.transform = `scale(${depth * 2})`; // Even larger dots
+          point.style.transform = `scale(${depth * 2})`;
           hLine.appendChild(point);
         }
         
@@ -147,15 +146,15 @@ const CircuitBackground = () => {
         
         vLine.style.top = `${vTop}px`;
         vLine.style.left = `${vLeft}px`;
-        vLine.style.width = '6px'; // Increased thickness even more
+        vLine.style.width = '6px';
         vLine.style.height = `${height}px`;
         vLine.style.boxShadow = `0 0 ${30 * depth}px rgba(139,92,246,${0.5 * depth})`;
         vLine.style.opacity = `${depth}`;
         
-        // Enhanced vertical flow
+        // Enhanced vertical flow with faster animation
         const vFlow = document.createElement('div');
         vFlow.className = 'circuit-flow-vertical';
-        vFlow.style.animationDuration = `${4 / depth}s`;
+        vFlow.style.animationDuration = `${3 / depth}s`;
         vLine.appendChild(vFlow);
         
         layerDiv.appendChild(vLine);
@@ -166,7 +165,7 @@ const CircuitBackground = () => {
           point.className = 'circuit-dot';
           point.style.top = `${j * 50}px`;
           point.style.boxShadow = `0 0 ${35 * depth}px rgba(139,92,246,${0.7 * depth})`;
-          point.style.transform = `scale(${depth * 2})`; // Even larger dots
+          point.style.transform = `scale(${depth * 2})`;
           vLine.appendChild(point);
         }
       }
@@ -174,17 +173,17 @@ const CircuitBackground = () => {
       container.appendChild(layerDiv);
     });
 
-    // Automatic rotation and movement animation with increased dynamics
+    // Automatic rotation and movement animation with increased speed
     let time = 0;
     const animate = () => {
-      time += 0.003; // Slightly faster animation
+      time += 0.004;
       const layers = container.children;
       
       Array.from(layers).forEach((layer, index) => {
         const depth = (index + 1) * 0.2;
-        const moveX = Math.sin(time) * 25 * depth; // Increased movement range
+        const moveX = Math.sin(time) * 25 * depth;
         const moveY = Math.cos(time * 1.5) * 20 * depth;
-        const rotateX = Math.cos(time * 0.8) * 8 * depth; // Increased rotation
+        const rotateX = Math.cos(time * 0.8) * 8 * depth;
         const rotateY = Math.sin(time * 0.6) * 8 * depth;
         
         (layer as HTMLElement).style.transform = 
