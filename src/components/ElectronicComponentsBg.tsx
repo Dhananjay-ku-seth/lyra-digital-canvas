@@ -1,4 +1,3 @@
-
 import React, { useMemo } from "react";
 
 /**
@@ -76,13 +75,44 @@ const ICChip = () => (
   </svg>
 );
 
-/**
- * You may add or edit more component icons above.
- * To reposition them, modify the `style` property below.
- */
+// New Component: Transistor Icon
+const TransistorIcon = () => (
+  <svg width="40" height="50" viewBox="0 0 40 50" fill="none" xmlns="http://www.w3.org/2000/svg"
+    className="drop-shadow-glow" aria-hidden="true">
+    <path d="M20 10L10 25L20 40" stroke="#10B981" strokeWidth="3" />
+    <path d="M20 10H35C37.2091 10 39 11.7909 39 14V36C39 38.2091 37.2091 40 35 40H20" stroke="#6366F1" strokeWidth="3" />
+    <circle cx="5" cy="25" r="4" fill="#EC4899" />
+    <circle cx="35" cy="10" r="3" fill="#F59E0B" />
+    <circle cx="35" cy="40" r="3" fill="#10B981" />
+  </svg>
+);
+
+// New Component: Capacitor Icon
+const CapacitorIcon = () => (
+  <svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"
+    className="drop-shadow-glow" aria-hidden="true">
+    <rect x="10" y="25" width="20" height="10" fill="#4338CA" />
+    <line x1="5" y1="30" x2="10" y2="30" stroke="#22D3EE" strokeWidth="3" />
+    <line x1="30" y1="30" x2="35" y2="30" stroke="#22D3EE" strokeWidth="3" />
+    <path d="M15 15V45" stroke="#F43F5E" strokeWidth="3" strokeDasharray="4 4" />
+    <path d="M25 15V45" stroke="#F43F5E" strokeWidth="3" strokeDasharray="4 4" />
+  </svg>
+);
+
+// New Component: Sensor Icon
+const SensorIcon = () => (
+  <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg"
+    className="drop-shadow-glow" aria-hidden="true">
+    <circle cx="25" cy="25" r="20" fill="#2563EB" opacity="0.2" />
+    <circle cx="25" cy="25" r="12" fill="#60A5FA" />
+    <path d="M25 15V35" stroke="#BFDBFE" strokeWidth="3" />
+    <path d="M15 25H35" stroke="#BFDBFE" strokeWidth="3" />
+    <circle cx="25" cy="25" r="4" fill="white" />
+  </svg>
+);
 
 const componentsToShow = [
-  // Slightly randomized/fixed placements - add as many as you like!
+  // Existing components
   {
     children: <RaspberryPiIcon />,
     style: { 
@@ -149,7 +179,7 @@ const componentsToShow = [
       transform: "rotate(16deg) scale(.85)" 
     }
   },
-  // New components added
+  // Previously added components
   {
     children: <RaspberryPiIcon />,
     style: { 
@@ -182,13 +212,58 @@ const componentsToShow = [
       opacity: 0.16, 
       transform: "rotate(25deg) scale(1.1)" 
     }
+  },
+  // New components
+  {
+    children: <TransistorIcon />,
+    style: { 
+      position: "absolute" as const, 
+      left: "45vw", 
+      top: "20vh", 
+      zIndex: 3, 
+      opacity: 0.14, 
+      transform: "rotate(-10deg) scale(0.95)" 
+    }
+  },
+  {
+    children: <CapacitorIcon />,
+    style: { 
+      position: "absolute" as const, 
+      left: "65vw", 
+      top: "40vh", 
+      zIndex: 3, 
+      opacity: 0.12, 
+      transform: "rotate(15deg) scale(0.85)" 
+    }
+  },
+  {
+    children: <SensorIcon />,
+    style: { 
+      position: "absolute" as const, 
+      left: "30vw", 
+      top: "60vh", 
+      zIndex: 3, 
+      opacity: 0.15, 
+      transform: "rotate(5deg) scale(1.0)" 
+    }
+  },
+  {
+    children: <TransistorIcon />,
+    style: { 
+      position: "absolute" as const, 
+      left: "90vw", 
+      top: "80vh", 
+      zIndex: 3, 
+      opacity: 0.10, 
+      transform: "rotate(-20deg) scale(0.75)" 
+    }
   }
 ];
 
 const ElectronicComponentsBg = () => {
   // Responsive: Hide some icons on mobile (or reduce density)
   const isMobile = useMemo(() => window.innerWidth < 768, []);
-  const styledComponents = isMobile ? componentsToShow.slice(0, 5) : componentsToShow;
+  const styledComponents = isMobile ? componentsToShow.slice(0, 6) : componentsToShow;
 
   return (
     <div
@@ -203,4 +278,3 @@ const ElectronicComponentsBg = () => {
 };
 
 export default ElectronicComponentsBg;
-
