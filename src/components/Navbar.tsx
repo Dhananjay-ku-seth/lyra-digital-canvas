@@ -1,12 +1,4 @@
 
-/**
- * Navbar with Mobile Drawer (EDITING INSTRUCTIONS)
- * 
- * 1. Edit `mobileNavLinks` to change which links show in the mobile drawer.
- * 2. Styling for nav/links/buttons can be tuned via classNames below.
- * 3. Mobile menu slides down and disables scroll behind it. Hamburger toggles the drawer.
- */
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -31,15 +23,33 @@ const Navbar = () => {
     return () => { window.removeEventListener('scroll', handleScroll); };
   }, [scrolled]);
 
-  // Prevent background scroll when mobile menu is open
+  // Prevent background scroll and ensure body state clean-up
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
     } else {
       document.body.style.overflow = "";
+      document.body.style.touchAction = "";
     }
-    return () => { document.body.style.overflow = ""; }
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+    }
   }, [mobileOpen]);
+
+  // Fix for rare mobile bug: explicitly close on route change/hash change, etc
+  useEffect(() => {
+    const closeMenu = () => setMobileOpen(false);
+    window.addEventListener("resize", closeMenu);
+    window.addEventListener("orientationchange", closeMenu);
+    window.addEventListener("hashchange", closeMenu);
+    return () => {
+      window.removeEventListener("resize", closeMenu);
+      window.removeEventListener("orientationchange", closeMenu);
+      window.removeEventListener("hashchange", closeMenu);
+    }
+  }, []);
 
   return (
     <header
@@ -68,9 +78,10 @@ const Navbar = () => {
 
         {/* Mobile Hamburger */}
         <button
-          className="md:hidden text-foreground hover:text-primary transition-colors duration-300"
+          className="md:hidden text-foreground hover:text-primary transition-colors duration-300 z-[60] focus:outline-none active:scale-95"
           aria-label="Toggle Menu"
           onClick={() => setMobileOpen(v => !v)}
+          tabIndex={0}
         >
           {/* Hamburger lines */}
           <svg
@@ -89,10 +100,17 @@ const Navbar = () => {
 
       {/* Mobile Menu Drawer */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm flex flex-col md:hidden transition" onClick={() => setMobileOpen(false)}>
+        <div className="fixed inset-0 z-[55] bg-black/70 backdrop-blur-sm flex flex-col md:hidden transition"
+          onClick={() => setMobileOpen(false)}
+          style={{
+            touchAction: 'none',
+            WebkitTapHighlightColor: "rgba(0,0,0,0)"
+          }}
+        >
           <nav
             className="bg-tech-dark w-full py-12 flex flex-col gap-5 items-center animate-slide-down"
             onClick={e => e.stopPropagation()}
+            tabIndex={0}
           >
             {mobileNavLinks.map(link => (
               <Link
@@ -100,6 +118,7 @@ const Navbar = () => {
                 to={link.to}
                 className="text-xl font-semibold nav-link py-2"
                 onClick={() => setMobileOpen(false)}
+                tabIndex={0}
               >
                 {link.label}
               </Link>
