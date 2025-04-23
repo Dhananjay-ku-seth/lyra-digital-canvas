@@ -1,4 +1,3 @@
-
 /**
  * 404 Not Found Page Component
  * 
@@ -31,6 +30,7 @@ import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
+import ElectronicComponentsBg from '@/components/ElectronicComponentsBg';
 
 const NotFound = () => {
   const location = useLocation();
@@ -44,6 +44,7 @@ const NotFound = () => {
 
   return (
     <main className="min-h-screen pt-20 pb-16 relative flex flex-col items-center justify-center">
+      <ElectronicComponentsBg />
       <CircuitBackground />
       
       <div className="text-center z-10 animate-fade-in">
