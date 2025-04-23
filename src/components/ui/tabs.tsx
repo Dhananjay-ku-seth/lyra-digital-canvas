@@ -1,32 +1,19 @@
 
 /**
- * Tabs Component
+ * Tabs Component (EDITING INSTRUCTIONS)
  * 
- * A customizable tabs component with smooth transitions and animations.
- * Built on top of Radix UI Tabs primitive.
+ * ## Customizing Animations/Smooth Transitions:
+ * - To make tab content animate even more smoothly, tweak the classes for `TabsContent` below (e.g. durations, keyframes).
+ * - To add new tab variations or triggers, copy structure of `TabsTrigger`.
  * 
- * Features:
- * - Smooth content transitions with fade effects
- * - Active tab highlighting with sliding indicator
- * - Responsive design
- * - Circuit board inspired styling
- * 
- * Usage:
- * ```tsx
- * <Tabs defaultValue="tab1">
- *   <TabsList>
- *     <TabsTrigger value="tab1">Tab 1</TabsTrigger>
- *     <TabsTrigger value="tab2">Tab 2</TabsTrigger>
- *   </TabsList>
- *   <TabsContent value="tab1">Content 1</TabsContent>
- *   <TabsContent value="tab2">Content 2</TabsContent>
- * </Tabs>
- * ```
+ * ## Main Behaviors:
+ * - Tab triggers animate the underline with a slide effect.
+ * - Tab panels now use both fade+slide by default for extremely smooth transitions.
  */
 
-import * as React from "react"
-import * as TabsPrimitive from "@radix-ui/react-tabs"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import * as TabsPrimitive from "@radix-ui/react-tabs";
+import { cn } from "@/lib/utils";
 
 const Tabs = TabsPrimitive.Root
 
@@ -72,8 +59,9 @@ const TabsContent = React.forwardRef<
   <TabsPrimitive.Content
     ref={ref}
     className={cn(
-      "mt-2 ring-offset-background transition-all duration-300 ease-in-out",
-      "data-[state=inactive]:opacity-0 data-[state=inactive]:translate-y-2",
+      // Prepend: smoother fade+slide both with a delay
+      "mt-2 ring-offset-background transition-all duration-500 ease-[cubic-bezier(.65,.04,.36,1)]",
+      "data-[state=inactive]:opacity-0 data-[state=inactive]:translate-y-4 data-[state=inactive]:pointer-events-none",
       "data-[state=active]:opacity-100 data-[state=active]:translate-y-0",
       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
       className
