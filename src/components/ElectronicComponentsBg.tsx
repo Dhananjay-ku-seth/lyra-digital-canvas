@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 
 /**
  * ElectronicComponentsBg
@@ -111,7 +111,28 @@ const SensorIcon = () => (
   </svg>
 );
 
-const componentsToShow = [
+// Function to generate random position
+const getRandomPosition = () => {
+  return {
+    left: `${Math.floor(Math.random() * 85)}vw`,
+    top: `${Math.floor(Math.random() * 80 + 10)}vh`,
+    transform: `rotate(${Math.floor(Math.random() * 40 - 20)}deg) scale(${(Math.random() * 0.5 + 0.7).toFixed(2)})`
+  };
+};
+
+// Available component icons
+const componentIcons = [
+  RaspberryPiIcon,
+  ArduinoIcon, 
+  ESPIcon,
+  ICChip,
+  TransistorIcon,
+  CapacitorIcon,
+  SensorIcon
+];
+
+// Base set of component placements
+const baseComponents = [
   // Existing components
   {
     children: <RaspberryPiIcon />,
@@ -261,9 +282,36 @@ const componentsToShow = [
 ];
 
 const ElectronicComponentsBg = () => {
+  // State for randomly placed components
+  const [components, setComponents] = useState(baseComponents);
+  
+  // Generate unique components for each page
+  useEffect(() => {
+    // Create a mix of base components and random ones
+    const randomElements = Array.from({ length: 5 }, (_, i) => {
+      const RandomComponent = componentIcons[Math.floor(Math.random() * componentIcons.length)];
+      const pos = getRandomPosition();
+      
+      return {
+        children: <RandomComponent />,
+        style: { 
+          position: "absolute" as const, 
+          left: pos.left, 
+          top: pos.top, 
+          zIndex: 3, 
+          opacity: Math.random() * 0.1 + 0.1, // Between 0.1 and 0.2
+          transform: pos.transform
+        }
+      };
+    });
+    
+    // Mix both sets of components
+    setComponents([...baseComponents, ...randomElements]);
+  }, [location.pathname]); // Re-generate when route changes
+  
   // Responsive: Hide some icons on mobile (or reduce density)
   const isMobile = useMemo(() => window.innerWidth < 768, []);
-  const styledComponents = isMobile ? componentsToShow.slice(0, 6) : componentsToShow;
+  const styledComponents = isMobile ? components.slice(0, 10) : components;
 
   return (
     <div

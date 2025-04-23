@@ -44,8 +44,22 @@ function getPerplexityKey(): string | null {
 async function fetchPerplexityAnswer(prompt: string): Promise<string> {
   const apiKey = getPerplexityKey();
   if (!apiKey) {
-    return `To use AI answers, set your Perplexity API key (admin only): See LYRA.tsx file!`;
+    // Don't show the API key message to regular users, just fallback to general answers
+    try {
+      const fallbackAnswers = [
+        "I'm LYRA, Dhananjay's AI assistant. I can help answer questions about his portfolio, projects, and skills. What else would you like to know?",
+        "That's an interesting question! Dhananjay works on electronics projects and game development. I can tell you more about specific projects if you're interested.",
+        "Dhananjay is an Electronics and Communication Engineering student with skills in game development and electronics engineering.",
+        "Thanks for asking! Dhananjay has several notable projects including game development in Roblox and Unity, as well as electronics projects like a Line Follower Robot.",
+        "I'm designed to help you navigate Dhananjay's portfolio. Is there something specific about his work or education you'd like to know?"
+      ];
+      
+      return fallbackAnswers[Math.floor(Math.random() * fallbackAnswers.length)];
+    } catch (e) {
+      return "I'm LYRA, Dhananjay's chatbot. I can tell you about his portfolio, skills and projects!";
+    }
   }
+  
   try {
     const response = await fetch('https://api.perplexity.ai/chat/completions', {
       method: 'POST',
@@ -65,16 +79,39 @@ async function fetchPerplexityAnswer(prompt: string): Promise<string> {
       }),
     });
     if (!response.ok) {
-      return `The AI service is temporarily unavailable. Please try again later.`;
+      console.error('Error with Perplexity API');
+      return useGenericFallback(prompt);
     }
     const data = await response.json();
     if (data.choices && data.choices[0]?.message?.content) {
       return data.choices[0].message.content.trim();
     }
-    return `Sorry, I couldn't get an answer from the AI.`;
+    return useGenericFallback(prompt);
   } catch (e) {
-    return `Sorry, there was an error with the AI service.`;
+    console.error('Exception in AI service:', e);
+    return useGenericFallback(prompt);
   }
+}
+
+// Helper function to provide some generic responses when API fails
+function useGenericFallback(input: string): string {
+  const lowerInput = input.toLowerCase();
+  
+  // Check for common question patterns
+  if (lowerInput.includes('who') || lowerInput.includes('what')) {
+    return "Dhananjay is an Electronics and Communication Engineering student with expertise in game development and electronics. He studies at GITA Autonomous College in Bhubaneswar.";
+  }
+  
+  if (lowerInput.includes('project') || lowerInput.includes('work')) {
+    return "Dhananjay's projects include game development in Roblox and Unity, as well as electronics projects like a Line Follower Robot and Wireless Health Monitor. Check the Projects section for more details!";
+  }
+  
+  if (lowerInput.includes('contact') || lowerInput.includes('reach')) {
+    return "You can contact Dhananjay through the form on the Contact page. He's also available on various social media platforms listed there.";
+  }
+  
+  // Default response
+  return "I'm LYRA, an AI assistant for Dhananjay's portfolio. I might not have all the answers, but I can help you navigate the site and learn about his work in game development and electronics.";
 }
 
 const Lyra = ({
@@ -150,6 +187,21 @@ const Lyra = ({
     }
     if (/site|navigation|help/.test(input)) {
       return "Use the top navigation bar to browse About, Projects, Resume or Contact. Or just keep chatting with me.";
+    }
+    if (/what can you do|features|capabilities/.test(input)) {
+      return "I can answer questions about Dhananjay's education, projects, skills, and help you navigate this site. Just ask me anything portfolio-related!";
+    }
+    if (/tech|technology|tools|languages|frameworks/.test(input)) {
+      return "Dhananjay works with various technologies including Unity, Roblox Studio, Arduino, and electronic circuit design tools. His projects showcase both software and hardware skills.";
+    }
+    if (/game|gaming|unity|roblox/.test(input)) {
+      return "Dhananjay has developed several games using Unity and Roblox, including a 3D platformer and an arcade game collection. Check the Projects section for more details!";
+    }
+    if (/electronics|arduino|circuit|hardware/.test(input)) {
+      return "Electronics is one of Dhananjay's core skills. He's created projects like a Line Follower Robot, VLSI Circuit Design, and a Wireless Health Monitor.";
+    }
+    if (/background|animated|components/.test(input)) {
+      return "The animated electronic components you see in the background are SVG illustrations representing various electronic parts like resistors, capacitors, ICs, and microcontrollers - reflecting Dhananjay's interest in electronics!";
     }
     // --- (Add more static responses above this line!) ---
     // If not matched, return undefined to trigger AI fallback.
@@ -269,7 +321,6 @@ const Lyra = ({
           <button
             onClick={() => setShowKeyInput(val => !val)}
             className="text-xs text-tech-light/80 hover:text-pink-400 border-none focus:outline-none ml-auto"
-            style={{ display: "none" /* Show only for admin debug */ }}
             aria-label="Set API Key"
             title="Set Perplexity API key"
           >🔑</button>
@@ -370,17 +421,9 @@ const Lyra = ({
           </button>
         </form>
 
-        {/* ========= Footer: Editing instructions ========== */}
-        <div className="px-4 py-1 text-[10px] text-tech-lightBlue/90 bg-tech-dark border-t border-tech-purple/10 rounded-b-xl">
-          <p>
-            <strong>Edit tips:</strong> 
-            <br />
-            - To add more topics, update <code>answerQuestion()</code> in <b>Lyra.tsx</b>.
-            <br />
-            - To change the fallback AI, update <code>fetchPerplexityAnswer()</code> setup at top.
-            <br />
-            - Change visuals and electronics style anywhere below the return statement.
-          </p>
+        {/* ========= Footer: Edit information ========== */}
+        <div className="px-4 py-2 text-[11px] text-tech-lightBlue/70 bg-tech-dark border-t border-tech-purple/10 rounded-b-xl">
+          <p>Ask me anything about Dhananjay, his projects, skills, or portfolio!</p>
         </div>
       </div>
     </>
@@ -388,4 +431,3 @@ const Lyra = ({
 };
 
 export default Lyra;
-
