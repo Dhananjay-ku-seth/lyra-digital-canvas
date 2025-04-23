@@ -85,46 +85,115 @@ const componentsToShow = [
   // Slightly randomized/fixed placements - add as many as you like!
   {
     children: <RaspberryPiIcon />,
-    style: { position: "absolute", left: "8vw", top: "14vh", zIndex: 3, opacity: 0.16, transform: "rotate(-5deg) scale(1.18)" }
+    style: { 
+      position: "absolute" as const, 
+      left: "8vw", 
+      top: "14vh", 
+      zIndex: 3, 
+      opacity: 0.16, 
+      transform: "rotate(-5deg) scale(1.18)" 
+    }
   },
   {
     children: <ArduinoIcon />,
-    style: { position: "absolute", left: "77vw", top: "22vh", zIndex: 3, opacity: 0.13, transform: "rotate(12deg) scale(.95)" }
+    style: { 
+      position: "absolute" as const, 
+      left: "77vw", 
+      top: "22vh", 
+      zIndex: 3, 
+      opacity: 0.13, 
+      transform: "rotate(12deg) scale(.95)" 
+    }
   },
   {
     children: <ESPIcon />,
-    style: { position: "absolute", left: "23vw", top: "73vh", zIndex: 3, opacity: 0.18, transform: "rotate(7deg) scale(1.2)" }
+    style: { 
+      position: "absolute" as const, 
+      left: "23vw", 
+      top: "73vh", 
+      zIndex: 3, 
+      opacity: 0.18, 
+      transform: "rotate(7deg) scale(1.2)" 
+    }
   },
   {
     children: <ICChip />,
-    style: { position: "absolute", left: "60vw", top: "73vh", zIndex: 3, opacity: 0.15, transform: "rotate(-20deg) scale(1.18)" }
+    style: { 
+      position: "absolute" as const, 
+      left: "60vw", 
+      top: "73vh", 
+      zIndex: 3, 
+      opacity: 0.15, 
+      transform: "rotate(-20deg) scale(1.18)" 
+    }
   },
   {
     children: <ICChip />,
-    style: { position: "absolute", left: "70vw", top: "8vh", zIndex: 3, opacity: 0.10, transform: "rotate(34deg)" }
+    style: { 
+      position: "absolute" as const, 
+      left: "70vw", 
+      top: "8vh", 
+      zIndex: 3, 
+      opacity: 0.10, 
+      transform: "rotate(34deg)" 
+    }
   },
   {
     children: <ArduinoIcon />,
-    style: { position: "absolute", left: "4vw", top: "62vh", zIndex: 3, opacity: 0.10, transform: "rotate(16deg) scale(.85)" }
+    style: { 
+      position: "absolute" as const, 
+      left: "4vw", 
+      top: "62vh", 
+      zIndex: 3, 
+      opacity: 0.10, 
+      transform: "rotate(16deg) scale(.85)" 
+    }
+  },
+  // New components added
+  {
+    children: <RaspberryPiIcon />,
+    style: { 
+      position: "absolute" as const, 
+      left: "35vw", 
+      top: "45vh", 
+      zIndex: 3, 
+      opacity: 0.14, 
+      transform: "rotate(10deg) scale(1.05)" 
+    }
+  },
+  {
+    children: <ESPIcon />,
+    style: { 
+      position: "absolute" as const, 
+      left: "85vw", 
+      top: "50vh", 
+      zIndex: 3, 
+      opacity: 0.12, 
+      transform: "rotate(-15deg) scale(0.9)" 
+    }
+  },
+  {
+    children: <ICChip />,
+    style: { 
+      position: "absolute" as const, 
+      left: "15vw", 
+      top: "30vh", 
+      zIndex: 3, 
+      opacity: 0.16, 
+      transform: "rotate(25deg) scale(1.1)" 
+    }
   }
-  // You can add more here
 ];
 
 const ElectronicComponentsBg = () => {
-  /**
-   * Edit `componentsToShow` above to add/remove/move components.
-   * 
-   * This file is safe to modify or expand in the future.
-   */
-  // Responsive: Hide icons on mobile (or reduce density)
+  // Responsive: Hide some icons on mobile (or reduce density)
   const isMobile = useMemo(() => window.innerWidth < 768, []);
-  const styledComponents = isMobile ? componentsToShow.slice(0, 2) : componentsToShow;
+  const styledComponents = isMobile ? componentsToShow.slice(0, 5) : componentsToShow;
 
   return (
     <div
       aria-hidden="true"
       className="fixed inset-0 pointer-events-none w-full h-full z-0"
-      style={{}}
     >
       {styledComponents.map((item, idx) =>
         <div key={idx} style={item.style}>{item.children}</div>
@@ -134,3 +203,4 @@ const ElectronicComponentsBg = () => {
 };
 
 export default ElectronicComponentsBg;
+
