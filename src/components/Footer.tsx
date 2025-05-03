@@ -21,7 +21,7 @@ const Footer = () => {
           {/* Social Links */}
           <div className="flex gap-4">
             <a
-              href="https://github.com/dhananjay"
+              href="https://github.com/Dhananjay-ku-seth"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-tech-purple transition-colors"
@@ -30,7 +30,7 @@ const Footer = () => {
               <Github className="h-5 w-5" />
             </a>
             <a
-              href="https://linkedin.com/in/dhananjay-kumar-seth"
+              href="https://www.linkedin.com/in/dhananjay-kumar-seth-4a5b31283/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-tech-purple transition-colors"
@@ -48,7 +48,7 @@ const Footer = () => {
               <Twitter className="h-5 w-5" />
             </a>
             <a
-              href="mailto:dhananjay.ks@example.com"
+              href="mailto:adplayers746@gmail.com"
               className="text-gray-400 hover:text-tech-purple transition-colors"
               aria-label="Email"
             >
