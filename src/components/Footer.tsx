@@ -39,7 +39,7 @@ const Footer = () => {
               <Linkedin className="h-5 w-5" />
             </a>
             <a
-              href="https://twitter.com/dhananjay_ks"
+              href="https://x.com/RedDEVILSGamer1"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-tech-purple transition-colors"

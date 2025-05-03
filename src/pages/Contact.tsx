@@ -72,6 +72,7 @@ const Contact = () => {
     
     setIsSubmitting(true);
     
+    // Simulate form submission
     setTimeout(() => {
       console.log('Form submitted:', formData);
       
@@ -121,7 +122,9 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-bold text-white">Email</h3>
-                    <p className="text-gray-300 mt-1">dhananjay.ks@example.com</p>
+                    <a href="mailto:adplayers746@gmail.com" className="text-gray-300 mt-1 hover:text-tech-purple transition-colors">
+                      adplayers746@gmail.com
+                    </a>
                   </div>
                 </div>
                 
@@ -148,7 +151,9 @@ const Contact = () => {
                     <h3 className="font-bold text-white">Social Media</h3>
                     <div className="flex space-x-4 mt-3">
                       <a 
-                        href="#" 
+                        href="https://github.com/Dhananjay-ku-seth" 
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="p-2 bg-tech-dark border border-tech-purple/30 rounded-full hover:bg-tech-purple/10 transition-colors"
                         aria-label="GitHub"
                       >
@@ -157,7 +162,9 @@ const Contact = () => {
                         </svg>
                       </a>
                       <a 
-                        href="#" 
+                        href="https://www.linkedin.com/in/dhananjay-kumar-seth-4a5b31283/" 
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="p-2 bg-tech-dark border border-tech-pink/30 rounded-full hover:bg-tech-pink/10 transition-colors"
                         aria-label="LinkedIn"
                       >
@@ -166,7 +173,9 @@ const Contact = () => {
                         </svg>
                       </a>
                       <a 
-                        href="#" 
+                        href="https://x.com/RedDEVILSGamer1" 
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="p-2 bg-tech-dark border border-tech-lightBlue/30 rounded-full hover:bg-tech-lightBlue/10 transition-colors"
                         aria-label="Twitter"
                       >
