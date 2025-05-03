@@ -1,9 +1,22 @@
+
 import { useState } from 'react';
 import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
+import { Button } from '@/components/ui/button';
+import { Download } from 'lucide-react';
 
 const Resume = () => {
   const [activeTab, setActiveTab] = useState<'education' | 'skills' | 'certifications' | 'experience'>('education');
+
+  const handleDownloadResume = () => {
+    // Create a link to the resume PDF and trigger download
+    const link = document.createElement('a');
+    link.href = '/dhananjay_kumar_seth_resume.pdf'; // This is the path to your PDF in the public folder
+    link.download = 'Dhananjay_Kumar_Seth_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <main className="min-h-screen pt-20 pb-16 relative">
@@ -92,15 +105,13 @@ const Resume = () => {
               
               {/* Download resume button */}
               <div className="p-4 mt-2">
-                <a 
-                  href="#" 
-                  className="flex items-center justify-center w-full py-3 bg-tech-purple text-white rounded-lg hover:bg-tech-purple/90 transition-colors"
+                <Button
+                  onClick={handleDownloadResume}
+                  className="w-full bg-tech-purple hover:bg-tech-purple/90"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
+                  <Download className="mr-2 h-4 w-4" />
                   Download Resume
-                </a>
+                </Button>
               </div>
             </div>
           </div>
@@ -543,7 +554,7 @@ const Resume = () => {
       </div>
       
       {/* LYRA with resume context */}
-      <Lyra initialMessage="This is Dhananjay's resume section! You can explore his education, skills, certifications, and experience. Would you like me to explain anything in particular?" />
+      <Lyra initialMessage="This is Dhananjay's resume section! You can explore his education, skills, certifications, and experience. You can also download his full PDF resume using the button on the left." />
     </main>
   );
 };
