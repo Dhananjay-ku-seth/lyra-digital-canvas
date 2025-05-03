@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from 'react';
 import { Bot, CircuitBoard } from "lucide-react";
 
@@ -207,6 +208,12 @@ const Lyra = ({
     }, 700);
   };
 
+  // Move toggleChat function inside the component to access state
+  const toggleChat = () => {
+    setIsOpen((open) => !open);
+    if (!isOpen) setIsBouncing(false);
+  };
+
   return (
     <>
       {/* --- Floating circular bot button, bottom corner --- */}
@@ -347,10 +354,6 @@ const Lyra = ({
   );
 };
 
-// Define toggleChat function which was used within the component
-const toggleChat = () => {
-  setIsOpen((open) => !open);
-  if (!isOpen) setIsBouncing(false);
-};
+// Remove the standalone toggleChat function that was causing the error
 
 export default Lyra;
