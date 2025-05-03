@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from 'react';
 import { Bot, CircuitBoard } from "lucide-react";
 
@@ -7,13 +6,13 @@ import { Bot, CircuitBoard } from "lucide-react";
  * ------------------------------------------
  * - AI portfolio chatbot for Dhananjay's site.
  * - Responds to portfolio/about questions with built-in answers.
- * - Uses Perplexity AI API for extra/unknown questions. (see code below for API setup)
+ * - Uses OpenAI API for extra/unknown questions.
  * - Responsive & styled with electronics/circuit cues, including circuit board icon.
  * 
  * --- EDIT INSTRUCTIONS ---
  * - To add/edit LYRA's built-in answers: update the answerQuestion() function.
  * - To style or edit chatbot visuals: edit below (see headings in code).
- * - To change/fix chatbot API: scroll to fetchPerplexityAnswer().
+ * - To change/fix chatbot API: scroll to fetchOpenAIAnswer().
  */
 
 type Message = {
@@ -27,61 +26,36 @@ type LyraProps = {
   initialMessage?: string;
 };
 
-// * ---- (1) You can set your Perplexity API key here temporarily for testing. ------
-// * For production, integrate Supabase and store your secrets safely (see Lovable docs)
-const PERPLEXITY_KEY_STORAGE = "perplexity_api_key"; // LocalStorage key
+// API key is hardcoded here (NOT SHOWN IN UI)
+const OPENAI_API_KEY = "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";
 
 /**
- * Helper: Returns user's api key (stored for session) or asks for prompt.
+ * Fetches answer from OpenAI API endpoint (used ONLY if built-in fails).
  */
-function getPerplexityKey(): string | null {
-  return localStorage.getItem(PERPLEXITY_KEY_STORAGE) || null;
-}
-
-/**
- * Fetches answer from Perplexity.ai endpoint (used ONLY if built-in fails).
- */
-async function fetchPerplexityAnswer(prompt: string): Promise<string> {
-  const apiKey = getPerplexityKey();
-  if (!apiKey) {
-    // Don't show the API key message to regular users, just fallback to general answers
-    try {
-      const fallbackAnswers = [
-        "I'm LYRA, Dhananjay's AI assistant. I can help answer questions about his portfolio, projects, and skills. What else would you like to know?",
-        "That's an interesting question! Dhananjay works on electronics projects and game development. I can tell you more about specific projects if you're interested.",
-        "Dhananjay is an Electronics and Communication Engineering student with skills in game development and electronics engineering.",
-        "Thanks for asking! Dhananjay has several notable projects including game development in Roblox and Unity, as well as electronics projects like a Line Follower Robot.",
-        "I'm designed to help you navigate Dhananjay's portfolio. Is there something specific about his work or education you'd like to know?"
-      ];
-      
-      return fallbackAnswers[Math.floor(Math.random() * fallbackAnswers.length)];
-    } catch (e) {
-      return "I'm LYRA, Dhananjay's chatbot. I can tell you about his portfolio, skills and projects!";
-    }
-  }
-  
+async function fetchOpenAIAnswer(prompt: string): Promise<string> {
   try {
-    const response = await fetch('https://api.perplexity.ai/chat/completions', {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
+        'Authorization': `Bearer ${OPENAI_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'llama-3.1-sonar-small-128k-online',
+        model: 'gpt-4o-mini',
         messages: [
           { role: 'system', content: 'Be precise and concise. Only answer questions related to this website, Dhananjay Kumar Seth, or his engineering portfolio. If completely unrelated, politely refuse.' },
           { role: 'user', content: prompt }
         ],
         temperature: 0.2,
-        top_p: 0.9,
         max_tokens: 500,
       }),
     });
+    
     if (!response.ok) {
-      console.error('Error with Perplexity API');
+      console.error('Error with OpenAI API');
       return useGenericFallback(prompt);
     }
+    
     const data = await response.json();
     if (data.choices && data.choices[0]?.message?.content) {
       return data.choices[0].message.content.trim();
@@ -122,8 +96,6 @@ const Lyra = ({
   const [input, setInput] = useState('');
   const [isBouncing, setIsBouncing] = useState(true);
   const [isWaiting, setIsWaiting] = useState(false);
-  const [apiKeyTemp, setApiKeyTemp] = useState('');
-  const [showKeyInput, setShowKeyInput] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // --- Load initial message on mount
@@ -145,20 +117,9 @@ const Lyra = ({
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isOpen]);
 
-  // --- Responsive hack to cover full width on mobile
-  useEffect(() => {
-    // Nothing needed here; the responsive classes cover all cases
-  }, []);
-
-  // --- Toggle chat open/close (and stop bounce)
-  const toggleChat = () => {
-    setIsOpen((open) => !open);
-    if (!isOpen) setIsBouncing(false);
-  };
-
   /**
    * Main QA logic -- edit this function for custom answers.
-   * * If returns undefined, fallback to Perplexity!
+   * * If returns undefined, fallback to OpenAI!
    */
   function answerQuestion(userInput: string): string | undefined {
     const input = userInput.toLowerCase();
@@ -231,7 +192,7 @@ const Lyra = ({
       if (builtin) {
         lyraResp = builtin;
       } else {
-        lyraResp = await fetchPerplexityAnswer(input);
+        lyraResp = await fetchOpenAIAnswer(input);
       }
       setMessages((prev) => [
         ...prev,
@@ -244,22 +205,6 @@ const Lyra = ({
       ]);
       setIsWaiting(false);
     }, 700);
-  };
-
-  // --- Save API key (admin only, not public-facing) ---
-  const handleApiKeySave = () => {
-    if (apiKeyTemp.trim().length > 20) {
-      localStorage.setItem(PERPLEXITY_KEY_STORAGE, apiKeyTemp.trim());
-      setShowKeyInput(false);
-      setApiKeyTemp('');
-    }
-  };
-
-  // --- Remove API key (for debugging/admin only) ---
-  const handleApiKeyRemove = () => {
-    localStorage.removeItem(PERPLEXITY_KEY_STORAGE);
-    setShowKeyInput(false);
-    setApiKeyTemp('');
   };
 
   return (
@@ -317,13 +262,6 @@ const Lyra = ({
             <div className="text-[11px] text-tech-light/80">Your electronics portfolio chatbot</div>
           </div>
           <div className="flex-1"></div>
-          {/* API key settings for admin (hidden by default) */}
-          <button
-            onClick={() => setShowKeyInput(val => !val)}
-            className="text-xs text-tech-light/80 hover:text-pink-400 border-none focus:outline-none ml-auto"
-            aria-label="Set API Key"
-            title="Set Perplexity API key"
-          >🔑</button>
         </div>
 
         {/* ========= Chat message area ========= */}
@@ -363,27 +301,6 @@ const Lyra = ({
           ))}
           {/* Always scroll to here */}
           <div ref={messagesEndRef} />
-          {/* API key admin UI (hidden unless toggled, for security) */}
-          {showKeyInput && (
-            <div className="p-3 text-xs bg-tech-dark/80 border rounded mb-3 text-tech-light">
-              <input
-                type="password"
-                value={apiKeyTemp}
-                onChange={e => setApiKeyTemp(e.target.value)}
-                placeholder="Enter Perplexity API Key"
-                className="bg-tech-blue/50 border px-2 py-1 rounded text-white w-48"
-              />
-              <button
-                onClick={handleApiKeySave}
-                className="ml-2 px-3 py-1 rounded bg-tech-purple text-white"
-              >Set</button>
-              <button
-                onClick={handleApiKeyRemove}
-                className="ml-2 px-2 py-1 rounded bg-gray-700/80 text-gray-200"
-              >Clear</button>
-              <span className="ml-2 text-yellow-300">For site admin only</span>
-            </div>
-          )}
         </div>
 
         {/* ========== Chat input =========== */}
@@ -428,6 +345,12 @@ const Lyra = ({
       </div>
     </>
   );
+};
+
+// Define toggleChat function which was used within the component
+const toggleChat = () => {
+  setIsOpen((open) => !open);
+  if (!isOpen) setIsBouncing(false);
 };
 
 export default Lyra;
