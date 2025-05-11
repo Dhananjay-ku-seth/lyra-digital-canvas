@@ -4,6 +4,7 @@ import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
+import { Analytics } from "@vercel/analytics/next";
 
 const Resume = () => {
   const [activeTab, setActiveTab] = useState<'education' | 'skills' | 'certifications' | 'experience'>('education');

@@ -4,6 +4,7 @@ import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import ElectronicComponentsBg from '@/components/ElectronicComponentsBg';
+import { Analytics } from "@vercel/analytics/next";
 
 const Home = () => {
   const sectionRef = useRef<HTMLDivElement>(null);

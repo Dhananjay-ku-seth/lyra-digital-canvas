@@ -31,6 +31,7 @@ import { useEffect } from "react";
 import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
 import ElectronicComponentsBg from '@/components/ElectronicComponentsBg';
+import { Analytics } from "@vercel/analytics/next";
 
 const NotFound = () => {
   const location = useLocation();

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
+import { Analytics } from "@vercel/analytics/next";
 
 // TypeScript type definition for Project structure
 type Project = {

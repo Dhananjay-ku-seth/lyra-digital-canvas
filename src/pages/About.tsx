@@ -35,6 +35,7 @@
 import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Analytics } from "@vercel/analytics/next";
 
 const About = () => {
   return (
