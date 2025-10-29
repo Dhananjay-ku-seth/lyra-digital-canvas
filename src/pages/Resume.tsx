@@ -477,7 +477,7 @@ const Resume = () => {
               }`}>
                 {activeTab === 'experience' && (
                   <div className="fade-in-permanent">
-                    <h2 className="text-2xl font-bold mb-6 text-tech-lightBlue">Project Experience</h2>
+                    <h2 className="text-2xl font-bold mb-6 text-tech-lightBlue">Professional Experience</h2>
                     
                     <div className="space-y-8">
                       <div className="relative pl-8 pb-5 before:absolute before:left-0 before:top-0 before:h-full before:w-0.5 before:bg-tech-purple/30">
@@ -487,11 +487,33 @@ const Resume = () => {
                         
                         <div className="flex flex-col md:flex-row md:justify-between md:items-start">
                           <div>
-                            <h3 className="text-xl font-bold text-tech-purple">Game Development Lead</h3>
-                            <p className="text-gray-300">College Game Development Club</p>
+                            <h3 className="text-xl font-bold text-tech-purple">UGC Developer</h3>
+                            <p className="text-gray-300">Gaurav Go Games</p>
                           </div>
                           <div className="mt-2 md:mt-0">
                             <span className="inline-block px-3 py-1 bg-tech-purple/20 text-tech-purple text-sm rounded-full">
+                              Present
+                            </span>
+                          </div>
+                        </div>
+                        
+                        <p className="mt-3 text-gray-300">
+                          Working as a User Generated Content (UGC) Developer specializing in ROBLOX and Fortnite. Creating realistic maps using Unreal Engine, developing immersive game environments, and implementing engaging gameplay mechanics for diverse gaming platforms.
+                        </p>
+                      </div>
+                      
+                      <div className="relative pl-8 pb-5 before:absolute before:left-0 before:top-0 before:h-full before:w-0.5 before:bg-tech-pink/30">
+                        <div className="absolute left-0 top-0 flex items-center justify-center w-6 h-6 rounded-full bg-tech-pink -translate-x-1/2 mt-1">
+                          <span className="w-2 h-2 bg-white rounded-full"></span>
+                        </div>
+                        
+                        <div className="flex flex-col md:flex-row md:justify-between md:items-start">
+                          <div>
+                            <h3 className="text-xl font-bold text-tech-pink">Game Development Lead</h3>
+                            <p className="text-gray-300">College Game Development Club</p>
+                          </div>
+                          <div className="mt-2 md:mt-0">
+                            <span className="inline-block px-3 py-1 bg-tech-pink/20 text-tech-pink text-sm rounded-full">
                               2023 - Present
                             </span>
                           </div>

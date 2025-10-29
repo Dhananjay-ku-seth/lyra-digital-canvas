@@ -105,15 +105,15 @@ const About = () => {
                 <div className="space-y-4 text-gray-300">
                   <p>
                     I'm Dhananjay Kumar Seth, an Electronics and Communication Engineering student at GITA Autonomous College, Bhubaneswar.
-                    My academic journey is centered around merging technology with creativity, specifically in the areas of Game Development and Electronics Engineering.
+                    Currently working as a UGC Developer at Gaurav Go Games, I specialize in creating user-generated content for ROBLOX and Fortnite, with a focus on realistic map design using Unreal Engine.
                   </p>
                   <p>
-                    Throughout my studies, I've been passionate about developing innovative solutions and exploring the intersections of hardware and software.
-                    My experience in game development has equipped me with a unique perspective on user experience and interactive design.
+                    My professional journey merges technology with creativity, combining Game Development expertise with Electronics Engineering fundamentals.
+                    I'm passionate about developing immersive gaming experiences and exploring the intersections of hardware and software to create innovative solutions.
                   </p>
                   <p>
-                    I continuously strive to enhance my skills through hands-on projects and staying current with industry trends.
-                    My goal is to leverage my technical expertise to create meaningful and innovative solutions that address real-world challenges.
+                    Through hands-on projects and staying current with industry trends, I continuously enhance my skills in game development and electronics.
+                    My goal is to leverage my technical expertise to create meaningful and engaging experiences that push the boundaries of interactive entertainment.
                   </p>
                 </div>
               </div>
