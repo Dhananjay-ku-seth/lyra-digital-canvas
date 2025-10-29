@@ -105,15 +105,15 @@ const About = () => {
                 <div className="space-y-4 text-gray-300">
                   <p>
                     I'm Dhananjay Kumar Seth, an Electronics and Communication Engineering student at GITA Autonomous College, Bhubaneswar.
-                    Currently working as a UGC Developer at Gaurav Go Games, I specialize in creating user-generated content for ROBLOX and Fortnite, with a focus on realistic map design using Unreal Engine.
+                    Currently serving as the UGC Dev Domain Lead at Gaurav Go Games, I lead the user-generated content development team, specializing in ROBLOX and Fortnite with a focus on realistic map design using Unreal Engine.
                   </p>
                   <p>
-                    My professional journey merges technology with creativity, combining Game Development expertise with Electronics Engineering fundamentals.
-                    I'm passionate about developing immersive gaming experiences and exploring the intersections of hardware and software to create innovative solutions.
+                    As a domain leader, my professional journey merges technology with creativity, combining Game Development expertise with Electronics Engineering fundamentals.
+                    I'm passionate about leading teams to develop immersive gaming experiences and exploring the intersections of hardware and software to create innovative solutions.
                   </p>
                   <p>
-                    Through hands-on projects and staying current with industry trends, I continuously enhance my skills in game development and electronics.
-                    My goal is to leverage my technical expertise to create meaningful and engaging experiences that push the boundaries of interactive entertainment.
+                    Through hands-on leadership, team management, and staying current with industry trends, I continuously enhance my skills in game development and electronics.
+                    My goal is to leverage my technical expertise and leadership abilities to create meaningful and engaging experiences that push the boundaries of interactive entertainment.
                   </p>
                 </div>
               </div>

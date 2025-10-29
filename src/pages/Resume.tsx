@@ -487,7 +487,7 @@ const Resume = () => {
                         
                         <div className="flex flex-col md:flex-row md:justify-between md:items-start">
                           <div>
-                            <h3 className="text-xl font-bold text-tech-purple">UGC Developer</h3>
+                            <h3 className="text-xl font-bold text-tech-purple">UGC Dev Domain Lead</h3>
                             <p className="text-gray-300">Gaurav Go Games</p>
                           </div>
                           <div className="mt-2 md:mt-0">
@@ -498,7 +498,7 @@ const Resume = () => {
                         </div>
                         
                         <p className="mt-3 text-gray-300">
-                          Working as a User Generated Content (UGC) Developer specializing in ROBLOX and Fortnite. Creating realistic maps using Unreal Engine, developing immersive game environments, and implementing engaging gameplay mechanics for diverse gaming platforms.
+                          Leading the User Generated Content (UGC) Development domain, specializing in ROBLOX and Fortnite. Managing team workflows, creating realistic maps using Unreal Engine, and overseeing the development of immersive game environments. Responsible for project direction, quality assurance, and implementing innovative gameplay mechanics across multiple gaming platforms.
                         </p>
                       </div>
                       
