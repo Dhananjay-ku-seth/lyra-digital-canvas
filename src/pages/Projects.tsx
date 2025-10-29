@@ -15,62 +15,55 @@ type Project = {
   category: 'game' | 'electronics' | 'other'; // Project category
 };
 
-// Sample projects data with detailed information
+// Real projects data with detailed information
 const projectsData: Project[] = [
   {
     id: 'project1',
-    title: 'Roblox Adventure Game',
-    description: 'An immersive Roblox adventure game with unique mechanics and interactive environments. Features custom scripts for character movement and environmental interactions.',
-    tags: ['Roblox', 'Game Development', 'Lua', 'Level Design'],
+    title: 'Sena - Battle Royale Game',
+    description: 'Currently developing a battle royale game at Gaurav Go Games. Leading the UGC development for this competitive multiplayer experience featuring realistic environments, custom weapons systems, and strategic gameplay mechanics.',
+    tags: ['Battle Royale', 'Unreal Engine', 'Multiplayer', 'Game Design', 'UGC'],
     image: 'game',
-    demoLink: '#',
     category: 'game'
   },
   {
     id: 'project2',
-    title: 'Unity 3D Platformer',
-    description: 'A 3D platformer game built with Unity featuring advanced physics, custom character controllers, and procedurally generated levels.',
-    tags: ['Unity', 'C#', 'Game Development', '3D Modeling'],
-    image: 'game',
-    demoLink: '#',
-    repoLink: '#',
-    category: 'game'
+    title: 'Surveillance Drone System',
+    description: 'Designed and developed an autonomous surveillance drone at Corizo. Implemented real-time video streaming, GPS navigation, obstacle detection, and automated flight control systems for security and monitoring applications.',
+    tags: ['Drone Technology', 'Arduino', 'Computer Vision', 'IoT', 'Autonomous Systems'],
+    image: 'electronics',
+    category: 'electronics'
   },
   {
     id: 'project3',
-    title: 'Line Follower Robot',
-    description: 'An autonomous robot designed to follow a line using infrared sensors and PID control algorithm for smooth navigation.',
-    tags: ['Robotics', 'Arduino', 'Sensors', 'PID Control'],
-    image: 'electronics',
-    demoLink: '#',
-    category: 'electronics'
+    title: 'Realistic Map Development - Fortnite',
+    description: 'Creating highly detailed and realistic maps for Fortnite using Unreal Engine. Focus on environmental storytelling, optimized performance, and engaging gameplay spaces for the UGC community.',
+    tags: ['Fortnite', 'Unreal Engine', 'Level Design', 'UGC', '3D Modeling'],
+    image: 'game',
+    category: 'game'
   },
   {
     id: 'project4',
-    title: 'VLSI Circuit Design',
-    description: 'Design and simulation of VLSI circuits for digital signal processing applications, optimized for low power consumption.',
-    tags: ['VLSI', 'Circuit Design', 'Verilog', 'Signal Processing'],
-    image: 'electronics',
-    category: 'electronics'
+    title: 'ROBLOX Game Experiences',
+    description: 'Developing immersive game experiences on ROBLOX platform. Creating engaging gameplay mechanics, custom scripts in Lua, and interactive environments for diverse player audiences.',
+    tags: ['ROBLOX', 'Lua Scripting', 'Game Development', 'UI/UX', 'Multiplayer'],
+    image: 'game',
+    category: 'game'
   },
   {
     id: 'project5',
-    title: 'Wireless Health Monitor',
-    description: 'A wireless health monitoring system using ESP32 and various health sensors to track vital signs and transmit data to a mobile application.',
-    tags: ['IoT', 'ESP32', 'Health Tech', 'Mobile App'],
+    title: 'Line Follower Robot',
+    description: 'An autonomous robot designed to follow a line using infrared sensors and PID control algorithm for smooth and accurate navigation on various track configurations.',
+    tags: ['Robotics', 'Arduino', 'PID Control', 'Sensors', 'Embedded Systems'],
     image: 'electronics',
-    demoLink: '#',
     category: 'electronics'
   },
   {
     id: 'project6',
-    title: 'Arcade Game Collection',
-    description: 'A collection of classic arcade games reimagined with modern graphics and gameplay mechanics, built using modern game development frameworks.',
-    tags: ['Game Development', 'JavaScript', 'HTML5 Canvas', 'WebGL'],
-    image: 'game',
-    demoLink: '#',
-    repoLink: '#',
-    category: 'game'
+    title: 'VLSI Circuit Design',
+    description: 'Design and simulation of VLSI circuits for digital signal processing applications, optimized for low power consumption and high-performance computing.',
+    tags: ['VLSI', 'Circuit Design', 'Verilog', 'Signal Processing', 'Digital Design'],
+    image: 'electronics',
+    category: 'electronics'
   }
 ];
 
