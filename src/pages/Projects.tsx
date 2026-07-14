@@ -52,10 +52,12 @@ const projectsData: Project[] = [
   {
     id: 'project5',
     title: 'Line Follower Robot',
-    description: 'An autonomous robot designed to follow a line using infrared sensors and PID control algorithm for smooth and accurate navigation on various track configurations.',
+    description: 'An autonomous robot that follows a line using infrared sensors and a PID control algorithm for smooth, accurate navigation. Includes an interactive browser simulator to tune the Kp/Ki/Kd gains live and watch the robot track the line — or oscillate when detuned.',
     tags: ['Robotics', 'Arduino', 'PID Control', 'Sensors', 'Embedded Systems'],
     image: 'electronics',
-    category: 'electronics'
+    category: 'electronics',
+    demoLink: 'https://pid-control-playground.vercel.app/',
+    repoLink: 'https://github.com/Dhananjay-ku-seth/pid-control-playground'
   },
   {
     id: 'project6',
@@ -64,6 +66,36 @@ const projectsData: Project[] = [
     tags: ['VLSI', 'Circuit Design', 'Verilog', 'Signal Processing', 'Digital Design'],
     image: 'electronics',
     category: 'electronics'
+  },
+  {
+    id: 'project7',
+    title: 'DSP Signal Lab',
+    description: 'A real-time digital signal processing tool running entirely in the browser: a 2048-point FFT spectrum analyzer with a waveform generator, injectable AWGN noise, live digital filters (lowpass / highpass / bandpass / notch), and a microphone mode with pitch tracking.',
+    tags: ['DSP', 'FFT', 'Web Audio API', 'Signal Processing', 'React'],
+    image: 'electronics',
+    category: 'electronics',
+    demoLink: 'https://dsp-signal-lab.vercel.app/',
+    repoLink: 'https://github.com/Dhananjay-ku-seth/dsp-signal-lab'
+  },
+  {
+    id: 'project8',
+    title: 'Logic Circuit Simulator',
+    description: 'A drag-and-wire digital logic sandbox with live signal propagation and an auto-generated truth table. An iterative relaxation solver evaluates combinational logic instantly and converges feedback loops, so sequential circuits like the SR latch work. Includes half/full adder, SR latch and 2:1 MUX examples.',
+    tags: ['Digital Design', 'Logic Gates', 'Boolean Algebra', 'SVG', 'React'],
+    image: 'electronics',
+    category: 'electronics',
+    demoLink: 'https://logic-circuit-sim.vercel.app/',
+    repoLink: 'https://github.com/Dhananjay-ku-seth/logic-circuit-sim'
+  },
+  {
+    id: 'project9',
+    title: 'Communication Systems Simulator',
+    description: 'An interactive communications playground: analog AM/FM modulation with envelope and over-modulation, digital constellation diagrams (BPSK / QPSK / 16-QAM) over an AWGN channel, and Monte-Carlo BER-vs-SNR curves benchmarked against the theoretical Q-function.',
+    tags: ['Communication Systems', 'Modulation', 'Constellation', 'BER', 'AWGN'],
+    image: 'electronics',
+    category: 'electronics',
+    demoLink: 'https://comms-simulator-pi.vercel.app/',
+    repoLink: 'https://github.com/Dhananjay-ku-seth/comms-simulator'
   }
 ];
 
