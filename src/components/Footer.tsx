@@ -9,7 +9,7 @@
  * - Social media links
  * - Copyright information
  */
-import { Github, Linkedin, Mail, Twitter, Phone } from 'lucide-react';
+import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
@@ -53,13 +53,6 @@ const Footer = () => {
               aria-label="Email"
             >
               <Mail className="h-5 w-5" />
-            </a>
-            <a
-              href="tel:+919876543210"
-              className="text-gray-400 hover:text-tech-purple transition-colors"
-              aria-label="Phone"
-            >
-              <Phone className="h-5 w-5" />
             </a>
           </div>
           
