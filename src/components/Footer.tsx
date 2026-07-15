@@ -9,7 +9,7 @@
  * - Social media links
  * - Copyright information
  */
-import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
+import { Github, Linkedin, Mail, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
@@ -39,13 +39,13 @@ const Footer = () => {
               <Linkedin className="h-5 w-5" />
             </a>
             <a
-              href="https://x.com/RedDEVILSGamer1"
+              href="https://www.instagram.com/dhananjay_this_side/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-tech-purple transition-colors"
-              aria-label="Twitter Profile"
+              aria-label="Instagram Profile"
             >
-              <Twitter className="h-5 w-5" />
+              <Instagram className="h-5 w-5" />
             </a>
             <a
               href="mailto:adplayers746@gmail.com"
