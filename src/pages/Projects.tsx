@@ -2,6 +2,7 @@ import { useState } from 'react';
 import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
 import { Analytics } from "@vercel/analytics/next";
+import { useSeo } from '@/hooks/useSeo';
 
 // TypeScript type definition for Project structure
 type Project = {
@@ -100,6 +101,10 @@ const projectsData: Project[] = [
 ];
 
 const Projects = () => {
+  useSeo({
+    title: 'Projects — Dhananjay Kumar Seth',
+    description: 'Interactive engineering projects by Dhananjay Kumar Seth: DSP Signal Lab, PID Control Playground, Logic Circuit Simulator and Comms Simulator — plus Unreal and Roblox game development.',
+  });
   // State management for project filtering and interaction
   const [activeFilter, setActiveFilter] = useState<'all' | 'game' | 'electronics'>('all');
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);

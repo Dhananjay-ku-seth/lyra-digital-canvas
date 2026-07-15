@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
+import { useSeo } from '@/hooks/useSeo';
 
 type FormData = {
   name: string;
@@ -16,6 +17,10 @@ type FormErrors = {
 };
 
 const Contact = () => {
+  useSeo({
+    title: 'Contact — Dhananjay Kumar Seth',
+    description: 'Get in touch with Dhananjay Kumar Seth for collaborations, engineering, and game development.',
+  });
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',

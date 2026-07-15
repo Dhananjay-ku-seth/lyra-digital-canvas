@@ -5,8 +5,13 @@ import Lyra from '@/components/Lyra';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import ElectronicComponentsBg from '@/components/ElectronicComponentsBg';
 import { Analytics } from "@vercel/analytics/next";
+import { useSeo } from '@/hooks/useSeo';
 
 const Home = () => {
+  useSeo({
+    title: 'Dhananjay Kumar Seth — ECE Engineer & Game Developer',
+    description: 'Portfolio of Dhananjay Kumar Seth — an Electronics & Communication Engineer and game developer. Explore interactive DSP, PID control, digital logic and communication-systems demos, plus game development.',
+  });
   const sectionRef = useRef<HTMLDivElement>(null);
   const scrollDownRef = useRef<HTMLDivElement>(null);
 

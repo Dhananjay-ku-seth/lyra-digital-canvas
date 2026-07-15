@@ -5,8 +5,13 @@ import Lyra from '@/components/Lyra';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
 import { Analytics } from "@vercel/analytics/next";
+import { useSeo } from '@/hooks/useSeo';
 
 const Resume = () => {
+  useSeo({
+    title: 'Resume — Dhananjay Kumar Seth',
+    description: 'Resume, skills and experience of Dhananjay Kumar Seth — Electronics & Communication Engineer and game developer.',
+  });
   const [activeTab, setActiveTab] = useState<'education' | 'skills' | 'certifications' | 'experience'>('education');
 
   const handleDownloadResume = () => {

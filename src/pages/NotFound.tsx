@@ -32,8 +32,13 @@ import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
 import ElectronicComponentsBg from '@/components/ElectronicComponentsBg';
 import { Analytics } from "@vercel/analytics/next";
+import { useSeo } from '@/hooks/useSeo';
 
 const NotFound = () => {
+  useSeo({
+    title: 'Page Not Found — Dhananjay Kumar Seth',
+    description: 'The page you are looking for does not exist.',
+  });
   const location = useLocation();
 
   useEffect(() => {

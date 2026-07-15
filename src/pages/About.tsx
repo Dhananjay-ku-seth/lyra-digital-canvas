@@ -36,8 +36,13 @@ import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Analytics } from "@vercel/analytics/next";
+import { useSeo } from '@/hooks/useSeo';
 
 const About = () => {
+  useSeo({
+    title: 'About — Dhananjay Kumar Seth',
+    description: 'About Dhananjay Kumar Seth — an Electronics & Communication Engineer and game developer based in Bhubaneswar, India, blending hardware, signal processing and game development.',
+  });
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-grow pt-20 pb-16 relative">
