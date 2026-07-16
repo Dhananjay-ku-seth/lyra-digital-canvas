@@ -19,7 +19,7 @@ const desktopGrid = { numVertical: 20, numHorizontal: 18, gap: 52 };
 const mobileGrid = { numVertical: 9, numHorizontal: 10, gap: 28 };
 
 // Animation: more flows per screen for extra liveliness
-const flowsPerScreen = 17;
+const flowsPerScreen = 10;
 
 const CircuitBackground = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -103,7 +103,9 @@ const CircuitBackground = () => {
       }
 
       let usedH: number[] = [], usedV: number[] = [];
-      for (let n = 0; n < flowsPerScreen; n++) {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const flows = reduceMotion ? 0 : flowsPerScreen;
+      for (let n = 0; n < flows; n++) {
         // Alternate H and V, or pick whichever has free slots
         let chooseH = Math.random() > 0.5;
         if ((chooseH && availableH.length) || (!availableV.length)) {
@@ -219,7 +221,6 @@ const CircuitBackground = () => {
           via.style.height = "8px";
           via.style.borderRadius = "50%";
           via.style.background = "#b18aff";
-          via.style.boxShadow = "0 0 5px 1px #b18aff35";
           via.style.opacity = "0.29";
           via.style.zIndex = "3";
           container.appendChild(via);

@@ -59,13 +59,13 @@ const Home = () => {
             </h1>
             
             <p className="text-xl md:text-2xl font-light text-gray-300">
-              ECE Student & UGC Dev Domain Lead at Gaurav Go Games
+              Lead Game Developer at GauravGo Games · Electronics & Communication Engineer
             </p>
             
             <div className="space-y-4 text-gray-300 max-w-2xl">
               <p className="tech-text-3d">
-                Leading the UGC Development domain at Gaurav Go Games, specializing in ROBLOX and Fortnite with realistic maps using Unreal Engine. 
-                Combining Game Development leadership with Electronics Engineering, I'm driven by a passion for technology and innovation. 
+                Lead Game Developer at GauravGo Games, building immersive mobile games and worlds in ROBLOX and Fortnite with Unreal Engine.
+                Combining game development leadership with Electronics & Communication Engineering, I'm driven by a passion for technology and innovation.
                 Meet my AI assistant LYRA, designed to help you explore my portfolio.
               </p>
             </div>
@@ -114,7 +114,7 @@ const Home = () => {
               </div>
               
               <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-tech-dark px-4 py-2 rounded-full border border-tech-purple/50">
-                <p className="text-tech-lightBlue font-medium">UGC Dev Domain Lead</p>
+                <p className="text-tech-lightBlue font-medium">Lead Game Developer</p>
               </div>
             </div>
           </div>
