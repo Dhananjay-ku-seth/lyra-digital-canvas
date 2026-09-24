@@ -1,42 +1,23 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Check, Cpu, ExternalLink, Eye, Gamepad2, Github, Info, Link2, Search, Wrench, X } from 'lucide-react';
-import CircuitBackground from '@/components/CircuitBackground';
-import LazyLyra from '@/components/LazyLyra';
+import { Check, ExternalLink, Eye, Github, Info, Link2, Search, X } from 'lucide-react';
 import ProjectArt from '@/components/ProjectArt';
-import { ProjectPreview, useReveal } from '@/components/Interactive';
+import { ProjectPreview } from '@/components/Interactive';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { categoryLabels, projectsData, type Category, type Project } from '@/data/projects';
-import { useSeo } from '@/hooks/useSeo';
 
 const filters: Array<Category | 'all'> = ['all', 'game', 'electronics', 'tools'];
 type Sort = 'featured' | 'live' | 'az';
 const sorts: Record<Sort, string> = { featured: 'Featured first', live: 'Live demos first', az: 'A to Z' };
-
-const CategoryIcon = ({ category }: { category: Category }) => {
-  const cls = 'h-5 w-5';
-  if (category === 'game') return <Gamepad2 className={`${cls} text-tech-purple`} strokeWidth={1.7} />;
-  if (category === 'tools') return <Wrench className={`${cls} text-tech-neon`} strokeWidth={1.7} />;
-  return <Cpu className={`${cls} text-tech-pink`} strokeWidth={1.7} />;
-};
-
-const accent: Record<Category, string> = {
-  game: 'bg-tech-purple/20 text-tech-purple',
-  electronics: 'bg-tech-pink/20 text-tech-pink',
-  tools: 'bg-tech-neon/15 text-tech-neon',
-};
+const INITIAL = 9;
 
 const isFilter = (v: string | null): v is Category | 'all' => !!v && (filters as string[]).includes(v);
 const isSort = (v: string | null): v is Sort => !!v && v in sorts;
 
-const Projects = () => {
-  useSeo({
-    title: 'Projects — Dhananjay Kumar Seth',
-    description:
-      'Interactive engineering projects by Dhananjay Kumar Seth: DSP Signal Lab, PID Control Playground, Logic Circuit Simulator, Comms Simulator, Smart Energy Meter, EV Battery Simulator and more, plus Unreal and Roblox game development.',
-  });
+const dot: Record<Category, string> = { game: 'bg-tech-purple', electronics: 'bg-tech-pink', tools: 'bg-tech-neon' };
 
-  // Filters, search, sort and the open project live in the URL, so any view can be shared as a link.
+const ProjectsSection = () => {
+  // Filters, search, sort and the open project live in the URL so any view can be shared as a link.
   const [params, setParams] = useSearchParams();
   const filter: Category | 'all' = isFilter(params.get('cat')) ? (params.get('cat') as Category | 'all') : 'all';
   const sort: Sort = isSort(params.get('sort')) ? (params.get('sort') as Sort) : 'featured';
@@ -49,21 +30,22 @@ const Projects = () => {
       if (v === null || v === '' || v === 'all' || (k === 'sort' && v === 'featured')) next.delete(k);
       else next.set(k, v);
     }
-    setParams(next, { replace: true });
+    setParams(next, { replace: true, preventScrollReset: true });
   };
 
   const [preview, setPreview] = useState<Project | null>(null);
   const [copied, setCopied] = useState(false);
+  const [showAll, setShowAll] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
-  useReveal();
 
-  // "/" jumps to the search box, like most developer tools.
+  // "/" jumps to the search box.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const el = e.target as HTMLElement | null;
       if (e.key === '/' && !(el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable))) {
         e.preventDefault();
-        searchRef.current?.focus();
+        document.getElementById('projects')?.scrollIntoView();
+        searchRef.current?.focus({ preventScroll: true });
       }
     };
     document.addEventListener('keydown', onKey);
@@ -71,7 +53,7 @@ const Projects = () => {
   }, []);
 
   const needle = query.trim().toLowerCase();
-  const visible = useMemo(() => {
+  const filtered = useMemo(() => {
     const list = projectsData.filter(
       (p) =>
         (filter === 'all' || p.category === filter) &&
@@ -82,8 +64,16 @@ const Projects = () => {
     return list;
   }, [filter, needle, sort]);
 
-  const liveCount = projectsData.filter((p) => p.demoLink).length;
+  const narrowed = filter !== 'all' || !!needle || sort !== 'featured';
+  const visible = narrowed || showAll ? filtered : filtered.slice(0, INITIAL);
   const open = projectsData.find((p) => p.id === openId) ?? null;
+  const liveCount = projectsData.filter((p) => p.demoLink).length;
+
+  // A shared link that opens a project should also scroll to this section.
+  useEffect(() => {
+    if (openId) document.getElementById('projects')?.scrollIntoView();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Structured data so search engines can list the projects.
   useEffect(() => {
@@ -111,7 +101,7 @@ const Projects = () => {
   }, []);
 
   const copyLink = async (id: string) => {
-    const url = `${window.location.origin}/projects?p=${id}`;
+    const url = `${window.location.origin}/?p=${id}#projects`;
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
@@ -122,31 +112,25 @@ const Projects = () => {
   };
 
   return (
-    <main id="main" className="min-h-screen pt-20 pb-16 relative">
-      <CircuitBackground />
+    <section id="projects" className="section">
+      <div className="wrap">
+        <div data-reveal>
+          <p className="eyebrow">Projects</p>
+          <h2 className="h2">Things I have built.</h2>
+          <p className="lead">
+            {projectsData.length} projects, {liveCount} of them live and interactive. Open any of them in a preview window without leaving this page.
+          </p>
+        </div>
 
-      <div className="container-custom relative z-10">
-        <h1 className="section-heading text-center mx-auto">My Projects</h1>
-        <p className="mt-6 text-center text-gray-400">
-          {projectsData.length} projects, {liveCount} of them live. Open any of them in a preview window without leaving this page.
-        </p>
-
-        <div className="mt-10 mb-6 flex flex-col items-center gap-4 lg:flex-row lg:justify-between">
-          <div className="inline-flex flex-wrap justify-center p-1 bg-tech-dark/50 backdrop-blur-sm rounded-lg border border-tech-purple/20" role="group" aria-label="Filter by category">
+        <div className="filters">
+          <div className="seg" role="group" aria-label="Filter by category">
             {filters.map((f) => (
-              <button
-                key={f}
-                type="button"
-                onClick={() => update({ cat: f })}
-                aria-pressed={filter === f}
-                className={`px-5 py-2 rounded-md transition-all ${filter === f ? 'bg-tech-purple text-white' : 'text-gray-300 hover:text-white'}`}
-              >
+              <button key={f} type="button" aria-pressed={filter === f} onClick={() => update({ cat: f })}>
                 {categoryLabels[f]}
               </button>
             ))}
           </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <div className="project-search-wrap">
               <Search size={16} className="project-search-icon" aria-hidden="true" />
               <input
@@ -154,7 +138,7 @@ const Projects = () => {
                 className="project-search"
                 type="text"
                 inputMode="search"
-                placeholder="Search by name or technology…  ( / )"
+                placeholder="Search name or technology…  ( / )"
                 aria-label="Search projects"
                 value={query}
                 onChange={(e) => update({ q: e.target.value })}
@@ -174,9 +158,9 @@ const Projects = () => {
           </div>
         </div>
 
-        <p className="mb-6 text-sm text-gray-400" aria-live="polite">
-          Showing {visible.length} of {projectsData.length} projects
-          {needle ? ` matching "${query.trim()}"` : ''}
+        <p className="mt-5 text-sm" style={{ color: 'var(--muted)' }} aria-live="polite">
+          Showing {visible.length} of {filtered.length} {narrowed ? 'matching ' : ''}projects
+          {needle ? ` for "${query.trim()}"` : ''}
           {filter !== 'all' ? ` in ${categoryLabels[filter]}` : ''}.{' '}
           {(needle || filter !== 'all') && (
             <button type="button" className="underline hover:text-white" onClick={() => update({ q: null, cat: null })}>
@@ -185,59 +169,46 @@ const Projects = () => {
           )}
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {visible.map((project) => (
-            <article
-              key={project.id}
-              data-reveal
-              data-cat={project.category}
-              className="project-card spot group bg-tech-dark/80 backdrop-blur-sm rounded-lg border border-tech-purple/20 overflow-hidden flex flex-col"
-            >
-              <ProjectArt id={project.id} category={project.category} />
-              <div className="px-6 pt-5 flex items-start gap-3">
-                <CategoryIcon category={project.category} />
-                <div className="min-w-0">
-                  <h3 className="text-xl font-bold leading-snug">{project.title}</h3>
-                  <div className="mt-1 flex flex-wrap gap-2">
-                    {project.featured && <span className="featured-pill">Featured</span>}
-                    {project.demoLink ? <span className="status-pill live">Live</span> : <span className="status-pill">Source only</span>}
+        <div className="proj-grid">
+          {visible.map((p) => (
+            <article key={p.id} className="card proj-card fade-swap" data-cat={p.category}>
+              <ProjectArt id={p.id} category={p.category} />
+              <div className="proj-body">
+                <div className="flex items-start gap-2.5">
+                  <span className={`mt-2 h-2 w-2 shrink-0 rounded-full ${dot[p.category]}`} aria-hidden="true" />
+                  <div className="min-w-0">
+                    <h3 className="proj-title">{p.title}</h3>
+                    <div className="mt-1.5 flex flex-wrap gap-2">
+                      {p.featured && <span className="featured-pill">Featured</span>}
+                      {p.demoLink ? <span className="status-pill live">Live</span> : <span className="status-pill">Source only</span>}
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="px-6 pb-4 pt-3 flex-1">
-                <p className="text-gray-300 text-sm leading-relaxed line-clamp-4">{project.description}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {project.tags.slice(0, 4).map((tag) => (
-                    <button
-                      key={tag}
-                      type="button"
-                      onClick={() => update({ q: tag })}
-                      title={`Search for ${tag}`}
-                      className={`px-2 py-1 text-xs rounded-full transition-transform hover:-translate-y-0.5 ${accent[project.category]}`}
-                    >
-                      {tag}
+                <p className="proj-desc line-clamp-3">{p.description}</p>
+                <div className="tags">
+                  {p.tags.slice(0, 3).map((t) => (
+                    <button key={t} type="button" className="tag" title={`Search for ${t}`} onClick={() => update({ q: t })}>
+                      {t}
                     </button>
                   ))}
                 </div>
               </div>
-
-              <div className="px-6 py-4 bg-tech-dark/50 flex flex-wrap items-center gap-x-5 gap-y-2">
-                <button type="button" onClick={() => update({ p: project.id })} className="card-link text-gray-200">
+              <div className="proj-foot">
+                <button type="button" className="card-link text-gray-200" onClick={() => update({ p: p.id })}>
                   <Info size={15} /> Details
                 </button>
-                {project.demoLink && (
-                  <button type="button" onClick={() => setPreview(project)} className="card-link text-tech-lightBlue">
+                {p.demoLink && (
+                  <button type="button" className="card-link text-tech-lightBlue" onClick={() => setPreview(p)}>
                     <Eye size={15} /> Preview
                   </button>
                 )}
-                {project.demoLink && (
-                  <a href={project.demoLink} target="_blank" rel="noopener noreferrer" className="card-link text-tech-lightBlue">
+                {p.demoLink && (
+                  <a className="card-link text-tech-lightBlue" href={p.demoLink} target="_blank" rel="noopener noreferrer">
                     <ExternalLink size={15} /> Live
                   </a>
                 )}
-                {project.repoLink && (
-                  <a href={project.repoLink} target="_blank" rel="noopener noreferrer" className="card-link text-gray-300 hover:text-white">
+                {p.repoLink && (
+                  <a className="card-link text-gray-300 hover:text-white" href={p.repoLink} target="_blank" rel="noopener noreferrer">
                     <Github size={15} /> Source
                   </a>
                 )}
@@ -247,20 +218,28 @@ const Projects = () => {
         </div>
 
         {visible.length === 0 && (
-          <p className="mt-12 text-center text-gray-400">
+          <p className="mt-10 text-center" style={{ color: 'var(--muted)' }}>
             No project matches "{query}". Try a technology such as "React", "FFT" or "Unreal".
           </p>
+        )}
+
+        {!narrowed && !showAll && filtered.length > INITIAL && (
+          <div className="mt-8 flex justify-center">
+            <button type="button" className="btn btn-ghost" onClick={() => setShowAll(true)}>
+              Show all {filtered.length} projects
+            </button>
+          </div>
         )}
       </div>
 
       <Dialog open={!!open} onOpenChange={(o) => !o && update({ p: null })}>
         {open && (
-          <DialogContent className="max-w-2xl bg-tech-dark border-tech-purple/30 text-foreground overflow-hidden p-0">
+          <DialogContent className="max-w-2xl overflow-hidden border-tech-purple/30 bg-tech-dark p-0 text-foreground">
             <ProjectArt id={open.id} category={open.category} className="project-art-lg" />
             <div className="p-6 pt-2">
               <DialogHeader>
                 <DialogTitle className="text-2xl">{open.title}</DialogTitle>
-                <DialogDescription className="text-gray-300 leading-relaxed">{open.description}</DialogDescription>
+                <DialogDescription className="leading-relaxed text-gray-300">{open.description}</DialogDescription>
               </DialogHeader>
               {open.tryThis && (
                 <div className="try-box">
@@ -269,14 +248,14 @@ const Projects = () => {
                 </div>
               )}
               <div className="mt-4 flex flex-wrap gap-2">
-                {open.tags.map((tag) => (
-                  <span key={tag} className={`px-2 py-1 text-xs rounded-full ${accent[open.category]}`}>{tag}</span>
+                {open.tags.map((t) => (
+                  <span key={t} className="tag" style={{ cursor: 'default' }}>{t}</span>
                 ))}
               </div>
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 {open.demoLink && (
-                  <button type="button" className="tech-button-3d px-4 py-2 text-sm" onClick={() => { update({ p: null }); setPreview(open); }}>
-                    <Eye size={15} className="inline mr-1.5" /> Preview here
+                  <button type="button" className="btn btn-primary btn-sm" onClick={() => { update({ p: null }); setPreview(open); }}>
+                    <Eye size={15} /> Preview here
                   </button>
                 )}
                 {open.demoLink && (
@@ -295,10 +274,8 @@ const Projects = () => {
       </Dialog>
 
       {preview?.demoLink && <ProjectPreview title={preview.title} url={preview.demoLink} onClose={() => setPreview(null)} />}
-
-      <LazyLyra initialMessage="Here are Dhananjay's projects! Feel free to ask me about any specific project or technology he has worked with." />
-    </main>
+    </section>
   );
 };
 
-export default Projects;
+export default ProjectsSection;
