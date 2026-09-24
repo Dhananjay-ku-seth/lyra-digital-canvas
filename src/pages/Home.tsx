@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
@@ -6,6 +6,9 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import ElectronicComponentsBg from '@/components/ElectronicComponentsBg';
 import { Analytics } from "@vercel/analytics/next";
 import { useSeo } from '@/hooks/useSeo';
+import { CountUp, Marquee, ProjectPreview, Tilt, Typewriter, useReveal } from '@/components/Interactive';
+import { projectsData, type Project } from '@/data/projects';
+import { ArrowRight, Eye, ExternalLink } from 'lucide-react';
 
 const Home = () => {
   useSeo({
@@ -13,6 +16,10 @@ const Home = () => {
     description: 'Portfolio of Dhananjay Kumar Seth — an Electronics & Communication Engineer and game developer. Explore interactive DSP, PID control, digital logic and communication-systems demos, plus game development.',
   });
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [preview, setPreview] = useState<Project | null>(null);
+  useReveal();
+  const featured = projectsData.filter((p) => p.featured);
+  const liveCount = projectsData.filter((p) => p.demoLink).length;
   const scrollDownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -61,6 +68,10 @@ const Home = () => {
             <p className="text-xl md:text-2xl font-light text-gray-300">
               Lead Game Developer at GauravGo Games · Electronics & Communication Engineer
             </p>
+
+            <p className="font-mono text-sm sm:text-base text-gray-400">
+              I build <Typewriter className="text-tech-neon font-semibold" words={['interactive DSP tools', 'circuit simulators', 'game worlds in Unreal', 'ROBLOX experiences', 'engineering study tools']} />
+            </p>
             
             <div className="space-y-4 text-gray-300 max-w-2xl">
               <p className="tech-text-3d">
@@ -102,7 +113,7 @@ const Home = () => {
                 ))}
               </div>
               
-              <div className="relative z-10 w-48 h-48">
+              <Tilt className="relative z-10 w-48 h-48">
                 <Avatar className="w-full h-full">
                   <AvatarImage 
                     src="/lovable-uploads/e5f4b321-f34c-4da6-b18c-f30dc80f0919.png" 
@@ -111,7 +122,7 @@ const Home = () => {
                   />
                   <AvatarFallback>DKS</AvatarFallback>
                 </Avatar>
-              </div>
+              </Tilt>
               
               <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-tech-dark px-4 py-2 rounded-full border border-tech-purple/50">
                 <p className="text-tech-lightBlue font-medium">Lead Game Developer</p>
@@ -142,6 +153,42 @@ const Home = () => {
         </div>
       </section>
       
+      <section className="relative z-10 container-custom pb-10" data-reveal>
+        <div className="stat-strip">
+          <div><p className="stat-num"><CountUp to={projectsData.length} /></p><p className="stat-label">Projects</p></div>
+          <div><p className="stat-num"><CountUp to={liveCount} /></p><p className="stat-label">Live in the browser</p></div>
+          <div><p className="stat-num"><CountUp to={4} /></p><p className="stat-label">LabBench domains</p></div>
+          <div><p className="stat-num"><CountUp to={2} /></p><p className="stat-label">Game platforms</p></div>
+        </div>
+      </section>
+
+      <section className="relative z-10 py-6" data-reveal>
+        <Marquee items={['DSP', 'FFT', 'PID Control', 'Digital Logic', 'Verilog', 'Communication Systems', 'Power Systems', 'EV Batteries', 'Arduino', 'Unreal Engine', 'ROBLOX', 'Fortnite UGC', 'React', 'TypeScript']} />
+      </section>
+
+      <section className="relative z-10 container-custom py-16">
+        <div className="flex flex-wrap items-end justify-between gap-4" data-reveal>
+          <h2 className="section-heading">Featured work</h2>
+          <Link to="/projects" className="card-link text-tech-lightBlue mb-8">All {projectsData.length} projects <ArrowRight size={16} /></Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {featured.map((p) => (
+            <article key={p.id} data-reveal data-cat={p.category} className="project-card spot bg-tech-dark/80 backdrop-blur-sm rounded-lg border border-tech-purple/20 overflow-hidden flex flex-col">
+              <div className="p-6 flex-1">
+                <h3 className="text-lg font-bold leading-snug">{p.title}</h3>
+                <p className="mt-3 text-sm text-gray-300 leading-relaxed line-clamp-4">{p.description}</p>
+              </div>
+              <div className="px-6 py-4 bg-tech-dark/50 flex items-center gap-5">
+                {p.demoLink && <button type="button" className="card-link text-tech-lightBlue" onClick={() => setPreview(p)}><Eye size={15} /> Preview</button>}
+                {p.demoLink && <a className="card-link text-tech-lightBlue" href={p.demoLink} target="_blank" rel="noopener noreferrer"><ExternalLink size={15} /> Live</a>}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {preview?.demoLink && <ProjectPreview title={preview.title} url={preview.demoLink} onClose={() => setPreview(null)} />}
+
       <Lyra />
     </main>
   );

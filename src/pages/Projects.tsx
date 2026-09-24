@@ -1,277 +1,174 @@
 import { useState } from 'react';
+import { Cpu, Eye, ExternalLink, Gamepad2, Github, Search, Wrench, X } from 'lucide-react';
 import CircuitBackground from '@/components/CircuitBackground';
 import Lyra from '@/components/Lyra';
-import { Analytics } from "@vercel/analytics/next";
+import { ProjectPreview, useReveal } from '@/components/Interactive';
+import { categoryLabels, projectsData, type Category, type Project } from '@/data/projects';
 import { useSeo } from '@/hooks/useSeo';
 
-// TypeScript type definition for Project structure
-type Project = {
-  id: string;           // Unique identifier for each project
-  title: string;        // Project title
-  description: string;  // Brief project description
-  tags: string[];       // Technology tags
-  image: string;        // Image representation
-  demoLink?: string;    // Optional demo link
-  repoLink?: string;    // Optional repository link
-  category: 'game' | 'electronics' | 'other'; // Project category
+const filters: Array<Category | 'all'> = ['all', 'game', 'electronics', 'tools'];
+
+const ProjectIcon = ({ category }: { category: Category }) => {
+  const cls = 'h-10 w-10';
+  if (category === 'game') return <Gamepad2 className={`${cls} text-tech-purple`} strokeWidth={1.5} />;
+  if (category === 'tools') return <Wrench className={`${cls} text-tech-neon`} strokeWidth={1.5} />;
+  return <Cpu className={`${cls} text-tech-pink`} strokeWidth={1.5} />;
 };
 
-// Real projects data with detailed information
-const projectsData: Project[] = [
-  {
-    id: 'project1',
-    title: 'Sena - Battle Royale Game',
-    description: 'Currently developing a battle royale game at Gaurav Go Games. Leading the UGC development for this competitive multiplayer experience featuring realistic environments, custom weapons systems, and strategic gameplay mechanics.',
-    tags: ['Battle Royale', 'Unreal Engine', 'Multiplayer', 'Game Design', 'UGC'],
-    image: 'game',
-    category: 'game'
-  },
-  {
-    id: 'project2',
-    title: 'Surveillance Drone System',
-    description: 'Designed and developed an autonomous surveillance drone at Corizo. Implemented real-time video streaming, GPS navigation, obstacle detection, and automated flight control systems for security and monitoring applications.',
-    tags: ['Drone Technology', 'Arduino', 'Computer Vision', 'IoT', 'Autonomous Systems'],
-    image: 'electronics',
-    category: 'electronics'
-  },
-  {
-    id: 'project3',
-    title: 'Realistic Map Development - Fortnite',
-    description: 'Creating highly detailed and realistic maps for Fortnite using Unreal Engine. Focus on environmental storytelling, optimized performance, and engaging gameplay spaces for the UGC community.',
-    tags: ['Fortnite', 'Unreal Engine', 'Level Design', 'UGC', '3D Modeling'],
-    image: 'game',
-    category: 'game'
-  },
-  {
-    id: 'project4',
-    title: 'ROBLOX Game Experiences',
-    description: 'Developing immersive game experiences on ROBLOX platform. Creating engaging gameplay mechanics, custom scripts in Lua, and interactive environments for diverse player audiences.',
-    tags: ['ROBLOX', 'Lua Scripting', 'Game Development', 'UI/UX', 'Multiplayer'],
-    image: 'game',
-    category: 'game'
-  },
-  {
-    id: 'project5',
-    title: 'Line Follower Robot',
-    description: 'An autonomous robot that follows a line using infrared sensors and a PID control algorithm for smooth, accurate navigation. Includes an interactive browser simulator to tune the Kp/Ki/Kd gains live and watch the robot track the line — or oscillate when detuned.',
-    tags: ['Robotics', 'Arduino', 'PID Control', 'Sensors', 'Embedded Systems'],
-    image: 'electronics',
-    category: 'electronics',
-    demoLink: 'https://pid-control-playground.vercel.app/',
-    repoLink: 'https://github.com/Dhananjay-ku-seth/pid-control-playground'
-  },
-  {
-    id: 'project6',
-    title: 'VLSI Circuit Design',
-    description: 'Design and simulation of VLSI circuits for digital signal processing applications, optimized for low power consumption and high-performance computing.',
-    tags: ['VLSI', 'Circuit Design', 'Verilog', 'Signal Processing', 'Digital Design'],
-    image: 'electronics',
-    category: 'electronics'
-  },
-  {
-    id: 'project7',
-    title: 'DSP Signal Lab',
-    description: 'A real-time digital signal processing tool running entirely in the browser: a 2048-point FFT spectrum analyzer with a waveform generator, injectable AWGN noise, live digital filters (lowpass / highpass / bandpass / notch), and a microphone mode with pitch tracking.',
-    tags: ['DSP', 'FFT', 'Web Audio API', 'Signal Processing', 'React'],
-    image: 'electronics',
-    category: 'electronics',
-    demoLink: 'https://dsp-signal-lab.vercel.app/',
-    repoLink: 'https://github.com/Dhananjay-ku-seth/dsp-signal-lab'
-  },
-  {
-    id: 'project8',
-    title: 'Logic Circuit Simulator',
-    description: 'A drag-and-wire digital logic sandbox with live signal propagation and an auto-generated truth table. An iterative relaxation solver evaluates combinational logic instantly and converges feedback loops, so sequential circuits like the SR latch work. Includes half/full adder, SR latch and 2:1 MUX examples.',
-    tags: ['Digital Design', 'Logic Gates', 'Boolean Algebra', 'SVG', 'React'],
-    image: 'electronics',
-    category: 'electronics',
-    demoLink: 'https://logic-circuit-sim.vercel.app/',
-    repoLink: 'https://github.com/Dhananjay-ku-seth/logic-circuit-sim'
-  },
-  {
-    id: 'project9',
-    title: 'Communication Systems Simulator',
-    description: 'An interactive communications playground: analog AM/FM modulation with envelope and over-modulation, digital constellation diagrams (BPSK / QPSK / 16-QAM) over an AWGN channel, and Monte-Carlo BER-vs-SNR curves benchmarked against the theoretical Q-function.',
-    tags: ['Communication Systems', 'Modulation', 'Constellation', 'BER', 'AWGN'],
-    image: 'electronics',
-    category: 'electronics',
-    demoLink: 'https://comms-simulator-pi.vercel.app/',
-    repoLink: 'https://github.com/Dhananjay-ku-seth/comms-simulator'
-  }
-];
+const accent: Record<Category, string> = {
+  game: 'bg-tech-purple/20 text-tech-purple',
+  electronics: 'bg-tech-pink/20 text-tech-pink',
+  tools: 'bg-tech-neon/15 text-tech-neon',
+};
 
 const Projects = () => {
   useSeo({
     title: 'Projects — Dhananjay Kumar Seth',
-    description: 'Interactive engineering projects by Dhananjay Kumar Seth: DSP Signal Lab, PID Control Playground, Logic Circuit Simulator and Comms Simulator — plus Unreal and Roblox game development.',
+    description:
+      'Interactive engineering projects by Dhananjay Kumar Seth: DSP Signal Lab, PID Control Playground, Logic Circuit Simulator, Comms Simulator, Smart Energy Meter and more, plus Unreal and Roblox game development.',
   });
-  // State management for project filtering and interaction
-  const [activeFilter, setActiveFilter] = useState<'all' | 'game' | 'electronics'>('all');
-  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
-  
-  // Filter projects based on selected category
-  const filteredProjects = activeFilter === 'all' 
-    ? projectsData 
-    : projectsData.filter(project => project.category === activeFilter);
+  const [filter, setFilter] = useState<Category | 'all'>('all');
+  const [query, setQuery] = useState('');
+  const [preview, setPreview] = useState<Project | null>(null);
+  useReveal();
 
-  // Dynamic project icon component based on category
-  const ProjectIcon = ({ category }: { category: string }) => {
-    // Icon selection logic with different styles for each category
-    if (category === 'game') {
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-tech-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
-        </svg>
-      );
-    } else if (category === 'electronics') {
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-tech-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-        </svg>
-      );
-    } else {
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-tech-lightBlue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-        </svg>
-      );
-    }
-  };
+  const needle = query.trim().toLowerCase();
+  const matches = (p: Project) =>
+    !needle || [p.title, p.description, ...p.tags].join(' ').toLowerCase().includes(needle);
+  const visible = projectsData.filter((p) => (filter === 'all' || p.category === filter) && matches(p));
+  const liveCount = projectsData.filter((p) => p.demoLink).length;
 
   return (
     <main className="min-h-screen pt-20 pb-16 relative">
-      {/* Circuit background for tech-themed design */}
       <CircuitBackground />
-      
-      <div className="container-custom">
-        {/* Page title with centered styling */}
+
+      <div className="container-custom relative z-10">
         <h1 className="section-heading text-center mx-auto">My Projects</h1>
-        
-        {/* Category filter buttons */}
-        <div className="flex justify-center mt-10 mb-12">
-          <div className="inline-flex p-1 bg-tech-dark/50 backdrop-blur-sm rounded-lg border border-tech-purple/20">
-            {/* Filter buttons with dynamic active state */}
-            <button
-              onClick={() => setActiveFilter('all')}
-              className={`px-5 py-2 rounded-md transition-all ${
-                activeFilter === 'all'
-                  ? 'bg-tech-purple text-white'
-                  : 'text-gray-300 hover:text-white'
-              }`}
-            >
-              All Projects
-            </button>
-            <button
-              onClick={() => setActiveFilter('game')}
-              className={`px-5 py-2 rounded-md transition-all ${
-                activeFilter === 'game'
-                  ? 'bg-tech-purple text-white'
-                  : 'text-gray-300 hover:text-white'
-              }`}
-            >
-              Game Dev
-            </button>
-            <button
-              onClick={() => setActiveFilter('electronics')}
-              className={`px-5 py-2 rounded-md transition-all ${
-                activeFilter === 'electronics'
-                  ? 'bg-tech-purple text-white'
-                  : 'text-gray-300 hover:text-white'
-              }`}
-            >
-              Electronics
-            </button>
+        <p className="mt-6 text-center text-gray-400">
+          {projectsData.length} projects, {liveCount} of them live. Open any of them in a preview window without leaving this page.
+        </p>
+
+        <div className="mt-10 mb-6 flex flex-col items-center gap-4 lg:flex-row lg:justify-between">
+          <div className="inline-flex flex-wrap justify-center p-1 bg-tech-dark/50 backdrop-blur-sm rounded-lg border border-tech-purple/20">
+            {filters.map((f) => (
+              <button
+                key={f}
+                type="button"
+                onClick={() => setFilter(f)}
+                aria-pressed={filter === f}
+                className={`px-5 py-2 rounded-md transition-all ${
+                  filter === f ? 'bg-tech-purple text-white' : 'text-gray-300 hover:text-white'
+                }`}
+              >
+                {categoryLabels[f]}
+              </button>
+            ))}
+          </div>
+
+          <div className="project-search-wrap">
+            <Search size={16} className="project-search-icon" aria-hidden="true" />
+            <input
+              className="project-search"
+              type="text"
+              inputMode="search"
+              placeholder="Search by name or technology…"
+              aria-label="Search projects"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            {query && (
+              <button type="button" className="search-clear" onClick={() => setQuery('')} aria-label="Clear search">
+                <X size={14} />
+              </button>
+            )}
           </div>
         </div>
-        
-        {/* Responsive grid of project cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project, index) => (
-            // Individual project card with hover and animation effects
-            <div 
-              key={project.id}
-              className="group bg-tech-dark/80 backdrop-blur-sm rounded-lg border border-tech-purple/20 overflow-hidden card-hover"
-              onMouseEnter={() => setHoveredProject(project.id)}
-              onMouseLeave={() => setHoveredProject(null)}
-              style={{ 
-                animationDelay: `${index * 0.1}s`
+
+        <p className="mb-6 text-sm text-gray-400" aria-live="polite">
+          Showing {visible.length} of {projectsData.length} projects
+          {needle ? ` matching "${query.trim()}"` : ''}
+          {filter !== 'all' ? ` in ${categoryLabels[filter]}` : ''}.{' '}
+          {(needle || filter !== 'all') && (
+            <button
+              type="button"
+              className="underline hover:text-white"
+              onClick={() => {
+                setQuery('');
+                setFilter('all');
               }}
             >
-              {/* Project header with category icon and title */}
-              <div className="p-6 flex items-center space-x-4">
-                <div className={`p-3 rounded-lg ${
-                  project.category === 'game' 
-                    ? 'bg-tech-purple/10' 
-                    : 'bg-tech-pink/10'
-                }`}>
+              Reset
+            </button>
+          )}
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {visible.map((project) => (
+            <article
+              key={project.id}
+              data-reveal
+              data-cat={project.category}
+              className="project-card spot group bg-tech-dark/80 backdrop-blur-sm rounded-lg border border-tech-purple/20 overflow-hidden flex flex-col"
+            >
+              <div className="p-6 flex items-center gap-4">
+                <div className="p-3 rounded-lg bg-white/5">
                   <ProjectIcon category={project.category} />
                 </div>
-                <h3 className="text-xl font-bold">{project.title}</h3>
+                <div>
+                  <h3 className="text-xl font-bold leading-snug">{project.title}</h3>
+                  {project.featured && <span className="featured-pill">Featured</span>}
+                </div>
               </div>
-              
-              {/* Detailed project description and tags */}
-              <div className="px-6 pb-4">
-                <p className="text-gray-300">{project.description}</p>
-                
-                {/* Colored tags for technologies used */}
+
+              <div className="px-6 pb-4 flex-1">
+                <p className="text-gray-300 text-sm leading-relaxed">{project.description}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {project.tags.map(tag => (
-                    <span 
-                      key={tag} 
-                      className={`px-2 py-1 text-xs rounded-full ${
-                        project.category === 'game'
-                          ? 'bg-tech-purple/20 text-tech-purple'
-                          : 'bg-tech-pink/20 text-tech-pink'
-                      }`}
+                  {project.tags.map((tag) => (
+                    <button
+                      key={tag}
+                      type="button"
+                      onClick={() => setQuery(tag)}
+                      title={`Search for ${tag}`}
+                      className={`px-2 py-1 text-xs rounded-full transition-transform hover:-translate-y-0.5 ${accent[project.category]}`}
                     >
                       {tag}
-                    </span>
+                    </button>
                   ))}
                 </div>
               </div>
-              
-              {/* Project links and category information */}
-              <div className="px-6 py-4 bg-tech-dark/50 flex justify-between items-center">
-                {/* Demo and source code links */}
+
+              <div className="px-6 py-4 bg-tech-dark/50 flex flex-wrap items-center gap-x-5 gap-y-2">
                 {project.demoLink && (
-                  <a 
-                    href={project.demoLink} 
-                    className="text-tech-lightBlue hover:text-tech-lightBlue/80 text-sm font-medium inline-flex items-center"
-                  >
-                    <span>View Demo</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
+                  <button type="button" onClick={() => setPreview(project)} className="card-link text-tech-lightBlue">
+                    <Eye size={15} /> Preview
+                  </button>
+                )}
+                {project.demoLink && (
+                  <a href={project.demoLink} target="_blank" rel="noopener noreferrer" className="card-link text-tech-lightBlue">
+                    <ExternalLink size={15} /> Live
                   </a>
                 )}
-                
                 {project.repoLink && (
-                  <a 
-                    href={project.repoLink} 
-                    className="text-gray-300 hover:text-white text-sm font-medium inline-flex items-center"
-                  >
-                    <span>Source Code</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                    </svg>
+                  <a href={project.repoLink} target="_blank" rel="noopener noreferrer" className="card-link text-gray-300 hover:text-white">
+                    <Github size={15} /> Source
                   </a>
                 )}
-                
-                {!project.demoLink && !project.repoLink && (
-                  <span className="text-gray-500 text-sm">Private Project</span>
-                )}
-                
-                {/* Hide the date/status when links are shown to avoid cluttering */}
-                <span className="text-gray-500 text-sm">
-                  {project.category === 'game' ? 'Game Project' : 'Electronics Project'}
-                </span>
+                {!project.demoLink && !project.repoLink && <span className="text-gray-500 text-sm">Private project</span>}
+                {project.repoLink && !project.demoLink && <span className="text-gray-500 text-xs">Source only</span>}
               </div>
-            </div>
+            </article>
           ))}
         </div>
+
+        {visible.length === 0 && (
+          <p className="mt-12 text-center text-gray-400">
+            No project matches "{query}". Try a technology such as "React", "FFT" or "Unreal".
+          </p>
+        )}
       </div>
-      
-      {/* LYRA AI Assistant with project context */}
+
+      {preview?.demoLink && <ProjectPreview title={preview.title} url={preview.demoLink} onClose={() => setPreview(null)} />}
+
       <Lyra initialMessage="Here are Dhananjay's projects! Feel free to ask me about any specific project or technology he has worked with." />
     </main>
   );

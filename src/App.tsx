@@ -40,6 +40,7 @@ import Projects from "./pages/Projects";
 import Resume from "./pages/Resume";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import { BackToTop, CursorGlow, ScrollProgress, SpotlightGlobal } from "@/components/Interactive";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +49,10 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <ScrollProgress />
+      <CursorGlow />
+      <SpotlightGlobal />
+      <BackToTop />
       <BrowserRouter>
         <div className="flex flex-col min-h-screen">
           <Navbar />
