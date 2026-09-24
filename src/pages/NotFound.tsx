@@ -29,9 +29,8 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import CircuitBackground from '@/components/CircuitBackground';
-import Lyra from '@/components/Lyra';
+import Lyra from '@/components/LazyLyra';
 import ElectronicComponentsBg from '@/components/ElectronicComponentsBg';
-import { Analytics } from "@vercel/analytics/next";
 import { useSeo } from '@/hooks/useSeo';
 
 const NotFound = () => {
@@ -49,7 +48,7 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <main className="min-h-screen pt-20 pb-16 relative flex flex-col items-center justify-center">
+    <main id="main" className="min-h-screen pt-20 pb-16 relative flex flex-col items-center justify-center">
       <ElectronicComponentsBg />
       <CircuitBackground />
       

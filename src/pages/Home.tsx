@@ -1,14 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CircuitBackground from '@/components/CircuitBackground';
-import Lyra from '@/components/Lyra';
+import Lyra from '@/components/LazyLyra';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import ElectronicComponentsBg from '@/components/ElectronicComponentsBg';
-import { Analytics } from "@vercel/analytics/next";
 import { useSeo } from '@/hooks/useSeo';
 import { CountUp, Marquee, ProjectPreview, Tilt, Typewriter, useReveal } from '@/components/Interactive';
 import { projectsData, type Project } from '@/data/projects';
 import { ArrowRight, Eye, ExternalLink } from 'lucide-react';
+import ProjectArt from '@/components/ProjectArt';
+
+const SKILL_GROUPS = [
+  { title: 'Electronics & signals', tone: 'pink', blurb: 'Simulators I built to make the theory visible.', items: ['DSP', 'FFT', 'PID', 'Digital Design', 'Verilog', 'Modulation', 'Power Systems', 'Battery'] },
+  { title: 'Game development', tone: 'purple', blurb: 'Worlds and gameplay for large multiplayer platforms.', items: ['Unreal Engine', 'Fortnite', 'ROBLOX', 'Level Design', 'UGC', 'Multiplayer'] },
+  { title: 'Web & tooling', tone: 'neon', blurb: 'How the interactive tools are made.', items: ['React', 'Web Audio API', 'SVG', 'Education', 'LabBench'] },
+];
 
 const Home = () => {
   useSeo({
@@ -51,7 +57,7 @@ const Home = () => {
   }, []);
 
   return (
-    <main className="min-h-screen relative overflow-hidden">
+    <main id="main" className="min-h-screen relative overflow-hidden">
       <ElectronicComponentsBg />
       <CircuitBackground />
 
@@ -116,7 +122,7 @@ const Home = () => {
               <Tilt className="relative z-10 w-48 h-48">
                 <Avatar className="w-full h-full">
                   <AvatarImage 
-                    src="/lovable-uploads/e5f4b321-f34c-4da6-b18c-f30dc80f0919.png" 
+                    src="/images/dhananjay.webp" 
                     alt="Dhananjay Kumar Seth" 
                     className="object-cover rounded-full"
                   />
@@ -166,6 +172,24 @@ const Home = () => {
         <Marquee items={['DSP', 'FFT', 'PID Control', 'Digital Logic', 'Verilog', 'Communication Systems', 'Power Systems', 'EV Batteries', 'Arduino', 'Unreal Engine', 'ROBLOX', 'Fortnite UGC', 'React', 'TypeScript']} />
       </section>
 
+      <section className="relative z-10 container-custom py-10" data-reveal>
+        <h2 className="section-heading">What I work with</h2>
+        <p className="text-gray-400 max-w-2xl">Click a topic to see the projects that use it.</p>
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {SKILL_GROUPS.map((g) => (
+            <div key={g.title} className="skill-group spot" data-tone={g.tone}>
+              <h3 className="text-lg font-bold">{g.title}</h3>
+              <p className="mt-1 text-sm text-gray-400">{g.blurb}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {g.items.map((item) => (
+                  <Link key={item} to={`/projects?q=${encodeURIComponent(item)}`} className="skill-chip">{item}</Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="relative z-10 container-custom py-16">
         <div className="flex flex-wrap items-end justify-between gap-4" data-reveal>
           <h2 className="section-heading">Featured work</h2>
@@ -174,6 +198,7 @@ const Home = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {featured.map((p) => (
             <article key={p.id} data-reveal data-cat={p.category} className="project-card spot bg-tech-dark/80 backdrop-blur-sm rounded-lg border border-tech-purple/20 overflow-hidden flex flex-col">
+              <ProjectArt id={p.id} category={p.category} />
               <div className="p-6 flex-1">
                 <h3 className="text-lg font-bold leading-snug">{p.title}</h3>
                 <p className="mt-3 text-sm text-gray-300 leading-relaxed line-clamp-4">{p.description}</p>

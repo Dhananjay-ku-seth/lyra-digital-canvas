@@ -1,18 +1,23 @@
-import { useState } from 'react';
-import { Cpu, Eye, ExternalLink, Gamepad2, Github, Search, Wrench, X } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Check, Cpu, ExternalLink, Eye, Gamepad2, Github, Info, Link2, Search, Wrench, X } from 'lucide-react';
 import CircuitBackground from '@/components/CircuitBackground';
-import Lyra from '@/components/Lyra';
+import LazyLyra from '@/components/LazyLyra';
+import ProjectArt from '@/components/ProjectArt';
 import { ProjectPreview, useReveal } from '@/components/Interactive';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { categoryLabels, projectsData, type Category, type Project } from '@/data/projects';
 import { useSeo } from '@/hooks/useSeo';
 
 const filters: Array<Category | 'all'> = ['all', 'game', 'electronics', 'tools'];
+type Sort = 'featured' | 'live' | 'az';
+const sorts: Record<Sort, string> = { featured: 'Featured first', live: 'Live demos first', az: 'A to Z' };
 
-const ProjectIcon = ({ category }: { category: Category }) => {
-  const cls = 'h-10 w-10';
-  if (category === 'game') return <Gamepad2 className={`${cls} text-tech-purple`} strokeWidth={1.5} />;
-  if (category === 'tools') return <Wrench className={`${cls} text-tech-neon`} strokeWidth={1.5} />;
-  return <Cpu className={`${cls} text-tech-pink`} strokeWidth={1.5} />;
+const CategoryIcon = ({ category }: { category: Category }) => {
+  const cls = 'h-5 w-5';
+  if (category === 'game') return <Gamepad2 className={`${cls} text-tech-purple`} strokeWidth={1.7} />;
+  if (category === 'tools') return <Wrench className={`${cls} text-tech-neon`} strokeWidth={1.7} />;
+  return <Cpu className={`${cls} text-tech-pink`} strokeWidth={1.7} />;
 };
 
 const accent: Record<Category, string> = {
@@ -21,25 +26,103 @@ const accent: Record<Category, string> = {
   tools: 'bg-tech-neon/15 text-tech-neon',
 };
 
+const isFilter = (v: string | null): v is Category | 'all' => !!v && (filters as string[]).includes(v);
+const isSort = (v: string | null): v is Sort => !!v && v in sorts;
+
 const Projects = () => {
   useSeo({
     title: 'Projects — Dhananjay Kumar Seth',
     description:
-      'Interactive engineering projects by Dhananjay Kumar Seth: DSP Signal Lab, PID Control Playground, Logic Circuit Simulator, Comms Simulator, Smart Energy Meter and more, plus Unreal and Roblox game development.',
+      'Interactive engineering projects by Dhananjay Kumar Seth: DSP Signal Lab, PID Control Playground, Logic Circuit Simulator, Comms Simulator, Smart Energy Meter, EV Battery Simulator and more, plus Unreal and Roblox game development.',
   });
-  const [filter, setFilter] = useState<Category | 'all'>('all');
-  const [query, setQuery] = useState('');
+
+  // Filters, search, sort and the open project live in the URL, so any view can be shared as a link.
+  const [params, setParams] = useSearchParams();
+  const filter: Category | 'all' = isFilter(params.get('cat')) ? (params.get('cat') as Category | 'all') : 'all';
+  const sort: Sort = isSort(params.get('sort')) ? (params.get('sort') as Sort) : 'featured';
+  const query = params.get('q') ?? '';
+  const openId = params.get('p');
+
+  const update = (patch: Record<string, string | null>) => {
+    const next = new URLSearchParams(params);
+    for (const [k, v] of Object.entries(patch)) {
+      if (v === null || v === '' || v === 'all' || (k === 'sort' && v === 'featured')) next.delete(k);
+      else next.set(k, v);
+    }
+    setParams(next, { replace: true });
+  };
+
   const [preview, setPreview] = useState<Project | null>(null);
+  const [copied, setCopied] = useState(false);
+  const searchRef = useRef<HTMLInputElement>(null);
   useReveal();
 
+  // "/" jumps to the search box, like most developer tools.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const el = e.target as HTMLElement | null;
+      if (e.key === '/' && !(el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable))) {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, []);
+
   const needle = query.trim().toLowerCase();
-  const matches = (p: Project) =>
-    !needle || [p.title, p.description, ...p.tags].join(' ').toLowerCase().includes(needle);
-  const visible = projectsData.filter((p) => (filter === 'all' || p.category === filter) && matches(p));
+  const visible = useMemo(() => {
+    const list = projectsData.filter(
+      (p) =>
+        (filter === 'all' || p.category === filter) &&
+        (!needle || [p.title, p.description, ...p.tags].join(' ').toLowerCase().includes(needle)),
+    );
+    if (sort === 'az') return [...list].sort((a, b) => a.title.localeCompare(b.title));
+    if (sort === 'live') return [...list].sort((a, b) => Number(!!b.demoLink) - Number(!!a.demoLink));
+    return list;
+  }, [filter, needle, sort]);
+
   const liveCount = projectsData.filter((p) => p.demoLink).length;
+  const open = projectsData.find((p) => p.id === openId) ?? null;
+
+  // Structured data so search engines can list the projects.
+  useEffect(() => {
+    const el = document.createElement('script');
+    el.type = 'application/ld+json';
+    el.id = 'ld-projects';
+    el.text = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: 'Projects by Dhananjay Kumar Seth',
+      itemListElement: projectsData.map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': p.demoLink ? 'WebApplication' : 'CreativeWork',
+          name: p.title,
+          description: p.description,
+          ...(p.demoLink ? { url: p.demoLink, applicationCategory: 'EducationalApplication', operatingSystem: 'Web' } : {}),
+          author: { '@type': 'Person', name: 'Dhananjay Kumar Seth' },
+        },
+      })),
+    });
+    document.head.appendChild(el);
+    return () => el.remove();
+  }, []);
+
+  const copyLink = async (id: string) => {
+    const url = `${window.location.origin}/projects?p=${id}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      window.prompt('Copy this link', url);
+    }
+  };
 
   return (
-    <main className="min-h-screen pt-20 pb-16 relative">
+    <main id="main" className="min-h-screen pt-20 pb-16 relative">
       <CircuitBackground />
 
       <div className="container-custom relative z-10">
@@ -49,38 +132,45 @@ const Projects = () => {
         </p>
 
         <div className="mt-10 mb-6 flex flex-col items-center gap-4 lg:flex-row lg:justify-between">
-          <div className="inline-flex flex-wrap justify-center p-1 bg-tech-dark/50 backdrop-blur-sm rounded-lg border border-tech-purple/20">
+          <div className="inline-flex flex-wrap justify-center p-1 bg-tech-dark/50 backdrop-blur-sm rounded-lg border border-tech-purple/20" role="group" aria-label="Filter by category">
             {filters.map((f) => (
               <button
                 key={f}
                 type="button"
-                onClick={() => setFilter(f)}
+                onClick={() => update({ cat: f })}
                 aria-pressed={filter === f}
-                className={`px-5 py-2 rounded-md transition-all ${
-                  filter === f ? 'bg-tech-purple text-white' : 'text-gray-300 hover:text-white'
-                }`}
+                className={`px-5 py-2 rounded-md transition-all ${filter === f ? 'bg-tech-purple text-white' : 'text-gray-300 hover:text-white'}`}
               >
                 {categoryLabels[f]}
               </button>
             ))}
           </div>
 
-          <div className="project-search-wrap">
-            <Search size={16} className="project-search-icon" aria-hidden="true" />
-            <input
-              className="project-search"
-              type="text"
-              inputMode="search"
-              placeholder="Search by name or technology…"
-              aria-label="Search projects"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            {query && (
-              <button type="button" className="search-clear" onClick={() => setQuery('')} aria-label="Clear search">
-                <X size={14} />
-              </button>
-            )}
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <div className="project-search-wrap">
+              <Search size={16} className="project-search-icon" aria-hidden="true" />
+              <input
+                ref={searchRef}
+                className="project-search"
+                type="text"
+                inputMode="search"
+                placeholder="Search by name or technology…  ( / )"
+                aria-label="Search projects"
+                value={query}
+                onChange={(e) => update({ q: e.target.value })}
+              />
+              {query && (
+                <button type="button" className="search-clear" onClick={() => update({ q: null })} aria-label="Clear search">
+                  <X size={14} />
+                </button>
+              )}
+            </div>
+            <label className="sr-only" htmlFor="sort">Sort projects</label>
+            <select id="sort" className="project-select" value={sort} onChange={(e) => update({ sort: e.target.value })}>
+              {(Object.keys(sorts) as Sort[]).map((s) => (
+                <option key={s} value={s}>{sorts[s]}</option>
+              ))}
+            </select>
           </div>
         </div>
 
@@ -89,14 +179,7 @@ const Projects = () => {
           {needle ? ` matching "${query.trim()}"` : ''}
           {filter !== 'all' ? ` in ${categoryLabels[filter]}` : ''}.{' '}
           {(needle || filter !== 'all') && (
-            <button
-              type="button"
-              className="underline hover:text-white"
-              onClick={() => {
-                setQuery('');
-                setFilter('all');
-              }}
-            >
+            <button type="button" className="underline hover:text-white" onClick={() => update({ q: null, cat: null })}>
               Reset
             </button>
           )}
@@ -110,24 +193,26 @@ const Projects = () => {
               data-cat={project.category}
               className="project-card spot group bg-tech-dark/80 backdrop-blur-sm rounded-lg border border-tech-purple/20 overflow-hidden flex flex-col"
             >
-              <div className="p-6 flex items-center gap-4">
-                <div className="p-3 rounded-lg bg-white/5">
-                  <ProjectIcon category={project.category} />
-                </div>
-                <div>
+              <ProjectArt id={project.id} category={project.category} />
+              <div className="px-6 pt-5 flex items-start gap-3">
+                <CategoryIcon category={project.category} />
+                <div className="min-w-0">
                   <h3 className="text-xl font-bold leading-snug">{project.title}</h3>
-                  {project.featured && <span className="featured-pill">Featured</span>}
+                  <div className="mt-1 flex flex-wrap gap-2">
+                    {project.featured && <span className="featured-pill">Featured</span>}
+                    {project.demoLink ? <span className="status-pill live">Live</span> : <span className="status-pill">Source only</span>}
+                  </div>
                 </div>
               </div>
 
-              <div className="px-6 pb-4 flex-1">
-                <p className="text-gray-300 text-sm leading-relaxed">{project.description}</p>
+              <div className="px-6 pb-4 pt-3 flex-1">
+                <p className="text-gray-300 text-sm leading-relaxed line-clamp-4">{project.description}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
+                  {project.tags.slice(0, 4).map((tag) => (
                     <button
                       key={tag}
                       type="button"
-                      onClick={() => setQuery(tag)}
+                      onClick={() => update({ q: tag })}
                       title={`Search for ${tag}`}
                       className={`px-2 py-1 text-xs rounded-full transition-transform hover:-translate-y-0.5 ${accent[project.category]}`}
                     >
@@ -138,6 +223,9 @@ const Projects = () => {
               </div>
 
               <div className="px-6 py-4 bg-tech-dark/50 flex flex-wrap items-center gap-x-5 gap-y-2">
+                <button type="button" onClick={() => update({ p: project.id })} className="card-link text-gray-200">
+                  <Info size={15} /> Details
+                </button>
                 {project.demoLink && (
                   <button type="button" onClick={() => setPreview(project)} className="card-link text-tech-lightBlue">
                     <Eye size={15} /> Preview
@@ -153,8 +241,6 @@ const Projects = () => {
                     <Github size={15} /> Source
                   </a>
                 )}
-                {!project.demoLink && !project.repoLink && <span className="text-gray-500 text-sm">Private project</span>}
-                {project.repoLink && !project.demoLink && <span className="text-gray-500 text-xs">Source only</span>}
               </div>
             </article>
           ))}
@@ -167,9 +253,50 @@ const Projects = () => {
         )}
       </div>
 
+      <Dialog open={!!open} onOpenChange={(o) => !o && update({ p: null })}>
+        {open && (
+          <DialogContent className="max-w-2xl bg-tech-dark border-tech-purple/30 text-foreground overflow-hidden p-0">
+            <ProjectArt id={open.id} category={open.category} className="project-art-lg" />
+            <div className="p-6 pt-2">
+              <DialogHeader>
+                <DialogTitle className="text-2xl">{open.title}</DialogTitle>
+                <DialogDescription className="text-gray-300 leading-relaxed">{open.description}</DialogDescription>
+              </DialogHeader>
+              {open.tryThis && (
+                <div className="try-box">
+                  <p className="try-title">Try this</p>
+                  <p>{open.tryThis}</p>
+                </div>
+              )}
+              <div className="mt-4 flex flex-wrap gap-2">
+                {open.tags.map((tag) => (
+                  <span key={tag} className={`px-2 py-1 text-xs rounded-full ${accent[open.category]}`}>{tag}</span>
+                ))}
+              </div>
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                {open.demoLink && (
+                  <button type="button" className="tech-button-3d px-4 py-2 text-sm" onClick={() => { update({ p: null }); setPreview(open); }}>
+                    <Eye size={15} className="inline mr-1.5" /> Preview here
+                  </button>
+                )}
+                {open.demoLink && (
+                  <a className="dialog-btn" href={open.demoLink} target="_blank" rel="noopener noreferrer"><ExternalLink size={15} /> Open live</a>
+                )}
+                {open.repoLink && (
+                  <a className="dialog-btn" href={open.repoLink} target="_blank" rel="noopener noreferrer"><Github size={15} /> Source</a>
+                )}
+                <button type="button" className="dialog-btn" onClick={() => copyLink(open.id)}>
+                  {copied ? <Check size={15} /> : <Link2 size={15} />} {copied ? 'Link copied' : 'Copy link'}
+                </button>
+              </div>
+            </div>
+          </DialogContent>
+        )}
+      </Dialog>
+
       {preview?.demoLink && <ProjectPreview title={preview.title} url={preview.demoLink} onClose={() => setPreview(null)} />}
 
-      <Lyra initialMessage="Here are Dhananjay's projects! Feel free to ask me about any specific project or technology he has worked with." />
+      <LazyLyra initialMessage="Here are Dhananjay's projects! Feel free to ask me about any specific project or technology he has worked with." />
     </main>
   );
 };

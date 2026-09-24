@@ -17,8 +17,24 @@ function setMeta(attr: 'name' | 'property', key: string, value: string) {
   el.setAttribute('content', value);
 }
 
+const SITE = 'https://dhananjay-kumar-seth.vercel.app';
+
+function setCanonical(url: string) {
+  let el = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  if (!el) {
+    el = document.createElement('link');
+    el.rel = 'canonical';
+    document.head.appendChild(el);
+  }
+  el.href = url;
+}
+
 export function useSeo({ title, description }: Seo) {
   useEffect(() => {
+    // Each route gets its own canonical URL (never the query string), so filtered views do not compete with each other.
+    const url = SITE + (window.location.pathname === '/' ? '/' : window.location.pathname.replace(/\/+$/, ''));
+    setCanonical(url);
+    setMeta('property', 'og:url', url);
     document.title = title;
     setMeta('name', 'description', description);
     setMeta('property', 'og:title', title);

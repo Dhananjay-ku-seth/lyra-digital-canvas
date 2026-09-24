@@ -9,6 +9,8 @@ export type Project = {
   demoLink?: string;
   repoLink?: string;
   featured?: boolean;
+  /** A concrete thing to try in the live demo. */
+  tryThis?: string;
 };
 
 const gh = (name: string) => `https://github.com/Dhananjay-ku-seth/${name}`;
@@ -24,6 +26,7 @@ export const projectsData: Project[] = [
     demoLink: 'https://labbench-hub.vercel.app',
     repoLink: gh('labbench-hub'),
     featured: true,
+    tryThis: 'Open any tool card. Every tool runs in its own tab, needs no sign-up and is free to use.',
   },
   {
     id: 'dsp-signal-lab',
@@ -35,6 +38,7 @@ export const projectsData: Project[] = [
     demoLink: 'https://dsp-signal-lab.vercel.app/',
     repoLink: gh('dsp-signal-lab'),
     featured: true,
+    tryThis: 'Pick a square wave and look for the odd harmonics in the spectrum, then add noise and sweep the lowpass cutoff downwards.',
   },
   {
     id: 'pid-control-playground',
@@ -46,6 +50,7 @@ export const projectsData: Project[] = [
     demoLink: 'https://pid-control-playground.vercel.app/',
     repoLink: gh('pid-control-playground'),
     featured: true,
+    tryThis: 'Load the P-only preset and watch it oscillate, add Kd to damp it, then run the Step Response Test for rise time, overshoot and settling time.',
   },
   {
     id: 'logic-circuit-sim',
@@ -57,6 +62,7 @@ export const projectsData: Project[] = [
     demoLink: 'https://logic-circuit-sim.vercel.app/',
     repoLink: gh('logic-circuit-sim'),
     featured: true,
+    tryThis: 'Load SR Latch, click S then R, and watch Q hold its value after each input is released.',
   },
   {
     id: 'comms-simulator',
@@ -67,6 +73,7 @@ export const projectsData: Project[] = [
     category: 'electronics',
     demoLink: 'https://comms-simulator-pi.vercel.app/',
     repoLink: gh('comms-simulator'),
+    tryThis: 'Open the BER Curve tab and compare the simulated points with the theory line for each modulation scheme.',
   },
   {
     id: 'waveform-viewer',
@@ -77,6 +84,7 @@ export const projectsData: Project[] = [
     category: 'electronics',
     demoLink: 'https://waveform-viewer-theta.vercel.app',
     repoLink: gh('waveform-viewer'),
+    tryThis: 'Choose Clock Divider: Q toggles on each rising clock edge, so it runs at half the clock frequency.',
   },
   {
     id: 'state-machine-designer',
@@ -87,6 +95,7 @@ export const projectsData: Project[] = [
     category: 'electronics',
     demoLink: 'https://state-machine-designer.vercel.app',
     repoLink: gh('state-machine-designer'),
+    tryThis: 'Load Divisible by 3, type 110 (binary for 6) and press Run All to see it accepted.',
   },
   {
     id: 'circuit-puzzle',
@@ -97,6 +106,7 @@ export const projectsData: Project[] = [
     category: 'electronics',
     demoLink: 'https://circuit-puzzle-sand.vercel.app',
     repoLink: gh('circuit-puzzle'),
+    tryThis: 'Try puzzle 3: build XOR using only AND, OR and NOT. Four gates is par.',
   },
   {
     id: 'smart-energy-meter',
@@ -107,6 +117,7 @@ export const projectsData: Project[] = [
     category: 'electronics',
     demoLink: 'https://smart-energy-meter-pink.vercel.app',
     repoLink: gh('smart-energy-meter'),
+    tryThis: 'Switch on the AC, water heater and washing machine together. Current passes 20 A and the breaker trips after 2 seconds.',
   },
   {
     id: 'ev-battery-sim',
@@ -117,6 +128,7 @@ export const projectsData: Project[] = [
     category: 'electronics',
     demoLink: 'https://ev-battery-sim-six.vercel.app/',
     repoLink: gh('ev-battery-sim'),
+    tryThis: 'Pick Fast DC Charging and raise the C-rate to watch the pack heat up towards the BMS thermal cutoff.',
   },
   {
     id: 'prepbench',
@@ -127,6 +139,7 @@ export const projectsData: Project[] = [
     category: 'tools',
     demoLink: 'https://prepbench.vercel.app',
     repoLink: gh('prepbench'),
+    tryThis: 'Choose a topic, read its shortcuts, then press Practice and try to build a streak.',
   },
   {
     id: 'sena',

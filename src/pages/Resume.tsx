@@ -1,10 +1,9 @@
 
 import { useState } from 'react';
 import CircuitBackground from '@/components/CircuitBackground';
-import Lyra from '@/components/Lyra';
+import Lyra from '@/components/LazyLyra';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
-import { Analytics } from "@vercel/analytics/next";
 import { useSeo } from '@/hooks/useSeo';
 
 const Resume = () => {
@@ -25,7 +24,7 @@ const Resume = () => {
   };
 
   return (
-    <main className="min-h-screen pt-20 pb-16 relative">
+    <main id="main" className="min-h-screen pt-20 pb-16 relative">
       <CircuitBackground />
       
       <div className="container-custom fade-in-permanent">

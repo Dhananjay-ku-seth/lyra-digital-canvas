@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import CircuitBackground from '@/components/CircuitBackground';
-import Lyra from '@/components/Lyra';
+import Lyra from '@/components/LazyLyra';
 import { useSeo } from '@/hooks/useSeo';
 
 type FormData = {
@@ -101,7 +101,7 @@ const Contact = () => {
   };
 
   return (
-    <main className="min-h-screen pt-20 pb-16 relative overflow-hidden">
+    <main id="main" className="min-h-screen pt-20 pb-16 relative overflow-hidden">
       <CircuitBackground />
       
       <div className="container-custom fade-in-permanent">

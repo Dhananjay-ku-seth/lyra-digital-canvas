@@ -33,9 +33,8 @@
  */
 
 import CircuitBackground from '@/components/CircuitBackground';
-import Lyra from '@/components/Lyra';
+import Lyra from '@/components/LazyLyra';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { Analytics } from "@vercel/analytics/next";
 import { useSeo } from '@/hooks/useSeo';
 
 const About = () => {
@@ -45,7 +44,7 @@ const About = () => {
   });
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="flex-grow pt-20 pb-16 relative">
+      <main id="main" className="flex-grow pt-20 pb-16 relative">
         {/* Circuit pattern background */}
         <CircuitBackground />
         
@@ -61,7 +60,7 @@ const About = () => {
                 <div className="mx-auto w-48 h-48 mb-6">
                   <Avatar className="w-full h-full">
                     <AvatarImage 
-                      src="/lovable-uploads/e5f4b321-f34c-4da6-b18c-f30dc80f0919.png" 
+                      src="/images/dhananjay.webp" 
                       alt="Dhananjay Kumar Seth" 
                       className="object-cover rounded-full"
                     />
