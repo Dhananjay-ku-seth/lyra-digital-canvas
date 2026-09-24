@@ -115,6 +115,7 @@ export const projectsData: Project[] = [
       'An electric-vehicle battery pack simulator with coulomb-counted state of charge, OCV and IR-drop cell voltage, a thermal model and passive cell balancing.',
     tags: ['EV', 'Battery Management', 'SoC', 'Thermal Model', 'Simulation'],
     category: 'electronics',
+    demoLink: 'https://ev-battery-sim-six.vercel.app/',
     repoLink: gh('ev-battery-sim'),
   },
   {
