@@ -424,7 +424,7 @@ code { background: rgba(255, 255, 255, 0.08); border-radius: 5px; color: var(--c
 .led-glow { animation: ledpulse 2.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
 @keyframes ledpulse { 50% { opacity: 0.05; transform: scale(0.7); } }
 @media (max-width: 900px) { .fp-extra { display: none; } .fp { pointer-events: none; } .fp svg { opacity: 0.5; } }
-@media (max-width: 600px) { .fp { width: 60px !important; } }
+@media (max-width: 600px) { .fp { width: 56px !important; } .fp:nth-child(even) { display: none; } }
 @media (prefers-reduced-motion: reduce) { .led-glow { animation: none; } }
 
 /* ============ more projects-section motion ============ */
@@ -545,3 +545,11 @@ code { background: rgba(255, 255, 255, 0.08); border-radius: 5px; color: var(--c
 .lod-step { background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line); border-radius: 10px; color: var(--muted); cursor: pointer; display: flex; flex-direction: column; font-size: 0.72rem; gap: 0.15rem; padding: 0.5rem; transition: all 160ms ease; }
 .lod-step b { color: #fff; font-family: 'Roboto Mono', monospace; font-size: 0.9rem; }
 .lod-step.on { background: rgba(0, 255, 153, 0.1); border-color: rgba(0, 255, 153, 0.5); color: #fff; }
+
+
+/* ============ game-dev background touches ============ */
+.cb-game { fill: none; stroke: var(--trace); stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.6; }
+.cb-game circle { fill: none; }
+.pop-text { font-family: 'Roboto Mono', monospace; font-size: 0.95rem; font-weight: 800; letter-spacing: 0.06em; margin-left: -1.6rem; pointer-events: none; position: fixed; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8); white-space: nowrap; z-index: 320; }
+.fp[data-part="dice"], .fp[data-part="coin"], .fp[data-part="heart"], .fp[data-part="crosshair"], .fp[data-part="sword"], .fp[data-part="gamepad"], .fp[data-part="joystick"] { cursor: crosshair; }
+.coin-spin { transform-box: fill-box; transform-origin: center; }

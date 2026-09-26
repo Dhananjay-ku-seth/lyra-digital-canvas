@@ -88,6 +88,36 @@ function buildBoard() {
   return { traces, vias };
 }
 
+/** Faint game-dev sketches drawn in the same copper style: Blueprint nodes, low-poly meshes and reticles. */
+const GameDoodles = () => (
+  <g className="cb-game">
+    {[[620, 90], [1330, 470], [140, 520]].map(([x, y], i) => (
+      <g key={`bp${i}`}>
+        <rect x={x} y={y} width={78} height={46} rx={6} />
+        <path d={`M${x} ${y + 14}h78`} />
+        <rect x={x + 150} y={y + 30} width={78} height={46} rx={6} />
+        <path d={`M${x + 150} ${y + 44}h78`} />
+        <path d={`M${x + 78} ${y + 30}C${x + 116} ${y + 30} ${x + 112} ${y + 58} ${x + 150} ${y + 58}`} />
+        <circle cx={x + 78} cy={y + 30} r={3.5} />
+        <circle cx={x + 150} cy={y + 58} r={3.5} />
+      </g>
+    ))}
+    {[[980, 820], [60, 300]].map(([x, y], i) => (
+      <g key={`mesh${i}`}>
+        <path d={`M${x} ${y + 90}L${x + 50} ${y}L${x + 100} ${y + 60}L${x + 160} ${y + 10}L${x + 220} ${y + 90}Z`} />
+        <path d={`M${x + 50} ${y}L${x + 70} ${y + 90}M${x + 100} ${y + 60}L${x + 70} ${y + 90}M${x + 100} ${y + 60}L${x + 130} ${y + 90}M${x + 160} ${y + 10}L${x + 130} ${y + 90}M${x + 160} ${y + 10}L${x + 185} ${y + 90}`} />
+      </g>
+    ))}
+    {[[420, 380], [1450, 210], [820, 900]].map(([x, y], i) => (
+      <g key={`ret${i}`}>
+        <circle cx={x} cy={y} r={22} />
+        <circle cx={x} cy={y} r={3} />
+        <path d={`M${x - 34} ${y}h20M${x + 14} ${y}h20M${x} ${y - 34}v20M${x} ${y + 14}v20`} />
+      </g>
+    ))}
+  </g>
+);
+
 const COLORS = ['#61dafb', '#00ff99', '#a78bfa', '#61dafb', '#f472b6'];
 
 const CircuitBoard = () => {
@@ -171,6 +201,7 @@ const CircuitBoard = () => {
         </defs>
 
         <g id="cb-board" className="cb-base">
+          <GameDoodles />
           {board.traces.map((t, i) => (
             <g key={i}>
               <path className="cb-trace" d={t.d} />

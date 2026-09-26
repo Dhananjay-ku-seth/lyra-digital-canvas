@@ -295,9 +295,9 @@ function useOrbDrift() {
 /* ------------------------------------------------------------ extra effects */
 
 /** Confetti burst from a point on the screen. */
-export function burst(x: number, y: number, count = 30) {
+export function burst(x: number, y: number, count = 30, palette?: string[]) {
   if (reducedMotion()) return;
-  const colors = ['#8b5cf6', '#61dafb', '#00ff99', '#ec4899', '#f59e0b'];
+  const colors = palette ?? ['#8b5cf6', '#61dafb', '#00ff99', '#ec4899', '#f59e0b'];
   const bits = Array.from({ length: count }, () => {
     const d = document.createElement('span');
     d.className = 'confetti';
@@ -317,6 +317,19 @@ export function burst(x: number, y: number, count = 30) {
     ease: 'outCubic',
     onComplete: () => bits.forEach((b) => b.remove()),
   });
+}
+
+/** A short text that floats up and fades, like damage numbers or pickups in a game. */
+export function popText(x: number, y: number, text: string, color = '#fff') {
+  const el = document.createElement('span');
+  el.className = 'pop-text';
+  el.textContent = text;
+  el.style.left = `${x}px`;
+  el.style.top = `${y}px`;
+  el.style.color = color;
+  document.body.appendChild(el);
+  if (reducedMotion()) { setTimeout(() => el.remove(), 900); return; }
+  animate(el, { y: [0, -70], opacity: [1, 0], scale: [0.7, 1.25], duration: 1100, ease: 'outCubic', onComplete: () => el.remove() });
 }
 
 /** Redraws a project card's cover art stroke by stroke. */
