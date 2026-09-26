@@ -7,7 +7,20 @@ import { profile, skillGroups } from '@/data/site';
 
 type Line = { id: number; kind: 'in' | 'out' | 'err'; text: string };
 
-const COMMANDS = ['help', 'about', 'unreal', 'games', 'projects', 'open', 'skills', 'optimize', 'contact', 'resume', 'clear', 'sudo'];
+const COMMANDS = ['help', 'about', 'unreal', 'games', 'projects', 'open', 'skills', 'optimize', 'blueprint', 'level', 'stat', 'contact', 'resume', 'clear', 'sudo'];
+
+/** Measures this page's real frame rate for one second. */
+const measureFps = () =>
+  new Promise<number>((resolve) => {
+    let frames = 0;
+    const t0 = performance.now();
+    const tick = (now: number) => {
+      frames += 1;
+      if (now - t0 < 1000) requestAnimationFrame(tick);
+      else resolve(Math.round((frames * 1000) / (now - t0)));
+    };
+    requestAnimationFrame(tick);
+  });
 
 const games = projectsData.filter((p) => p.category === 'game');
 
@@ -31,7 +44,7 @@ const UEConsole = () => {
   const push = (kind: Line['kind'], text: string) =>
     setLines((l) => [...l, { id: idRef.current++, kind, text }].slice(-60));
 
-  const run = (raw: string) => {
+  const run = async (raw: string) => {
     const cmd = raw.trim();
     if (!cmd) return;
     push('in', cmd);
@@ -41,7 +54,7 @@ const UEConsole = () => {
     const arg = rest.join(' ');
     switch (name) {
       case 'help':
-        push('out', 'help        list commands\nabout       who I am\nunreal      what I do in Unreal Engine\ngames       the games I work on\nprojects    all projects (or: projects electronics)\nopen <name> open a project, e.g. open zeher\nskills      my skills\noptimize    how I keep levels fast\ncontact     how to reach me\nresume      download my resume\nclear       clear the console');
+        push('out', 'help        list commands\nabout       who I am\nunreal      what I do in Unreal Engine\ngames       the games I work on\nprojects    all projects (or: projects electronics)\nopen <name> open a project, e.g. open zeher\nskills      my skills\nblueprint   open the Blueprint demo\nlevel       open the level design demo\noptimize    how I keep levels fast (opens the demo)\nstat fps    measure this page\'s real frame rate\ncontact     how to reach me\nresume      download my resume\nclear       clear the console');
         break;
       case 'about':
       case 'whoami':
@@ -71,9 +84,26 @@ const UEConsole = () => {
       case 'skills':
         push('out', skillGroups.map((g) => `${g.title}: ${g.items.map((i) => i.name).join(', ')}`).join('\n'));
         break;
+      case 'blueprint':
+      case 'blueprints':
+        push('out', 'Opening the Blueprint workbench: a working "door that needs a key" graph.');
+        window.dispatchEvent(new CustomEvent('ue-tab', { detail: 'bp' }));
+        break;
+      case 'level':
+        push('out', 'Opening the level design workbench: cover, sightlines, flow and beats.');
+        window.dispatchEvent(new CustomEvent('ue-tab', { detail: 'ld' }));
+        break;
+      case 'stat':
+        if (arg === 'fps') {
+          push('out', 'Measuring for one second…');
+          const fps = await measureFps();
+          push('out', `StatFPS: this page is running at ${fps} FPS right now.`);
+        } else push('err', 'Usage: stat fps');
+        break;
       case 'optimize':
       case 'optimise':
-        push('out', 'Levels stay fast by working on the frame budget:\n• instanced meshes and LODs to cut draw calls\n• occlusion culling and merged distant meshes\n• baked lighting where live light is not needed\n• texture streaming and sensible draw distances\nTry the frame budget playground above.');
+        window.dispatchEvent(new CustomEvent('ue-tab', { detail: 'opt' }));
+        push('out', 'Levels stay fast by working on the frame budget:\n• instanced meshes and LODs to cut draw calls\n• occlusion culling and merged distant meshes\n• baked lighting where live light is not needed\n• texture streaming and sensible draw distances\nTry the Optimization tab in the workbench.');
         break;
       case 'contact':
         push('out', `Email: ${profile.email}\nGitHub: ${profile.socials.github}\nLinkedIn: ${profile.socials.linkedin}`);

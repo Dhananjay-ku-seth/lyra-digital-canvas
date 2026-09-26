@@ -1,10 +1,10 @@
-import { Gauge, Map as MapIcon, Route } from 'lucide-react';
-import FrameBudget from '@/components/FrameBudget';
+import { Gauge, Map as MapIcon, Route, Workflow } from 'lucide-react';
+import UEWorkbench from '@/components/UEWorkbench';
 import { AnimHeading } from '@/components/Motion';
 import { Marquee } from '@/components/Interactive';
 import { unrealPillars, unrealTopics } from '@/data/site';
 
-const icons = [MapIcon, Route, Gauge];
+const icons = { map: MapIcon, level: Route, bp: Workflow, opt: Gauge };
 
 const UnrealSection = () => (
   <section id="unreal" className="section">
@@ -13,19 +13,26 @@ const UnrealSection = () => (
         <p className="eyebrow">Specialty</p>
         <AnimHeading>Unreal Engine is my craft.</AnimHeading>
         <p className="lead">
-          Map design, level design and game optimisation in Unreal Engine are what I am most skilled at. I also work in Unity and ROBLOX, but this is where I go deep.
+          Map design, level design and game optimisation in Unreal Engine are what I am most skilled at. I also work in Unity and ROBLOX, but this is where I go deep. Open a card to try it in the workbench below.
         </p>
       </div>
 
       <div className="pillars" data-stagger>
-        {unrealPillars.map((p, i) => {
-          const Icon = icons[i];
+        {unrealPillars.map((p) => {
+          const Icon = icons[p.icon];
           return (
-            <article key={p.title} className="card pillar spot" data-tilt>
+            <button
+              key={p.title}
+              type="button"
+              className="card pillar spot"
+              data-tilt
+              onClick={() => window.dispatchEvent(new CustomEvent('ue-tab', { detail: p.tab }))}
+            >
               <span className="pillar-ico"><Icon size={22} /></span>
               <h3>{p.title}</h3>
               <p>{p.text}</p>
-            </article>
+              <span className="pillar-go">Try it below ↓</span>
+            </button>
           );
         })}
       </div>
@@ -35,7 +42,7 @@ const UnrealSection = () => (
       </div>
 
       <div className="mt-10">
-        <FrameBudget />
+        <UEWorkbench />
       </div>
     </div>
   </section>

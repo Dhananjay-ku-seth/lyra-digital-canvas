@@ -161,19 +161,31 @@ export const navItems = [
 export const unrealPillars = [
   {
     title: 'Map design',
+    icon: 'map' as const,
+    tab: 'ld',
     text: 'Realistic, readable maps: composition, scale, landmarks and flow that make a space feel believable and easy to navigate.',
   },
   {
     title: 'Level design',
+    icon: 'level' as const,
+    tab: 'ld',
     text: 'Gameplay spaces built around pacing, sight lines and player routes, so a level plays well as well as looks good.',
   },
   {
+    title: 'Blueprint logic',
+    icon: 'bp' as const,
+    tab: 'bp',
+    text: 'Gameplay scripted visually with Blueprints: events, branches and timelines wired into behaviour you can read at a glance.',
+  },
+  {
     title: 'Game optimization',
+    icon: 'opt' as const,
+    tab: 'opt',
     text: 'Keeping levels smooth on real hardware: draw calls, LODs, culling, lighting and texture budgets, checked with profiling.',
   },
 ];
 
 export const unrealTopics = [
-  'Map design', 'Level design', 'Game optimization', 'Realistic environments', 'Lighting', 'LODs',
+  'Map design', 'Level design', 'Blueprints', 'Game optimization', 'Realistic environments', 'Lighting', 'LODs',
   'Occlusion culling', 'Performance profiling', 'Multiplayer maps', 'Fortnite UGC maps', 'Battle royale maps',
 ];

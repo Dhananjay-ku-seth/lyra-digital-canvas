@@ -13,7 +13,7 @@ addresses (`/about`, `/projects`, `/resume`, `/contact`) redirect to the matchin
 - **Live preview**: any live tool opens in an in-page window with a desktop / phone toggle.
 - **Motion**: built with anime.js: staggered scroll reveals, a hero intro timeline, magnetic buttons, 3D card tilt, a cursor follower, animated skill bars and counters, and a scroll-drawn timeline. Everything respects the reduced-motion setting.
 - **Circuit-board background**: procedurally laid-out copper traces, pads and chip footprints, with light pulses racing along them (anime.js motion paths) and a brighter layer that follows the pointer. Floating electronic parts (chips, transistors, resistors, capacitors, LEDs, inductors) drift, parallax, dodge the cursor and spin with sparks when clicked.
-- **Unreal Engine section**: a frame-budget playground (an illustrative model, not a benchmark) and an Unreal-style console.
+- **Unreal Engine workbench**: an editor-styled panel with three tabs. *Blueprints*: a working node graph (drag nodes, run the "door that needs a key" logic). *Level design*: a greybox map with cover, a real ray-cast sightline calculation, the player route and encounter beats. *Optimization*: an exact LOD triangle-count demo and a frame-budget playground (an illustrative model, not a benchmark). Plus an Unreal-style console with a real `stat fps`.
 - **LYRA**: an assistant that answers from the site's own data. It runs in the browser and uses no external AI service or API key.
 - **Contact form**: posts to `/api/contact` on the LabBench hub project, which emails the message using its Gmail sender.
 
