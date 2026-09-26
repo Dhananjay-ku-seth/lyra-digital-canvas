@@ -143,11 +143,37 @@ export const projectsData: Project[] = [
   },
   {
     id: 'sena',
-    title: 'Sena: Battle Royale Game',
+    title: 'SENA: Battle Royale Game',
     description:
-      'Currently developing a battle royale game at Gaurav Go Games. Leading the UGC development for this competitive multiplayer experience featuring realistic environments, custom weapons systems, and strategic gameplay mechanics.',
-    tags: ['Battle Royale', 'Unreal Engine', 'Multiplayer', 'Game Design', 'UGC'],
+      'A competitive multiplayer battle royale developed at GauravGo Games in both Unreal Engine and Unity. Leading the game development and the map design: realistic environments, custom weapon systems and strategic gameplay mechanics.',
+    tags: ['Battle Royale', 'Unreal Engine', 'Unity', 'Multiplayer', 'Map Design'],
     category: 'game',
+    featured: true,
+  },
+  {
+    id: 'zeher',
+    title: 'ZEHER: FPS Game',
+    description:
+      'A first-person shooter made by the GauravGo Games team. Map development and game design lead.',
+    tags: ['FPS', 'Game Design', 'Map Design', 'Multiplayer'],
+    category: 'game',
+  },
+  {
+    id: 'sky-adventure',
+    title: 'Sky Adventure: ROBLOX Game',
+    description:
+      'A ROBLOX adventure game from the GauravGo Games team, built with Lua scripting, custom gameplay mechanics and interactive environments.',
+    tags: ['ROBLOX', 'Lua Scripting', 'Game Development', 'Adventure'],
+    category: 'game',
+  },
+  {
+    id: 'the-life',
+    title: 'The Life: Unity Game (in development)',
+    description:
+      'A big game currently in development in Unity at GauravGo Games. Leading the team and the map design.',
+    tags: ['Unity', 'In Development', 'Game Design', 'Map Design', 'Team Lead'],
+    category: 'game',
+    featured: true,
   },
   {
     id: 'fortnite-maps',

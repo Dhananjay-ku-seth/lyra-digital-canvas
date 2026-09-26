@@ -11,14 +11,25 @@ const Hero = () => (
       <div className="hero-grid">
         <div>
           <span className="badge-live">
-            <i /> Building at {profile.company}
+            <i /> Now building: The Life, in Unity
           </span>
           <h1>
-            {profile.first}
+            <span className="hello">Hello, I&apos;m</span>
             <br />
-            <span className="grad">Kumar Seth</span>
+            <span className="grad">{profile.name}</span>
           </h1>
-          <p className="hero-role">{profile.headline}</p>
+          <p className="hero-role">
+            Lead Game Developer at {profile.company} · Electronics &amp; Communication Engineer
+          </p>
+          <p className="hero-intro">
+            Lead Game Developer at {profile.company}, building immersive mobile games and worlds in ROBLOX and Fortnite with Unreal Engine.
+            Combining game development leadership with Electronics &amp; Communication Engineering, I&apos;m driven by a passion for technology
+            and innovation. Meet my AI assistant{' '}
+            <button type="button" className="lyra-link" onClick={() => window.dispatchEvent(new Event('open-lyra'))}>
+              LYRA
+            </button>
+            , designed to help you explore my portfolio.
+          </p>
           <p className="hero-type">
             {'> '}I build <Typewriter words={roles} className="text-[color:var(--green)]" />
           </p>
@@ -56,7 +67,7 @@ const Hero = () => (
         <div className="stat"><p className="stat-num"><CountUp to={projectsData.length} /></p><p className="stat-label">Projects</p></div>
         <div className="stat"><p className="stat-num"><CountUp to={liveCount} /></p><p className="stat-label">Live in the browser</p></div>
         <div className="stat"><p className="stat-num"><CountUp to={4} /></p><p className="stat-label">Engineering domains</p></div>
-        <div className="stat"><p className="stat-num"><CountUp to={2} /></p><p className="stat-label">Game platforms</p></div>
+        <div className="stat"><p className="stat-num"><CountUp to={3} /></p><p className="stat-label">Game engines &amp; platforms</p></div>
       </div>
     </div>
 

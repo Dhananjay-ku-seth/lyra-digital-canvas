@@ -105,9 +105,35 @@ const Art = ({ id, category }: { id: string; category: Category }) => {
     case 'sena':
       return (
         <g {...stroke}>
-          <circle cx={160} cy={60} r={34} />
+          <circle cx={160} cy={60} r={46} strokeDasharray="5 6" opacity={0.55} />
+          <circle cx={160} cy={60} r={26} />
           <circle cx={160} cy={60} r={4} fill="currentColor" />
-          <path d="M160 14 V34 M160 86 V106 M114 60 H134 M186 60 H206" />
+          <path d="M160 6 V22 M160 98 V114 M106 60 H122 M198 60 H214" />
+        </g>
+      );
+    case 'zeher':
+      return (
+        <g {...stroke}>
+          <path d="M96 60 H150 M170 60 H224 M160 22 V50 M160 70 V98" />
+          <circle cx={160} cy={60} r={30} />
+          <circle cx={160} cy={60} r={3} fill="currentColor" />
+          <path d="M60 104 H110 L124 90 H196 L210 104 H260" opacity={0.5} />
+        </g>
+      );
+    case 'sky-adventure':
+      return (
+        <g {...stroke}>
+          <path d="M70 46 a16 16 0 0 1 30 -6 a14 14 0 0 1 26 8 H62 a10 10 0 0 1 8 -2 Z" opacity={0.6} />
+          <path d="M200 30 a12 12 0 0 1 22 -4 a10 10 0 0 1 20 6 H196 a8 8 0 0 1 4 -2 Z" opacity={0.45} />
+          <path d="M100 86 H220 L200 106 H120 Z" />
+          <path d="M140 86 L160 62 L180 86" />
+        </g>
+      );
+    case 'the-life':
+      return (
+        <g {...stroke}>
+          <path d="M14 66 H90 L106 34 L128 96 L148 22 L168 84 L182 66 H306" />
+          <circle cx={148} cy={22} r={4} fill="currentColor" />
         </g>
       );
     case 'fortnite-maps':

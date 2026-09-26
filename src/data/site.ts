@@ -2,7 +2,8 @@ export const profile = {
   name: 'Dhananjay Kumar Seth',
   first: 'Dhananjay',
   role: 'Lead Game Developer',
-  company: 'Gaurav Go Games',
+  company: 'GauravGo Games',
+  specialisation: 'Computer Hardware Engineering',
   headline: 'Electronics & Communication Engineer · Lead Game Developer',
   email: 'adplayers746@gmail.com',
   location: 'Bhubaneswar, Odisha',
@@ -25,16 +26,18 @@ export const roles = [
 ];
 
 export const bio = [
-  'I am an Electronics and Communication Engineering student at GITA Autonomous College, Bhubaneswar. I am the UGC Dev Domain Lead at Gaurav Go Games, where I lead the user-generated content team, specialising in ROBLOX and Fortnite, with a focus on realistic map design in Unreal Engine.',
+  'I am an Electronics and Communication Engineering student at GITA Autonomous College, Bhubaneswar, specialising in Computer Hardware Engineering. Alongside my degree I work as a game map developer and designer in Unreal Engine and Unity, and I lead game development at GauravGo Games.',
+  'With the GauravGo Games team we make SENA in Unreal Engine and Unity, the ROBLOX game Sky Adventure and the FPS game ZEHER, and we are now working on a big Unity game called The Life. I also lead the user-generated content team, specialising in ROBLOX and Fortnite with realistic map design in Unreal Engine.',
   'My work sits between hardware and software. I build browser-based simulators that turn signal processing, control theory, digital logic and power systems into something you can poke at, and I lead teams that build immersive game worlds.',
-  'I keep growing through hands-on leadership, team management and staying current with the industry. My goal is to use my technical skills and leadership to create meaningful, engaging experiences.',
 ];
 
 export const facts = [
   { label: 'Studying', value: 'B.Tech, Electronics & Communication' },
+  { label: 'Specialisation', value: 'Computer Hardware Engineering' },
   { label: 'College', value: 'GITA Autonomous College' },
   { label: 'Based in', value: 'Bhubaneswar, Odisha' },
-  { label: 'Working at', value: 'Gaurav Go Games' },
+  { label: 'Game engines', value: 'Unreal Engine, Unity, ROBLOX' },
+  { label: 'Working at', value: 'GauravGo Games' },
 ];
 
 export type SkillGroup = { title: string; tone: 'purple' | 'pink' | 'blue'; items: { name: string; level: number }[] };
@@ -73,16 +76,16 @@ export const skillGroups: SkillGroup[] = [
   },
 ];
 
-export const otherSkills = ['3D modelling', 'Digital signal processing', 'Robot Operating System (ROS)', 'Git', 'Microcontroller programming'];
+export const otherSkills = ['Game map design (Unreal Engine & Unity)', '3D modelling', 'Digital signal processing', 'Robot Operating System (ROS)', 'Git', 'Microcontroller programming'];
 
 export const experience = [
   {
     title: 'Lead Game Developer',
-    org: 'Gaurav Go Games',
+    org: 'GauravGo Games',
     period: 'Present',
     current: true,
-    text: 'Lead the User Generated Content (UGC) development domain, specialising in ROBLOX and Fortnite. Manage team workflows, build realistic maps in Unreal Engine and oversee immersive game environments, with responsibility for project direction, quality assurance and gameplay mechanics across platforms.',
-    tags: ['Unreal Engine', 'Fortnite', 'ROBLOX', 'Team lead'],
+    text: 'Lead game development and map design in Unreal Engine and Unity, on SENA, ZEHER, the ROBLOX game Sky Adventure and the big Unity game The Life. Also lead the User Generated Content (UGC) domain, specialising in ROBLOX and Fortnite, with responsibility for project direction, quality assurance and gameplay mechanics across platforms.',
+    tags: ['Unreal Engine', 'Unity', 'ROBLOX', 'Team lead'],
   },
   {
     title: 'Game Development Lead',

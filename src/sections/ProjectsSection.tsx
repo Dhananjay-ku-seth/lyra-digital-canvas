@@ -180,7 +180,7 @@ const ProjectsSection = () => {
                     <h3 className="proj-title">{p.title}</h3>
                     <div className="mt-1.5 flex flex-wrap gap-2">
                       {p.featured && <span className="featured-pill">Featured</span>}
-                      {p.demoLink ? <span className="status-pill live">Live</span> : <span className="status-pill">Source only</span>}
+                      {p.demoLink ? <span className="status-pill live">Live</span> : <span className="status-pill">{p.category === 'game' ? (p.id === 'the-life' ? 'In development' : 'Game project') : 'Source only'}</span>}
                     </div>
                   </div>
                 </div>

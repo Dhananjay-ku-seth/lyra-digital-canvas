@@ -16,7 +16,7 @@ const Index = () => {
   useSeo({
     title: 'Dhananjay Kumar Seth — ECE Engineer & Game Developer',
     description:
-      'Portfolio of Dhananjay Kumar Seth: an Electronics & Communication Engineer and Lead Game Developer. Try interactive DSP, PID control, digital logic, communication-systems, power and EV-battery simulators, and see his game development work.',
+      'Portfolio of Dhananjay Kumar Seth: an Electronics & Communication Engineering student specialising in Computer Hardware Engineering, and Lead Game Developer (Unreal Engine and Unity) at GauravGo Games. Try interactive DSP, PID control, digital logic, communication-systems, power and EV-battery simulators, and see his game development work.',
   });
   useReveal();
 
