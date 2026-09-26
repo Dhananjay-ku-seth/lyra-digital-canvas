@@ -18,17 +18,17 @@ export const profile = {
 };
 
 export const roles = [
+  'realistic Unreal Engine maps',
+  'optimised game levels',
   'interactive DSP tools',
   'circuit and control simulators',
-  'game worlds in Unreal Engine',
   'ROBLOX experiences',
-  'things that make theory visible',
 ];
 
 export const bio = [
-  'I am an Electronics and Communication Engineering student at GITA Autonomous College, Bhubaneswar, specialising in Computer Hardware Engineering. Alongside my degree I work as a game map developer and designer in Unreal Engine and Unity, and I lead game development at GauravGo Games.',
-  'With the GauravGo Games team we make SENA in Unreal Engine and Unity, the ROBLOX game Sky Adventure and the FPS game ZEHER, and we are now working on a big Unity game called The Life. I also lead the user-generated content team, specialising in ROBLOX and Fortnite with realistic map design in Unreal Engine.',
-  'My work sits between hardware and software. I build browser-based simulators that turn signal processing, control theory, digital logic and power systems into something you can poke at, and I lead teams that build immersive game worlds.',
+  'I am an Electronics and Communication Engineering student at GITA Autonomous College, Bhubaneswar, specialising in Computer Hardware Engineering. My main craft is Unreal Engine: map design, level design and game optimisation, where I am highly skilled. I lead game development at GauravGo Games.',
+  'I also have working knowledge and experience in Unity. With the GauravGo Games team we make SENA in Unreal Engine and Unity, the ROBLOX game Sky Adventure and the FPS game ZEHER, and we are now working on a big Unity game called The Life.',
+  'My work sits between hardware and software. I lead the user-generated content team, specialising in ROBLOX and Fortnite maps in Unreal Engine, and I build browser-based simulators that turn signal processing, control theory, digital logic and power systems into something you can poke at.',
 ];
 
 export const facts = [
@@ -36,19 +36,29 @@ export const facts = [
   { label: 'Specialisation', value: 'Computer Hardware Engineering' },
   { label: 'College', value: 'GITA Autonomous College' },
   { label: 'Based in', value: 'Bhubaneswar, Odisha' },
-  { label: 'Game engines', value: 'Unreal Engine, Unity, ROBLOX' },
+  { label: 'Main engine', value: 'Unreal Engine (highly skilled)' },
+  { label: 'Also works in', value: 'Unity, ROBLOX' },
   { label: 'Working at', value: 'GauravGo Games' },
 ];
 
-export type SkillGroup = { title: string; tone: 'purple' | 'pink' | 'blue'; items: { name: string; level: number }[] };
+export type SkillGroup = { title: string; tone: 'purple' | 'pink' | 'blue' | 'green'; items: { name: string; level: number }[] };
 
 export const skillGroups: SkillGroup[] = [
+  {
+    title: 'Unreal Engine (my specialty)',
+    tone: 'green',
+    items: [
+      { name: 'Map design', level: 95 },
+      { name: 'Level design', level: 95 },
+      { name: 'Game optimization', level: 92 },
+    ],
+  },
   {
     title: 'Game development',
     tone: 'purple',
     items: [
       { name: 'Roblox development', level: 90 },
-      { name: 'Unity 3D', level: 85 },
+      { name: 'Unity 3D', level: 70 },
       { name: 'Lua scripting', level: 80 },
       { name: 'C# programming', level: 75 },
       { name: 'Game UI design', level: 70 },
@@ -84,7 +94,7 @@ export const experience = [
     org: 'GauravGo Games',
     period: 'Present',
     current: true,
-    text: 'Lead game development and map design in Unreal Engine and Unity, on SENA, ZEHER, the ROBLOX game Sky Adventure and the big Unity game The Life. Also lead the User Generated Content (UGC) domain, specialising in ROBLOX and Fortnite, with responsibility for project direction, quality assurance and gameplay mechanics across platforms.',
+    text: 'Lead game development, with map and level design and optimisation in Unreal Engine as my main craft, plus Unity work, on SENA, ZEHER, the ROBLOX game Sky Adventure and the big Unity game The Life. Also lead the User Generated Content (UGC) domain, specialising in ROBLOX and Fortnite, with responsibility for project direction, quality assurance and gameplay mechanics across platforms.',
     tags: ['Unreal Engine', 'Unity', 'ROBLOX', 'Team lead'],
   },
   {
@@ -140,9 +150,30 @@ export const certifications = [
 
 export const navItems = [
   { id: 'about', label: 'About' },
+  { id: 'unreal', label: 'Unreal' },
   { id: 'projects', label: 'Projects' },
   { id: 'skills', label: 'Skills' },
   { id: 'experience', label: 'Experience' },
   { id: 'education', label: 'Education' },
   { id: 'contact', label: 'Contact' },
+];
+
+export const unrealPillars = [
+  {
+    title: 'Map design',
+    text: 'Realistic, readable maps: composition, scale, landmarks and flow that make a space feel believable and easy to navigate.',
+  },
+  {
+    title: 'Level design',
+    text: 'Gameplay spaces built around pacing, sight lines and player routes, so a level plays well as well as looks good.',
+  },
+  {
+    title: 'Game optimization',
+    text: 'Keeping levels smooth on real hardware: draw calls, LODs, culling, lighting and texture budgets, checked with profiling.',
+  },
+];
+
+export const unrealTopics = [
+  'Map design', 'Level design', 'Game optimization', 'Realistic environments', 'Lighting', 'LODs',
+  'Occlusion culling', 'Performance profiling', 'Multiplayer maps', 'Fortnite UGC maps', 'Battle royale maps',
 ];

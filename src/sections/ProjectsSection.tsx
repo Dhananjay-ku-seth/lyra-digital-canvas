@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { animate, stagger, utils } from 'animejs';
 import { useSearchParams } from 'react-router-dom';
 import { Check, ExternalLink, Eye, Github, Info, Link2, Search, X } from 'lucide-react';
 import ProjectArt from '@/components/ProjectArt';
 import { ProjectPreview } from '@/components/Interactive';
+import { AnimHeading, reducedMotion } from '@/components/Motion';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { categoryLabels, projectsData, type Category, type Project } from '@/data/projects';
 
@@ -37,6 +39,8 @@ const ProjectsSection = () => {
   const [copied, setCopied] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const firstRun = useRef(true);
 
   // "/" jumps to the search box.
   useEffect(() => {
@@ -68,6 +72,26 @@ const ProjectsSection = () => {
   const visible = narrowed || showAll ? filtered : filtered.slice(0, INITIAL);
   const open = projectsData.find((p) => p.id === openId) ?? null;
   const liveCount = projectsData.filter((p) => p.demoLink).length;
+
+  // When the filter, search or sort changes, the new set of cards flips in with a stagger.
+  const shownKey = visible.map((p) => p.id).join(',');
+  useEffect(() => {
+    if (firstRun.current) { firstRun.current = false; return; }
+    const g = gridRef.current;
+    if (!g || !g.classList.contains('is-visible') || reducedMotion()) return;
+    const cards = Array.from(g.children) as HTMLElement[];
+    utils.set(cards, { opacity: 0 });
+    animate(cards, {
+      opacity: [0, 1],
+      translateY: [30, 0],
+      rotateX: [-14, 0],
+      scale: [0.94, 1],
+      delay: stagger(60),
+      duration: 750,
+      ease: 'outExpo',
+      onComplete: () => cards.forEach((c) => { c.style.transform = ''; c.style.opacity = ''; }),
+    });
+  }, [shownKey]);
 
   // A shared link that opens a project should also scroll to this section.
   useEffect(() => {
@@ -116,7 +140,7 @@ const ProjectsSection = () => {
       <div className="wrap">
         <div data-reveal>
           <p className="eyebrow">Projects</p>
-          <h2 className="h2">Things I have built.</h2>
+          <AnimHeading>Things I have built.</AnimHeading>
           <p className="lead">
             {projectsData.length} projects, {liveCount} of them live and interactive. Open any of them in a preview window without leaving this page.
           </p>
@@ -169,9 +193,9 @@ const ProjectsSection = () => {
           )}
         </p>
 
-        <div className="proj-grid">
+        <div className="proj-grid" ref={gridRef} data-stagger>
           {visible.map((p) => (
-            <article key={p.id} className="card proj-card fade-swap" data-cat={p.category}>
+            <article key={p.id} className="card proj-card spot" data-cat={p.category} data-tilt>
               <ProjectArt id={p.id} category={p.category} />
               <div className="proj-body">
                 <div className="flex items-start gap-2.5">

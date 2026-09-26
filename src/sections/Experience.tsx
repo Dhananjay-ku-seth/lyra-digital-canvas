@@ -1,3 +1,4 @@
+import { AnimHeading } from '@/components/Motion';
 import { experience } from '@/data/site';
 
 const Experience = () => (
@@ -5,11 +6,11 @@ const Experience = () => (
     <div className="wrap">
       <div data-reveal>
         <p className="eyebrow">Experience</p>
-        <h2 className="h2">Leading, building, teaching.</h2>
+        <AnimHeading>Leading, building, teaching.</AnimHeading>
       </div>
       <div className="timeline">
         {experience.map((e) => (
-          <article key={e.title + e.org} className={`t-item${e.current ? ' current' : ''}`} data-reveal>
+          <article key={e.title + e.org} className={`t-item${e.current ? ' current' : ''}`} data-reveal data-from="left">
             <p className="t-period">{e.period}</p>
             <h3 className="t-title">{e.title}</h3>
             <p className="t-org">{e.org}</p>

@@ -2,11 +2,12 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
-import { useReveal } from '@/components/Interactive';
+import { MotionEffects } from '@/components/Motion';
 import { useSeo } from '@/hooks/useSeo';
 import Hero from '@/sections/Hero';
 import About from '@/sections/About';
 import ProjectsSection from '@/sections/ProjectsSection';
+import UnrealSection from '@/sections/UnrealSection';
 import Skills from '@/sections/Skills';
 import Experience from '@/sections/Experience';
 import EducationSection from '@/sections/EducationSection';
@@ -16,9 +17,8 @@ const Index = () => {
   useSeo({
     title: 'Dhananjay Kumar Seth — ECE Engineer & Game Developer',
     description:
-      'Portfolio of Dhananjay Kumar Seth: an Electronics & Communication Engineering student specialising in Computer Hardware Engineering, and Lead Game Developer (Unreal Engine and Unity) at GauravGo Games. Try interactive DSP, PID control, digital logic, communication-systems, power and EV-battery simulators, and see his game development work.',
+      'Portfolio of Dhananjay Kumar Seth: an Electronics & Communication Engineering student specialising in Computer Hardware Engineering, and Lead Game Developer at GauravGo Games, highly skilled in Unreal Engine map design, level design and game optimisation. Try interactive DSP, PID control, digital logic, communication-systems, power and EV-battery simulators, and see his game development work.',
   });
-  useReveal();
 
   // A link such as /#contact should land on that section even though the sections load after the route.
   const { hash } = useLocation();
@@ -30,6 +30,7 @@ const Index = () => {
   }, [hash]);
 
   return (
+    <MotionEffects>
     <div className="relative">
       <div className="site-bg" aria-hidden="true">
         <div className="orb orb-a" />
@@ -40,6 +41,7 @@ const Index = () => {
       <main id="main">
         <Hero />
         <About />
+        <UnrealSection />
         <ProjectsSection />
         <Skills />
         <Experience />
@@ -48,6 +50,7 @@ const Index = () => {
       </main>
       <SiteFooter />
     </div>
+    </MotionEffects>
   );
 };
 

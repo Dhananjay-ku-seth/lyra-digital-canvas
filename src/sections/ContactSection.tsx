@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Check, Copy, Github, Instagram, Linkedin, Loader2, Mail, MapPin, Send } from 'lucide-react';
+import { AnimHeading } from '@/components/Motion';
 import { profile } from '@/data/site';
 
 // Messages are delivered by a small serverless function that emails Dhananjay (see labbench-hub/api/contact.js).
@@ -69,12 +70,12 @@ const ContactSection = () => {
       <div className="wrap">
         <div data-reveal>
           <p className="eyebrow">Contact</p>
-          <h2 className="h2">Let us build something.</h2>
+          <AnimHeading>Let us build something.</AnimHeading>
           <p className="lead">Open to collaborations, engineering projects and game development work. Send a message and I will reply by email.</p>
         </div>
 
         <div className="contact-grid">
-          <div className="card contact-card" data-reveal>
+          <div className="card contact-card spot" data-reveal data-from="left">
             <div className="contact-row">
               <span className="ico"><Mail size={18} /></span>
               <div className="min-w-0 flex-1">
@@ -99,7 +100,7 @@ const ContactSection = () => {
             </div>
           </div>
 
-          <div className="card contact-card" data-reveal>
+          <div className="card contact-card spot" data-reveal data-from="right">
             {status === 'sent' ? (
               <div className="ok-box" role="status">
                 <Check className="mx-auto mb-2 text-[color:var(--green)]" size={30} />

@@ -1,4 +1,5 @@
 import { Award } from 'lucide-react';
+import { AnimHeading } from '@/components/Motion';
 import { certifications, education } from '@/data/site';
 
 const EducationSection = () => (
@@ -6,14 +7,14 @@ const EducationSection = () => (
     <div className="wrap">
       <div data-reveal>
         <p className="eyebrow">Education</p>
-        <h2 className="h2">Foundations and certifications.</h2>
+        <AnimHeading>Foundations and certifications.</AnimHeading>
       </div>
 
       <div className="two-col">
         <div>
           <div className="timeline">
             {education.map((e, i) => (
-              <article key={e.title} className={`t-item${i === 0 ? ' current' : ''}`} data-reveal>
+              <article key={e.title} className={`t-item${i === 0 ? ' current' : ''}`} data-reveal data-from="left">
                 <p className="t-period">{e.period}</p>
                 <h3 className="t-title">{e.title}</h3>
                 <p className="t-org">{e.org}</p>
@@ -23,9 +24,9 @@ const EducationSection = () => (
           </div>
         </div>
 
-        <div className="cert-grid" style={{ marginTop: '2.5rem' }}>
+        <div className="cert-grid" style={{ marginTop: '2.5rem' }} data-stagger>
           {certifications.map((c) => (
-            <article key={c.title} className="card cert" data-reveal>
+            <article key={c.title} className="card cert spot" data-tilt>
               <div className="flex items-start gap-3">
                 <Award size={20} className="mt-0.5 shrink-0 text-[color:var(--violet)]" />
                 <div>

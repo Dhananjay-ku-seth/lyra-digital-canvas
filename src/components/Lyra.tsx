@@ -87,7 +87,7 @@ export function answer(input: string): Reply {
 
   if (has(q, ['game', 'unreal', 'roblox', 'fortnite', 'unity']))
     return {
-      text: `${profile.first} leads game development and map design at ${profile.company}, in Unreal Engine and Unity. The team makes SENA (Unreal Engine and Unity), the ROBLOX game Sky Adventure and the FPS ZEHER, and is now building a big Unity game called The Life. He also leads the ROBLOX and Fortnite UGC work.`,
+      text: `${profile.first} leads game development at ${profile.company}. His main craft is Unreal Engine: map design, level design and game optimisation, where he is highly skilled. He also has working experience in Unity. The team makes SENA (Unreal Engine and Unity), the ROBLOX game Sky Adventure and the FPS ZEHER, and is now building a big Unity game called The Life. He also leads the ROBLOX and Fortnite UGC work.`,
       links: [{ label: 'Game projects', href: '/?cat=game#projects' }],
     };
 
@@ -106,7 +106,7 @@ export function answer(input: string): Reply {
 
   if (has(q, ['who', 'about', 'yourself', 'dhananjay']))
     return {
-      text: `${profile.name} is an Electronics & Communication Engineering student at ${profile.college}, ${profile.location}, and the Lead Game Developer at ${profile.company}, specialising in Computer Hardware Engineering. He builds interactive engineering simulators and game worlds in Unreal Engine and Unity.`,
+      text: `${profile.name} is an Electronics & Communication Engineering student at ${profile.college}, ${profile.location}, and the Lead Game Developer at ${profile.company}, specialising in Computer Hardware Engineering. He is highly skilled in Unreal Engine map design, level design and optimisation, and also builds interactive engineering simulators.`,
       links: [{ label: 'About', href: '#about' }],
     };
 
