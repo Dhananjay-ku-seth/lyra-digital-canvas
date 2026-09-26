@@ -203,6 +203,8 @@ function useTilt() {
       if (!el) return;
       el.style.transition = 'transform 500ms cubic-bezier(.2,.8,.2,1)';
       el.style.transform = '';
+      el.style.setProperty('--px', '0');
+      el.style.setProperty('--py', '0');
     };
     const move = (e: PointerEvent) => {
       const el = (e.target as HTMLElement | null)?.closest<HTMLElement>('[data-tilt]') ?? null;
@@ -211,6 +213,8 @@ function useTilt() {
       const r = el.getBoundingClientRect();
       const px = (e.clientX - r.left) / r.width - 0.5;
       const py = (e.clientY - r.top) / r.height - 0.5;
+      el.style.setProperty('--px', String(px));
+      el.style.setProperty('--py', String(py));
       el.style.transition = 'transform 80ms linear';
       el.style.transform = `perspective(1000px) rotateY(${px * 7}deg) rotateX(${-py * 6}deg) translateY(-5px)`;
     };
@@ -332,13 +336,27 @@ export function drawArt(card: HTMLElement, delay = 0) {
   });
 }
 
+/** A light sweep across a project card. */
+function shine(card: HTMLElement) {
+  if (reducedMotion()) return;
+  const bar = card.querySelector<HTMLElement>('.shine i');
+  if (bar) animate(bar, { translateX: ['-140%', '280%'], duration: 950, ease: 'inOutQuad' });
+}
+
+/** The tags along the bottom of a card hop in a wave. */
+function hopTags(card: HTMLElement) {
+  if (reducedMotion()) return;
+  const tags = card.querySelectorAll('.tag');
+  if (tags.length) animate(tags, { translateY: [0, -6, 0], delay: stagger(55), duration: 480, ease: 'outQuad' });
+}
+
 function useArtDraw() {
   useEffect(() => {
     if (!finePointer() || reducedMotion()) return undefined;
     let last: HTMLElement | null = null;
     const over = (e: PointerEvent) => {
       const card = (e.target as HTMLElement | null)?.closest<HTMLElement>('.proj-card') ?? null;
-      if (card && card !== last) drawArt(card);
+      if (card && card !== last) { drawArt(card); shine(card); hopTags(card); }
       last = card;
     };
     document.addEventListener('pointerover', over, { passive: true });

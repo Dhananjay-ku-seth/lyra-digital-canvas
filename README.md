@@ -12,6 +12,7 @@ addresses (`/about`, `/projects`, `/resume`, `/contact`) redirect to the matchin
   so any view can be shared as a link, for example `/projects?cat=electronics&q=FFT` or `/projects?p=dsp-signal-lab`.
 - **Live preview**: any live tool opens in an in-page window with a desktop / phone toggle.
 - **Motion**: built with anime.js: staggered scroll reveals, a hero intro timeline, magnetic buttons, 3D card tilt, a cursor follower, animated skill bars and counters, and a scroll-drawn timeline. Everything respects the reduced-motion setting.
+- **Circuit-board background**: procedurally laid-out copper traces, pads and chip footprints, with light pulses racing along them (anime.js motion paths) and a brighter layer that follows the pointer. Floating electronic parts (chips, transistors, resistors, capacitors, LEDs, inductors) drift, parallax, dodge the cursor and spin with sparks when clicked.
 - **Unreal Engine section**: a frame-budget playground (an illustrative model, not a benchmark) and an Unreal-style console.
 - **LYRA**: an assistant that answers from the site's own data. It runs in the browser and uses no external AI service or API key.
 - **Contact form**: posts to `/api/contact` on the LabBench hub project, which emails the message using its Gmail sender.

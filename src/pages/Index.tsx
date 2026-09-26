@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import SideDots from '@/components/SideDots';
+import CircuitBoard from '@/components/CircuitBoard';
+import FloatingParts from '@/components/FloatingParts';
 import { MotionEffects } from '@/components/Motion';
 import { useSeo } from '@/hooks/useSeo';
 import Hero from '@/sections/Hero';
@@ -41,6 +43,8 @@ const Index = () => {
         <div className="orb orb-b" />
         <div className="orb orb-c" />
       </div>
+      <CircuitBoard />
+      <FloatingParts />
       <SiteNav />
       <SideDots />
       <main id="main">

@@ -40,6 +40,10 @@ const ProjectsSection = () => {
   const [showAll, setShowAll] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const segRef = useRef<HTMLDivElement>(null);
+  const indRef = useRef<HTMLSpanElement>(null);
+  const countRef = useRef<HTMLElement>(null);
+  const indFirst = useRef(true);
   const firstRun = useRef(true);
 
   // "/" jumps to the search box.
@@ -72,6 +76,24 @@ const ProjectsSection = () => {
   const visible = narrowed || showAll ? filtered : filtered.slice(0, INITIAL);
   const open = projectsData.find((p) => p.id === openId) ?? null;
   const liveCount = projectsData.filter((p) => p.demoLink).length;
+
+  // A highlight that slides between the category buttons.
+  useEffect(() => {
+    const seg = segRef.current;
+    const ind = indRef.current;
+    const btn = seg?.querySelector<HTMLElement>('button[aria-pressed="true"]');
+    if (!seg || !ind || !btn) return;
+    const to = { x: btn.offsetLeft, width: btn.offsetWidth };
+    if (indFirst.current || reducedMotion()) { utils.set(ind, to); indFirst.current = false; return; }
+    animate(ind, { ...to, duration: 550, ease: 'outElastic(1, .7)' });
+  }, [filter]);
+
+  // The visible-count number pops whenever it changes.
+  const shownCount = visible.length;
+  useEffect(() => {
+    if (!countRef.current || reducedMotion()) return;
+    animate(countRef.current, { scale: [1.7, 1], rotate: [-8, 0], duration: 600, ease: 'outBack' });
+  }, [shownCount]);
 
   // When the filter, search or sort changes, the new set of cards flips in with a stagger.
   const shownKey = visible.map((p) => p.id).join(',');
@@ -147,7 +169,8 @@ const ProjectsSection = () => {
         </div>
 
         <div className="filters">
-          <div className="seg" role="group" aria-label="Filter by category">
+          <div className="seg" role="group" aria-label="Filter by category" ref={segRef}>
+            <span className="seg-ind" ref={indRef} aria-hidden="true" />
             {filters.map((f) => (
               <button key={f} type="button" aria-pressed={filter === f} onClick={() => update({ cat: f })}>
                 {categoryLabels[f]}
@@ -186,7 +209,7 @@ const ProjectsSection = () => {
         </div>
 
         <p className="mt-5 text-sm" style={{ color: 'var(--muted)' }} aria-live="polite">
-          Showing {visible.length} of {filtered.length} {narrowed ? 'matching ' : ''}projects
+          Showing <b ref={countRef} className="cnt">{visible.length}</b> of {filtered.length} {narrowed ? 'matching ' : ''}projects
           {needle ? ` for "${query.trim()}"` : ''}
           {filter !== 'all' ? ` in ${categoryLabels[filter]}` : ''}.{' '}
           {(needle || filter !== 'all') && (
@@ -199,6 +222,7 @@ const ProjectsSection = () => {
         <div className="proj-grid" ref={gridRef} data-stagger>
           {visible.map((p) => (
             <article key={p.id} className="card proj-card spot" data-cat={p.category} data-tilt>
+              <span className="shine" aria-hidden="true"><i /></span>
               <ProjectArt id={p.id} category={p.category} />
               <div className="proj-body">
                 <div className="flex items-start gap-2.5">
