@@ -1,3 +1,4 @@
+import GamesStrip from '@/components/GamesStrip';
 import UEConsole from '@/components/UEConsole';
 import { AnimHeading } from '@/components/Motion';
 import { bio, facts } from '@/data/site';
@@ -23,6 +24,10 @@ const About = () => (
             </div>
           ))}
         </dl>
+      </div>
+
+      <div className="mt-14">
+        <GamesStrip />
       </div>
 
       <div className="mt-14" data-reveal>

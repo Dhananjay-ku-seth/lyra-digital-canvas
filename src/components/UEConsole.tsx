@@ -64,7 +64,7 @@ const UEConsole = () => {
         else if (!p) push('err', `No project called "${arg}". Try "projects".`);
         else {
           push('out', `Opening ${p.title}…`);
-          navigate({ search: `?p=${p.id}`, hash: '#projects' });
+          navigate({ search: `?p=${p.id}`, hash: '#projects' }, { state: { scroll: true } });
         }
         break;
       }
@@ -87,7 +87,7 @@ const UEConsole = () => {
         break;
       case 'sudo':
         push('out', arg.includes('hire') ? 'Permission granted. Opening the contact form…' : 'Nice try. This console has no root.');
-        if (arg.includes('hire')) navigate({ hash: '#contact' });
+        if (arg.includes('hire')) navigate({ hash: '#contact' }, { state: { scroll: true } });
         break;
       default:
         push('err', `Unknown command "${name}". Type "help".`);

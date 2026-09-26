@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { animate, stagger, utils } from 'animejs';
 import { useSearchParams } from 'react-router-dom';
-import { Check, ExternalLink, Eye, Github, Info, Link2, Search, X } from 'lucide-react';
+import { Check, ExternalLink, Eye, Github, Info, Link2, Search, Shuffle, X } from 'lucide-react';
 import ProjectArt from '@/components/ProjectArt';
 import { ProjectPreview } from '@/components/Interactive';
 import { AnimHeading, reducedMotion } from '@/components/Motion';
@@ -173,6 +173,9 @@ const ProjectsSection = () => {
                 </button>
               )}
             </div>
+            <button type="button" className="btn btn-ghost btn-sm" onClick={() => update({ p: projectsData[Math.floor(Math.random() * projectsData.length)].id })}>
+              <Shuffle size={15} /> Surprise me
+            </button>
             <label className="sr-only" htmlFor="sort">Sort projects</label>
             <select id="sort" className="project-select" value={sort} onChange={(e) => update({ sort: e.target.value })}>
               {(Object.keys(sorts) as Sort[]).map((s) => (

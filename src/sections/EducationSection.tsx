@@ -1,6 +1,39 @@
-import { Award } from 'lucide-react';
-import { AnimHeading } from '@/components/Motion';
+import { useRef, useState } from 'react';
+import { animate } from 'animejs';
+import { Award, RotateCw } from 'lucide-react';
+import { AnimHeading, reducedMotion } from '@/components/Motion';
 import { certifications, education } from '@/data/site';
+
+type Cert = (typeof certifications)[number];
+
+/** A certification card that flips over to show what it covers. */
+const CertCard = ({ c }: { c: Cert }) => {
+  const [flipped, setFlipped] = useState(false);
+  const inner = useRef<HTMLDivElement>(null);
+  const toggle = () => {
+    const next = !flipped;
+    setFlipped(next);
+    if (!inner.current) return;
+    if (reducedMotion()) { inner.current.style.transform = next ? 'rotateY(180deg)' : ''; return; }
+    animate(inner.current, { rotateY: next ? 180 : 0, duration: 800, ease: 'outBack' });
+  };
+  return (
+    <button type="button" className="cert-flip spot" data-tilt onClick={toggle} aria-pressed={flipped} aria-label={`${c.title}, ${c.issuer}. Press to ${flipped ? 'hide' : 'show'} details`}>
+      <div ref={inner} className="cert-inner">
+        <div className="cert-face">
+          <Award size={22} className="text-[color:var(--violet)]" />
+          <h4>{c.title}</h4>
+          <p className="meta">{c.issuer} · {c.year}</p>
+          <span className="flip-hint"><RotateCw size={12} /> Flip</span>
+        </div>
+        <div className="cert-face cert-back">
+          <p className="meta">What it covers</p>
+          <p className="cert-text">{c.text}</p>
+        </div>
+      </div>
+    </button>
+  );
+};
 
 const EducationSection = () => (
   <section id="education" className="section">
@@ -26,16 +59,7 @@ const EducationSection = () => (
 
         <div className="cert-grid" style={{ marginTop: '2.5rem' }} data-stagger>
           {certifications.map((c) => (
-            <article key={c.title} className="card cert spot" data-tilt>
-              <div className="flex items-start gap-3">
-                <Award size={20} className="mt-0.5 shrink-0 text-[color:var(--violet)]" />
-                <div>
-                  <h4>{c.title}</h4>
-                  <p className="meta">{c.issuer} · {c.year}</p>
-                  <p>{c.text}</p>
-                </div>
-              </div>
-            </article>
+            <CertCard key={c.title} c={c} />
           ))}
         </div>
       </div>

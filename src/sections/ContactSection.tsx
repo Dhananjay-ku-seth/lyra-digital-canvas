@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { animate, createDrawable } from 'animejs';
 import { Check, Copy, Github, Instagram, Linkedin, Loader2, Mail, MapPin, Send } from 'lucide-react';
-import { AnimHeading } from '@/components/Motion';
+import { AnimHeading, burst, reducedMotion } from '@/components/Motion';
 import { profile } from '@/data/site';
 
 // Messages are delivered by a small serverless function that emails Dhananjay (see labbench-hub/api/contact.js).
@@ -25,6 +26,18 @@ const ContactSection = () => {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'failed'>('idle');
   const [trap, setTrap] = useState(''); // honeypot: real visitors never fill this in
   const [copied, setCopied] = useState(false);
+
+  // A successful send draws a check mark and throws confetti.
+  useEffect(() => {
+    if (status !== 'sent') return;
+    const box = document.querySelector('#contact .ok-box');
+    if (!box) return;
+    const r = box.getBoundingClientRect();
+    burst(r.left + r.width / 2, r.top + 50, 40);
+    if (!reducedMotion()) {
+      animate(createDrawable('#contact .check-path, #contact .check-ring'), { draw: ['0 0', '0 1'], duration: 900, delay: 150, ease: 'inOutQuad' });
+    }
+  }, [status]);
 
   const set = (k: keyof Fields) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFields((f) => ({ ...f, [k]: e.target.value }));
@@ -103,7 +116,7 @@ const ContactSection = () => {
           <div className="card contact-card spot" data-reveal data-from="right">
             {status === 'sent' ? (
               <div className="ok-box" role="status">
-                <Check className="mx-auto mb-2 text-[color:var(--green)]" size={30} />
+                <svg className="check-svg" viewBox="0 0 52 52" aria-hidden="true"><circle className="check-ring" cx="26" cy="26" r="23" /><path className="check-path" d="M15 27l8 8 15-17" /></svg>
                 <h3 className="text-lg font-bold">Message sent</h3>
                 <p className="mt-1 text-sm" style={{ color: 'var(--muted)' }}>Thank you. Dhananjay will reply to {fields.email}.</p>
                 <button
@@ -129,6 +142,7 @@ const ContactSection = () => {
                 <label className="field">
                   <span>Message</span>
                   <textarea className={`input${errors.message ? ' bad' : ''}`} rows={5} value={fields.message} onChange={set('message')} maxLength={2000} />
+                  <p className="counter">{fields.message.length}/2000</p>
                   {errors.message && <p className="err">{errors.message}</p>}
                 </label>
                 <div className="hp" aria-hidden="true">

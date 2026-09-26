@@ -127,11 +127,11 @@ const FrameBudget = () => {
         <div className="fb-sliders">
           <label>
             <span>Draw distance <b>{dist}%</b></span>
-            <input type="range" min={50} max={150} value={dist} onChange={(e) => setDist(+e.target.value)} />
+            <input type="range" min={50} max={150} value={dist} style={{ ['--fill' as string]: `${((dist - 50) / 100) * 100}%` }} onChange={(e) => setDist(+e.target.value)} />
           </label>
           <label>
             <span>Render resolution <b>{res}%</b></span>
-            <input type="range" min={60} max={100} value={res} onChange={(e) => setRes(+e.target.value)} />
+            <input type="range" min={60} max={100} value={res} style={{ ['--fill' as string]: `${((res - 60) / 40) * 100}%` }} onChange={(e) => setRes(+e.target.value)} />
           </label>
         </div>
       </div>

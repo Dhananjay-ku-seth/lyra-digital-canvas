@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { animate } from 'animejs';
 import { AnimHeading, reducedMotion } from '@/components/Motion';
 import { otherSkills, skillGroups, type SkillGroup } from '@/data/site';
@@ -6,6 +7,7 @@ import { otherSkills, skillGroups, type SkillGroup } from '@/data/site';
 /** One skill group. Its bars fill and its numbers count up when the card scrolls into view. */
 const SkillCard = ({ g }: { g: SkillGroup }) => {
   const ref = useRef<HTMLElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const el = ref.current;
@@ -39,9 +41,20 @@ const SkillCard = ({ g }: { g: SkillGroup }) => {
       <h3>{g.title}</h3>
       <div className="mt-5">
         {g.items.map((s) => (
-          <div key={s.name} className="skill-row">
+          <div key={s.name} className={`skill-row${s.q ? ' pickable' : ''}`}>
             <header>
-              <span>{s.name}</span>
+              {s.q ? (
+                <button
+                  type="button"
+                  className="skill-pick"
+                  title={`Show projects that use ${s.name}`}
+                  onClick={() => navigate({ search: `?q=${encodeURIComponent(s.q!)}`, hash: '#projects' }, { state: { scroll: true } })}
+                >
+                  {s.name} <span aria-hidden="true">↗</span>
+                </button>
+              ) : (
+                <span>{s.name}</span>
+              )}
               <span className="lvl">0%</span>
             </header>
             <div className="meter" role="img" aria-label={`${s.name}: ${s.level} percent`}>
@@ -60,7 +73,7 @@ const Skills = () => (
       <div data-reveal>
         <p className="eyebrow">Skills</p>
         <AnimHeading>What I work with.</AnimHeading>
-        <p className="lead">Self-rated proficiency, from my specialty in Unreal Engine to the tools I am still growing into.</p>
+        <p className="lead">Self-rated proficiency, from my specialty in Unreal Engine to the tools I am still growing into. Click a skill with an arrow to see the projects that use it.</p>
       </div>
 
       <div className="skill-grid" data-stagger>

@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
+import SideDots from '@/components/SideDots';
 import { MotionEffects } from '@/components/Motion';
 import { useSeo } from '@/hooks/useSeo';
 import Hero from '@/sections/Hero';
@@ -20,14 +21,17 @@ const Index = () => {
       'Portfolio of Dhananjay Kumar Seth: an Electronics & Communication Engineering student specialising in Computer Hardware Engineering, and Lead Game Developer at GauravGo Games, highly skilled in Unreal Engine map design, level design and game optimisation. Try interactive DSP, PID control, digital logic, communication-systems, power and EV-battery simulators, and see his game development work.',
   });
 
-  // A link such as /#contact should land on that section even though the sections load after the route.
-  const { hash } = useLocation();
+  // Scroll to a section when the address gets a new #hash, or when a component asks for it with state.scroll.
+  // (Changing filters rewrites the address too, and must not make the page jump.)
+  const { hash, key, state } = useLocation();
+  const lastHash = useRef('');
   useEffect(() => {
-    if (!hash) return;
-    const id = hash.slice(1);
-    const t = setTimeout(() => document.getElementById(id)?.scrollIntoView(), 60);
+    const wants = hash && (hash !== lastHash.current || (state as { scroll?: boolean } | null)?.scroll);
+    lastHash.current = hash;
+    if (!wants) return undefined;
+    const t = setTimeout(() => document.getElementById(hash.slice(1))?.scrollIntoView(), 60);
     return () => clearTimeout(t);
-  }, [hash]);
+  }, [hash, key, state]);
 
   return (
     <MotionEffects>
@@ -38,6 +42,7 @@ const Index = () => {
         <div className="orb orb-c" />
       </div>
       <SiteNav />
+      <SideDots />
       <main id="main">
         <Hero />
         <About />

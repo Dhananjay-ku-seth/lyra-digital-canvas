@@ -41,25 +41,25 @@ export const facts = [
   { label: 'Working at', value: 'GauravGo Games' },
 ];
 
-export type SkillGroup = { title: string; tone: 'purple' | 'pink' | 'blue' | 'green'; items: { name: string; level: number }[] };
+export type SkillGroup = { title: string; tone: 'purple' | 'pink' | 'blue' | 'green'; items: { name: string; level: number; q?: string }[] };
 
 export const skillGroups: SkillGroup[] = [
   {
     title: 'Unreal Engine (my specialty)',
     tone: 'green',
     items: [
-      { name: 'Map design', level: 95 },
-      { name: 'Level design', level: 95 },
-      { name: 'Game optimization', level: 92 },
+      { name: 'Map design', level: 95 , q: 'map design' },
+      { name: 'Level design', level: 95 , q: 'level design' },
+      { name: 'Game optimization', level: 92 , q: 'optimi' },
     ],
   },
   {
     title: 'Game development',
     tone: 'purple',
     items: [
-      { name: 'Roblox development', level: 90 },
-      { name: 'Unity 3D', level: 70 },
-      { name: 'Lua scripting', level: 80 },
+      { name: 'Roblox development', level: 90 , q: 'roblox' },
+      { name: 'Unity 3D', level: 70 , q: 'unity' },
+      { name: 'Lua scripting', level: 80 , q: 'lua' },
       { name: 'C# programming', level: 75 },
       { name: 'Game UI design', level: 70 },
     ],
@@ -68,11 +68,11 @@ export const skillGroups: SkillGroup[] = [
     title: 'Electronics engineering',
     tone: 'pink',
     items: [
-      { name: 'Arduino', level: 90 },
-      { name: 'Circuit design', level: 85 },
+      { name: 'Arduino', level: 90 , q: 'arduino' },
+      { name: 'Circuit design', level: 85 , q: 'circuit' },
       { name: 'PCB design', level: 80 },
-      { name: 'VLSI design', level: 75 },
-      { name: 'Embedded systems', level: 70 },
+      { name: 'VLSI design', level: 75 , q: 'vlsi' },
+      { name: 'Embedded systems', level: 70 , q: 'embedded' },
     ],
   },
   {

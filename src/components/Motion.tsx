@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ElementType, type ReactNode } from 'react';
-import { animate, createAnimatable, stagger, utils } from 'animejs';
+import { animate, createAnimatable, createDrawable, stagger, utils } from 'animejs';
 
 /*
  * Motion layer, built on anime.js.
@@ -37,6 +37,7 @@ function reveal(el: HTMLElement) {
       ease: 'outExpo',
       onComplete: () => kids.forEach((k) => { k.style.transform = ''; k.style.opacity = ''; }),
     });
+    kids.filter((k) => k.classList.contains('proj-card')).forEach((k, i) => setTimeout(() => drawArt(k), 350 + i * 85));
     return;
   }
 
@@ -286,6 +287,159 @@ function useOrbDrift() {
   }, []);
 }
 
+
+/* ------------------------------------------------------------ extra effects */
+
+/** Confetti burst from a point on the screen. */
+export function burst(x: number, y: number, count = 30) {
+  if (reducedMotion()) return;
+  const colors = ['#8b5cf6', '#61dafb', '#00ff99', '#ec4899', '#f59e0b'];
+  const bits = Array.from({ length: count }, () => {
+    const d = document.createElement('span');
+    d.className = 'confetti';
+    d.style.background = colors[Math.floor(Math.random() * colors.length)];
+    d.style.left = `${x}px`;
+    d.style.top = `${y}px`;
+    document.body.appendChild(d);
+    return d;
+  });
+  animate(bits, {
+    x: () => utils.random(-190, 190),
+    y: () => utils.random(-230, 70),
+    rotate: () => utils.random(-540, 540),
+    scale: [1, 0],
+    opacity: [1, 0],
+    duration: () => utils.random(900, 1500),
+    ease: 'outCubic',
+    onComplete: () => bits.forEach((b) => b.remove()),
+  });
+}
+
+/** Redraws a project card's cover art stroke by stroke. */
+export function drawArt(card: HTMLElement, delay = 0) {
+  if (reducedMotion() || card.dataset.drawing === '1') return;
+  const shapes = Array.from(card.querySelectorAll<SVGGeometryElement>('.project-art svg path, .project-art svg circle, .project-art svg ellipse'))
+    .filter((el) => { const cs = getComputedStyle(el); return cs.fill === 'none' && cs.stroke !== 'none'; });
+  if (!shapes.length) return;
+  card.dataset.drawing = '1';
+  const drawables = createDrawable(shapes as unknown as string);
+  animate(drawables, {
+    draw: ['0 0', '0 1'],
+    delay: stagger(70, { start: delay }),
+    duration: 900,
+    ease: 'inOutQuad',
+    onComplete: () => { card.dataset.drawing = '0'; },
+  });
+}
+
+function useArtDraw() {
+  useEffect(() => {
+    if (!finePointer() || reducedMotion()) return undefined;
+    let last: HTMLElement | null = null;
+    const over = (e: PointerEvent) => {
+      const card = (e.target as HTMLElement | null)?.closest<HTMLElement>('.proj-card') ?? null;
+      if (card && card !== last) drawArt(card);
+      last = card;
+    };
+    document.addEventListener('pointerover', over, { passive: true });
+    return () => document.removeEventListener('pointerover', over);
+  }, []);
+}
+
+/** Hovering a letter of the big name makes it hop. */
+function useCharHop() {
+  useEffect(() => {
+    if (!finePointer() || reducedMotion()) return undefined;
+    const over = (e: PointerEvent) => {
+      const c = (e.target as HTMLElement | null)?.closest<HTMLElement>('.char');
+      if (!c || c.dataset.hop === '1') return;
+      c.dataset.hop = '1';
+      animate(c, { translateY: [0, -16, 0], rotate: [0, -6, 0], duration: 520, ease: 'outQuad', onComplete: () => { c.dataset.hop = '0'; } });
+    };
+    document.addEventListener('pointerover', over, { passive: true });
+    return () => document.removeEventListener('pointerover', over);
+  }, []);
+}
+
+/** A soft ripple from the click point on every button. */
+function useRipple() {
+  useEffect(() => {
+    if (reducedMotion()) return undefined;
+    const down = (e: PointerEvent) => {
+      const b = (e.target as HTMLElement | null)?.closest<HTMLElement>('.btn');
+      if (!b) return;
+      const r = b.getBoundingClientRect();
+      const d = Math.max(r.width, r.height) * 2;
+      const ring = document.createElement('span');
+      ring.className = 'ripple';
+      ring.style.width = ring.style.height = `${d}px`;
+      ring.style.left = `${e.clientX - r.left - d / 2}px`;
+      ring.style.top = `${e.clientY - r.top - d / 2}px`;
+      b.appendChild(ring);
+      animate(ring, { scale: [0, 1], opacity: [0.35, 0], duration: 700, ease: 'outQuad', onComplete: () => ring.remove() });
+    };
+    document.addEventListener('pointerdown', down, { passive: true });
+    return () => document.removeEventListener('pointerdown', down);
+  }, []);
+}
+
+/** The marquee strips lean in the direction you scroll, then settle. */
+function useMarqueeSkew() {
+  useEffect(() => {
+    if (reducedMotion()) return undefined;
+    const els = Array.from(document.querySelectorAll<HTMLElement>('.marquee'));
+    if (!els.length) return undefined;
+    const a = createAnimatable(els, { skewX: 450, ease: 'out(3)' });
+    let lastY = window.scrollY;
+    let timer: ReturnType<typeof setTimeout>;
+    const onScroll = () => {
+      const v = window.scrollY - lastY;
+      lastY = window.scrollY;
+      a.skewX(Math.max(-9, Math.min(9, -v * 0.35)));
+      clearTimeout(timer);
+      timer = setTimeout(() => a.skewX(0), 110);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => { window.removeEventListener('scroll', onScroll); clearTimeout(timer); a.revert(); };
+  }, []);
+}
+
+/** The Konami code: up up down down left right left right B A. */
+function useKonami() {
+  useEffect(() => {
+    const code = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let i = 0;
+    const key = (e: KeyboardEvent) => {
+      i = e.key === code[i] || e.key.toLowerCase() === code[i] ? i + 1 : e.key === code[0] ? 1 : 0;
+      if (i === code.length) {
+        i = 0;
+        [0.2, 0.5, 0.8].forEach((f, n) => setTimeout(() => burst(window.innerWidth * f, window.innerHeight * 0.35, 40), n * 220));
+      }
+    };
+    window.addEventListener('keydown', key);
+    return () => window.removeEventListener('keydown', key);
+  }, []);
+}
+
+/** Hero: the portrait block drifts a little toward the pointer. */
+export function useHeroParallax(rootSelector = '.hero') {
+  useEffect(() => {
+    if (!finePointer() || reducedMotion()) return undefined;
+    const hero = document.querySelector<HTMLElement>(rootSelector);
+    const target = hero?.querySelector<HTMLElement>('.portrait');
+    if (!hero || !target) return undefined;
+    const a = createAnimatable(target, { x: 700, y: 700, ease: 'out(3)' });
+    const move = (e: PointerEvent) => {
+      const r = hero.getBoundingClientRect();
+      a.x(((e.clientX - r.left) / r.width - 0.5) * -26).y(((e.clientY - r.top) / r.height - 0.5) * -18);
+    };
+    const leave = () => a.x(0).y(0);
+    hero.addEventListener('pointermove', move, { passive: true });
+    hero.addEventListener('pointerleave', leave);
+    return () => { hero.removeEventListener('pointermove', move); hero.removeEventListener('pointerleave', leave); a.revert(); };
+  }, [rootSelector]);
+}
+
 /** Mount once: switches on every global motion effect. */
 export const MotionEffects = ({ children }: { children?: ReactNode }) => {
   useReveal();
@@ -293,5 +447,11 @@ export const MotionEffects = ({ children }: { children?: ReactNode }) => {
   useTilt();
   useTimelineProgress();
   useOrbDrift();
+  useArtDraw();
+  useCharHop();
+  useRipple();
+  useMarqueeSkew();
+  useKonami();
+  useHeroParallax();
   return <>{children}<CursorFollower /></>;
 };
