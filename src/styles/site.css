@@ -553,3 +553,28 @@ code { background: rgba(255, 255, 255, 0.08); border-radius: 5px; color: var(--c
 .pop-text { font-family: 'Roboto Mono', monospace; font-size: 0.95rem; font-weight: 800; letter-spacing: 0.06em; margin-left: -1.6rem; pointer-events: none; position: fixed; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8); white-space: nowrap; z-index: 320; }
 .fp[data-part="dice"], .fp[data-part="coin"], .fp[data-part="heart"], .fp[data-part="crosshair"], .fp[data-part="sword"], .fp[data-part="gamepad"], .fp[data-part="joystick"] { cursor: crosshair; }
 .coin-spin { transform-box: fill-box; transform-origin: center; }
+
+/* ============ Skills: header, tools, radar, expandable rows ============ */
+.skills-head { align-items: flex-end; display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: space-between; }
+.skills-avg { border-left: 2px solid var(--violet); padding-left: 1rem; text-align: left; }
+.skills-tools { align-items: center; display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.6rem; }
+.skills-tools .seg button { align-items: center; display: inline-flex; gap: 0.35rem; }
+
+.skill-pick { align-items: center; background: none; border: 0; color: inherit; cursor: pointer; display: inline-flex; font: inherit; gap: 0.3rem; padding: 0; text-align: left; transition: color 140ms ease; }
+.skill-pick:disabled { cursor: default; }
+.skill-pick:not(:disabled):hover { color: #fff; }
+.skill-chevron { color: var(--cyan); opacity: 0.7; transition: transform 200ms ease, opacity 200ms ease; }
+.skill-row.open .skill-chevron { transform: rotate(180deg); }
+.skill-pick:not(:disabled):hover .skill-chevron { opacity: 1; }
+.skill-row.dim { opacity: 0.28; }
+.skill-row { transition: opacity 220ms ease; }
+.skill-related { display: flex; flex-direction: column; gap: 0.35rem; margin: 0.6rem 0 0.9rem; padding-left: 0.1rem; }
+.skill-related button { background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line); border-radius: 8px; color: #cbd5e1; cursor: pointer; font-size: 0.8rem; padding: 0.4rem 0.7rem; text-align: left; transition: all 140ms ease; }
+.skill-related button:hover { border-color: var(--line-strong); color: #fff; }
+.skill-related-all { color: var(--cyan) !important; font-weight: 600; }
+
+.radar-wrap { display: grid; margin-top: 1rem; place-items: center; }
+.radar { max-width: 15rem; width: 100%; }
+.radar-ring { fill: none; stroke: rgba(255, 255, 255, 0.1); stroke-width: 1; }
+.radar-shape { stroke-width: 2; transition: stroke 200ms ease; }
+.radar-label { fill: var(--muted); font-size: 6.5px; font-family: 'Roboto Mono', monospace; }
